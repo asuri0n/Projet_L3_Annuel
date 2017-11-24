@@ -1,8 +1,0 @@
-filter:
-    excluded_paths:
-        - Ajax/JsUtils.php
-        - Ajax/php/yii/URI.php
-checks:
-    php:
-        code_rating: true
-        duplication: true

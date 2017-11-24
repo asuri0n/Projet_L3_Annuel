@@ -12,7 +12,7 @@ return new \Phalcon\Config([
         'host'        => 'localhost',
         'username'    => 'root',
         'password'    => '',
-        'dbname'      => 'invo',
+        'dbname'      => 'autoevaluation_projetl3',
         'charset'     => 'utf8',
     ],
     'application' => [

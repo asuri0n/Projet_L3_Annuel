@@ -1,0 +1,907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d8264b23-9976-4026-8691-a822f860be7c" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.php_cs.cache" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/composer.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/composer.lock" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/composer.phar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/controllers/TestController.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/controllers/productsController.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/Companies.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/Contact.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/ProductTypes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/Products.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/Users.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/autoload.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/ClassLoader.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_classmap.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_namespaces.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_psr4.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_real.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/autoload_static.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/composer/installed.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/frameworks/jquery/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/frameworks/jquery/composer.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/frameworks/jquery/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/frameworks/jquery/jquery.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/frameworks/jquery/jquery.min.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/.codedocs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/.scrutinizer.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/Bootstrap.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/Jquery.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/JqueryUI.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/Semantic.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Carousel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Collapse.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Dropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Modal.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Popover.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Scrollspy.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Splitbutton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Tab.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Tabs.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/components/Tooltip.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlAccordion.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlAlert.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlBadge.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlBreadcrumbs.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlButton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlButtongroups.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlButtontoolbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlCarousel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlCollapse.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlDropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlForm.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlGlyphButton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlGlyphicon.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlGridsystem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlInput.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlInputCheckbox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlInputRadio.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlInputgroup.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlLabel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlLink.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlListgroup.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlModal.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlNavbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlPagination.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlPanel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlProgressbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlSplitbutton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/HtmlTabs.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/CssButton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/CssGlyphicon.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/CssNavbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/CssRef.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/CssSize.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/HtmlBsDoubleElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/HtmlElementAsContent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/base/HtmlNavElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlCarouselControl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlCarouselItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlDropdownItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlGridCol.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlGridRow.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlListgroupItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlNavzone.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlTabContent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlTabContentItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/content/HtmlTabItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/phalcon/PhBsElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/phalcon/PhBsForm.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/phalcon/PhBsRenderer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/phalcon/PhBsSelect.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/phalcon/PhBsText.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplCarousel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplCarouselControl.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplCarouselItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplDropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplInputgroup.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplModal.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplNavbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplPanel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplProgressbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/html/templates/tplSplitbutton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/js/Draggable.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/bootstrap/traits/BootstrapComponentsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/BaseEnum.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/BaseGui.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/JsCode.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/Widget.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/components/BaseComponent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/components/GenericComponent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/components/SimpleComponent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/components/SimpleExtComponent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/BaseHtml.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/BaseWidget.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/HtmlCollection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/HtmlDoubleElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/HtmlSingleElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/PropertyWrapper.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlImg.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlInput.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlLinkTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlList.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlOption.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlSelect.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/html5/HtmlTextarea.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/traits/BaseHtmlEventsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/html/traits/BaseHtmlPropertiesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/traits/JqueryActionsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/traits/JqueryAjaxTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/traits/JqueryEventsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/traits/JsUtilsActionsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/traits/JsUtilsAjaxTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/common/traits/JsUtilsEventsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/config/DefaultConfig.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/config/config.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/lib/CDN.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/lib/CDNBase.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/lib/CDNCoreCss.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/lib/CDNGuiGen.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/lib/CDNJQuery.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/cakephp/JsUtilsComponent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/cakephp/_JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/ci/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/laravel/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/micro/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/phalcon/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/symfony/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/yii/JsUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/php/yii/URI.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Accordion.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Checkbox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Dimmer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Dropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Form.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Modal.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Popup.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Progress.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Rating.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Search.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Shape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/SimpleSemExtComponent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Sticky.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/Tab.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/jsTemplates/tplCheckedList.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/search/AbstractSearchResult.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/search/ISearch.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/search/SearchCategories.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/search/SearchCategory.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/search/SearchResult.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/search/SearchResults.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/validation/FieldValidation.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/validation/Rule.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/components/validation/languages/fr.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/ClassModifier.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/HtmlSemCollection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/HtmlSemDoubleElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/HtmlSemNavElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/HtmlSemSingleElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/CheckboxType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Color.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Country.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Direction.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Emphasis.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/HeaderSize.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/RevealType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/SegmentType.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Sens.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Side.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Size.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Social.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/State.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/StepStatus.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Style.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/TextAlignment.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Transition.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Variation.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/VerticalAlignment.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/Wide.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Audio.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Brands.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/ComputerFilesystem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Currency.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/GenderSexuality.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/ItemSelection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/LayoutAdjustment.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Map.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Media.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Message.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Objects.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/PaymentOptions.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Pointers.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Rating.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Shapes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Tables.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/Technologies.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/TextEditor.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/UserActions.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/UserTypes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/constants/icons/webContent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/AttachedTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/BaseTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/HasTimeoutTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/IconTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/LabeledIconTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/MenuItemTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/TableElementTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/base/traits/TextAlignmentTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/HtmlBreadcrumb.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/HtmlGrid.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/HtmlMessage.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlForm.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormCheckbox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormDropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormField.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormFields.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormInput.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormRadio.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/HtmlFormTextarea.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/traits/CheckboxTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/traits/FieldTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/traits/FieldsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/traits/FormTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/form/traits/TextFieldsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/menus/HtmlAccordionMenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/menus/HtmlIconMenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/menus/HtmlLabeledIconMenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/menus/HtmlMenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/menus/HtmlPaginationMenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/table/ActiveRow.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/table/HtmlTable.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/collections/table/traits/TableTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlAbsractItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlAccordionItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlAccordionMenuItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlDropdownItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlGridCol.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlGridRow.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlListItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlMenuItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlShapeItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/HtmlStepItem.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/InternalPopup.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/card/HtmlCardContent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/card/HtmlCardHeaderContent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/table/HtmlTD.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/table/HtmlTR.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/content/table/HtmlTableContent.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlButton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlButtonGroups.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlContainer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlDivider.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlFlag.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlHeader.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlIcon.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlIconGroups.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlImage.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlInput.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlLabel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlLabelGroups.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlList.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlLoader.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlRail.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlReveal.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlSegment.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlSegmentGroups.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/HtmlStep.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/html5/HtmlImg.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/elements/html5/HtmlLink.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlAccordion.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlDimmer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlDropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlModal.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlPopup.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlProgress.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlRating.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlSearch.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlShape.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlSticky.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/HtmlTab.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/checkbox/AbstractCheckbox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/checkbox/HtmlCheckbox.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/modules/checkbox/HtmlRadio.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/templates/tplDropdown.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/templates/tplDropdownMenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/views/HtmlCard.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/html/views/HtmlCardGroups.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/traits/SemanticComponentsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/traits/SemanticHtmlCollectionsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/traits/SemanticHtmlElementsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/traits/SemanticHtmlModulesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/traits/SemanticHtmlViewsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/traits/SemanticWidgetsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/base/FieldAsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/base/InstanceViewer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/business/BusinessForm.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/business/user/FormLogin.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/business/user/UserModel.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/dataelement/DataElement.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/dataelement/DeInstanceViewer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/dataform/DataForm.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/dataform/FormInstanceViewer.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/datatable/DataTable.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/datatable/DataTableFieldAsTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/datatable/HasCheckboxesTrait.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/datatable/JsonDataTable.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/datatable/Pagination.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/semantic/widgets/datatable/PositionInTable.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/AjaxCall.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/AjaxTransition.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/JArray.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/JQueryAjaxEffect.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/JReflection.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/JString.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/Javascript.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/service/PhalconUtils.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Accordion.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Autocomplete.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Button.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Buttonset.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Dialog.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/DialogButton.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Menu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Progressbar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Selectmenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Slider.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Spinner.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Tabs.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/components/Tooltip.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/properties/Animation.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/Ajax/ui/properties/Position.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/CONTRIBUTING.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/composer.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/documentation/filters/traits.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/documentation/html/extra-styles.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/documentation/html/fonts/Harabara.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/documentation/html/fonts/Harabara.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/documentation/html/fonts/Harabara.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/vendor/phpmv/php-mv-ui/documentation/html/footer.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/index.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/index/demo.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/index/index.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/products/index.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/test/changeCss.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/test/getCascade.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/test/hideShow.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/test/jsonForm.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/test/postForm.volt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_index_demo.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_index_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_products_edit.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_products_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_changecss.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_getcascade.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_hideshow.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_jsonform.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_page1.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_page2.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/d__sites_lab_phalcon-tds_starter_app_views_test_postform.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/e__sites_lab_autoevaluation_projetl3_app_views_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/e__sites_lab_autoevaluation_projetl3_app_views_index_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/e__sites_lab_phalcon-tds_starter_app_views_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cache/e__sites_lab_phalcon-tds_starter_app_views_index_index.volt.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/composer.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/composer.phar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/Backlog Projet.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/Charte de Projet.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/Projet L3 2017-18 site d_exercices.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docs/Prototype.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.htaccess" afterPath="$PROJECT_DIR$/.htaccess" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.php" afterPath="$PROJECT_DIR$/app/config/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/loader.php" afterPath="$PROJECT_DIR$/app/config/loader.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.php" afterPath="$PROJECT_DIR$/app/config/services.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/ControllerBase.php" afterPath="$PROJECT_DIR$/app/controllers/ControllerBase.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/IndexController.php" afterPath="$PROJECT_DIR$/app/controllers/IndexController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.php" afterPath="$PROJECT_DIR$/public/index.php" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Custom_phalcon.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/commandlinetools/Custom_phalcon.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../phalcon-tds/user-management/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IndexController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/IndexController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="5" lean-forward="false" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/config/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FrameworkCommandLineHistory">
+    <commandsHistory>
+      <command text="phalcon commands" />
+      <command text="phalcon projets" />
+      <command text="phalcon projet" />
+      <command text="phalcon create-project" />
+      <command text="phalcon create-project TestProject simple " />
+    </commandsHistory>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/includes/functions.php" />
+        <option value="$PROJECT_DIR$/pages/404.php" />
+        <option value="$PROJECT_DIR$/pages/login.php" />
+        <option value="$PROJECT_DIR$/pages/register.php" />
+        <option value="$PROJECT_DIR$/pages/accueil.php" />
+        <option value="$PROJECT_DIR$/template.php" />
+        <option value="$PROJECT_DIR$/.idea/commandlinetools/Custom_phalcon.xml" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/app/controllers/LoginController.php" />
+        <option value="$PROJECT_DIR$/app/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/app/config/config.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 7.1">
+    <include_path>
+      <path value="E:\Sites\Lib\phalcon-devtools-master\ide\phpstorm" />
+      <path value="E:\Sites\Lib\phalcon-devtools-master" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="autoevaluation_projetl3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autoevaluation_projetl3" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="autoevaluation_projetl3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autoevaluation_projetl3" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="autoevaluation_projetl3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autoevaluation_projetl3" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="autoevaluation_projetl3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autoevaluation_projetl3" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="autoevaluation_projetl3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autoevaluation_projetl3" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="autoevaluation_projetl3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="autoevaluation_projetl3" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="index" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Lib/phalcon-devtools-master" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d8264b23-9976-4026-8691-a822f860be7c" name="Default" comment="" />
+      <created>1511528629697</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1511528629697</updated>
+      <workItem from="1511528630982" duration="2712000" />
+      <workItem from="1511532186924" duration="6659000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="9371000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../phalcon-tds/user-management/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htrouter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/products/index.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Companies.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/loader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/services.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/index.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="104" lean-forward="false" selection-start-line="1" selection-start-column="100" selection-end-line="1" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/library/Auth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template.php" />
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/404.php" />
+    <entry file="file://$PROJECT_DIR$/pages/accueil.php" />
+    <entry file="file://$PROJECT_DIR$/pages/login.php" />
+    <entry file="file://$PROJECT_DIR$/pages/register.php" />
+    <entry file="file://$PROJECT_DIR$/includes/configuration.php" />
+    <entry file="file://$PROJECT_DIR$/includes/functions.php" />
+    <entry file="file://$PROJECT_DIR$/index.php" />
+    <entry file="file://$PROJECT_DIR$/connect.php" />
+    <entry file="file://$PROJECT_DIR$/index.php" />
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/configuration.php" />
+    <entry file="file://$PROJECT_DIR$/pages/index.html" />
+    <entry file="file://$PROJECT_DIR$/includes/functions.php" />
+    <entry file="file://$PROJECT_DIR$/pages/404.php" />
+    <entry file="file://$PROJECT_DIR$/pages/register.php" />
+    <entry file="file://$PROJECT_DIR$/pages/login.php" />
+    <entry file="file://$PROJECT_DIR$/connect.php" />
+    <entry file="file://$PROJECT_DIR$/pages/accueil.php" />
+    <entry file="file://$PROJECT_DIR$/public/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template.php" />
+    <entry file="file://$PROJECT_DIR$/.idea/commandlinetools/Custom_phalcon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htrouter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/products/index.volt" />
+    <entry file="file://$PROJECT_DIR$/app/models/Companies.php" />
+    <entry file="file://$PROJECT_DIR$/app/config/loader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/services.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/index.volt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="104" lean-forward="false" selection-start-line="1" selection-start-column="100" selection-end-line="1" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/LoginController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/library/Auth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="5" lean-forward="false" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

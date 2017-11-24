@@ -15,9 +15,14 @@ try {
     $di = new FactoryDefault();
 
     /**
+     * Handle routes
+     */
+    include APP_PATH . '/config/router.php';
+
+    /**
      * Read services
      */
-    include APP_PATH . "/config/services.php";
+    include APP_PATH . '/config/services.php';
 
     /**
      * Get config service for use in inline setup below
@@ -34,7 +39,7 @@ try {
      */
     $application = new \Phalcon\Mvc\Application($di);
 
-    echo $application->handle()->getContent();
+    echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {
     echo $e->getMessage() . '<br>';

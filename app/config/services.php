@@ -110,9 +110,3 @@ $di->setShared('session', function () {
 
     return $session;
 });
-
-$di->set("jquery",function(){
-    $jquery= new Ajax\php\phalcon\JsUtils(array("driver"=>"Jquery","defer"=>true));
-    $jquery->semantic(new Ajax\Semantic());//for Semantic UI
-    return $jquery;
-});
