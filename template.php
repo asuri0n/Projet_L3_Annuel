@@ -1,14 +1,3 @@
-<?php
-	if(!isset($description))
-		$description = "CHANGE ME";
-
-	if(!isset($keywords))
-		$keywords = "CHANGE ME";
-
-	if(!isset($titlePage))
-        $titlePage = "CHANGE ME";
-?>		
-
 <!DOCTYPE HTML>
 <html>
 	<head>
