@@ -1,0 +1,9 @@
+RewriteEngine on
+
+# Pas de redirection pour les dossiers ou fichiers existants
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirige toutes les autres url vers v_main.html pour permettre le mode HTML5
+RewriteRule ^ index.html [L]

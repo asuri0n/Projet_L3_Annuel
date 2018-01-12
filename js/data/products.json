@@ -1,0 +1,402 @@
+[
+	{
+		"name": "Nottingham",
+		"price": "1.70"
+	},
+	{
+		"name": "Crowsnest Pass",
+		"price": "2.64"
+	},
+	{
+		"name": "Liévin",
+		"price": "0.85"
+	},
+	{
+		"name": "Champion",
+		"price": "0.98"
+	},
+	{
+		"name": "Vietri di Potenza",
+		"price": "3.50"
+	},
+	{
+		"name": "Terragnolo",
+		"price": "2.63"
+	},
+	{
+		"name": "San Damiano al Colle",
+		"price": "2.66"
+	},
+	{
+		"name": "Pugwash",
+		"price": "3.69"
+	},
+	{
+		"name": "Parndorf",
+		"price": "4.00"
+	},
+	{
+		"name": "Ham-sur-Sambre",
+		"price": "1.93"
+	},
+	{
+		"name": "Cessnock",
+		"price": "3.28"
+	},
+	{
+		"name": "Bally",
+		"price": "2.58"
+	},
+	{
+		"name": "San Isidro",
+		"price": "2.00"
+	},
+	{
+		"name": "Bahawalnagar",
+		"price": "2.17"
+	},
+	{
+		"name": "Bellante",
+		"price": "2.02"
+	},
+	{
+		"name": "Bellevue",
+		"price": "2.01"
+	},
+	{
+		"name": "Cessnock",
+		"price": "3.99"
+	},
+	{
+		"name": "Kampenhout",
+		"price": "1.18"
+	},
+	{
+		"name": "Raj Nandgaon",
+		"price": "3.84"
+	},
+	{
+		"name": "Nicoya",
+		"price": "0.82"
+	},
+	{
+		"name": "Pirna",
+		"price": "4.49"
+	},
+	{
+		"name": "Port Alice",
+		"price": "4.31"
+	},
+	{
+		"name": "Wekweti",
+		"price": "1.52"
+	},
+	{
+		"name": "Nothomb",
+		"price": "2.07"
+	},
+	{
+		"name": "San Costantino Calabro",
+		"price": "1.10"
+	},
+	{
+		"name": "Jonqui�re",
+		"price": "3.51"
+	},
+	{
+		"name": "Impe",
+		"price": "2.76"
+	},
+	{
+		"name": "Vigo",
+		"price": "1.62"
+	},
+	{
+		"name": "Rodì Milici",
+		"price": "4.24"
+	},
+	{
+		"name": "Bolzano/Bozen",
+		"price": "2.00"
+	},
+	{
+		"name": "Banff",
+		"price": "1.32"
+	},
+	{
+		"name": "Rampur",
+		"price": "3.68"
+	},
+	{
+		"name": "Ujjain",
+		"price": "3.21"
+	},
+	{
+		"name": "Colleretto Castelnuovo",
+		"price": "4.33"
+	},
+	{
+		"name": "Independence",
+		"price": "1.73"
+	},
+	{
+		"name": "Rock Springs",
+		"price": "1.98"
+	},
+	{
+		"name": "Tuscaloosa",
+		"price": "2.13"
+	},
+	{
+		"name": "Garaguso",
+		"price": "1.54"
+	},
+	{
+		"name": "Morwell",
+		"price": "0.70"
+	},
+	{
+		"name": "Rexton",
+		"price": "2.44"
+	},
+	{
+		"name": "Sierning",
+		"price": "3.16"
+	},
+	{
+		"name": "Ruette",
+		"price": "1.58"
+	},
+	{
+		"name": "Spittal an der Drau",
+		"price": "0.51"
+	},
+	{
+		"name": "Patan",
+		"price": "0.52"
+	},
+	{
+		"name": "Alva",
+		"price": "1.02"
+	},
+	{
+		"name": "Te Puke",
+		"price": "2.29"
+	},
+	{
+		"name": "Redruth",
+		"price": "1.27"
+	},
+	{
+		"name": "Damme",
+		"price": "1.18"
+	},
+	{
+		"name": "Saint-Prime",
+		"price": "1.88"
+	},
+	{
+		"name": "Ceranesi",
+		"price": "3.66"
+	},
+	{
+		"name": "Cuxhaven",
+		"price": "3.75"
+	},
+	{
+		"name": "Promo-Control",
+		"price": "3.58"
+	},
+	{
+		"name": "Weesp",
+		"price": "3.43"
+	},
+	{
+		"name": "Cinisi",
+		"price": "4.14"
+	},
+	{
+		"name": "Caldarola",
+		"price": "2.45"
+	},
+	{
+		"name": "Melle",
+		"price": "3.03"
+	},
+	{
+		"name": "Des Moines",
+		"price": "4.29"
+	},
+	{
+		"name": "Valparai",
+		"price": "3.43"
+	},
+	{
+		"name": "Fortune",
+		"price": "4.24"
+	},
+	{
+		"name": "Rajkot",
+		"price": "1.84"
+	},
+	{
+		"name": "Bhusawal",
+		"price": "3.58"
+	},
+	{
+		"name": "Geraldton-Greenough",
+		"price": "1.40"
+	},
+	{
+		"name": "Tire",
+		"price": "4.38"
+	},
+	{
+		"name": "Jandrain-Jandrenouille",
+		"price": "4.34"
+	},
+	{
+		"name": "M�hlheim am Main",
+		"price": "3.91"
+	},
+	{
+		"name": "Strathcona County",
+		"price": "4.46"
+	},
+	{
+		"name": "Gentbrugge",
+		"price": "4.22"
+	},
+	{
+		"name": "Afsnee",
+		"price": "3.00"
+	},
+	{
+		"name": "Boston",
+		"price": "4.20"
+	},
+	{
+		"name": "San Donato di Ninea",
+		"price": "3.09"
+	},
+	{
+		"name": "Barrow-in-Furness",
+		"price": "4.40"
+	},
+	{
+		"name": "Bonn",
+		"price": "0.67"
+	},
+	{
+		"name": "Peterhead",
+		"price": "1.82"
+	},
+	{
+		"name": "Cercepiccola",
+		"price": "3.33"
+	},
+	{
+		"name": "Ströe",
+		"price": "1.00"
+	},
+	{
+		"name": "Warburg",
+		"price": "2.31"
+	},
+	{
+		"name": "Villar Pellice",
+		"price": "3.11"
+	},
+	{
+		"name": "North Saanich",
+		"price": "2.67"
+	},
+	{
+		"name": "Aguacaliente (San Francisco)",
+		"price": "3.19"
+	},
+	{
+		"name": "Houthalen",
+		"price": "0.98"
+	},
+	{
+		"name": "Montignies-Saint-Christophe",
+		"price": "3.36"
+	},
+	{
+		"name": "Meeuwen",
+		"price": "1.88"
+	},
+	{
+		"name": "Munger",
+		"price": "4.26"
+	},
+	{
+		"name": "Marseille",
+		"price": "2.02"
+	},
+	{
+		"name": "Calvello",
+		"price": "4.37"
+	},
+	{
+		"name": "Reggio nell'Emilia",
+		"price": "1.17"
+	},
+	{
+		"name": "Ostrowiec Świętokrzyski",
+		"price": "1.12"
+	},
+	{
+		"name": "Igboho",
+		"price": "2.50"
+	},
+	{
+		"name": "Clauzetto",
+		"price": "1.98"
+	},
+	{
+		"name": "Ellon",
+		"price": "2.79"
+	},
+	{
+		"name": "Genzano di Lucania",
+		"price": "2.48"
+	},
+	{
+		"name": "St. Andrä",
+		"price": "0.71"
+	},
+	{
+		"name": "Oviedo",
+		"price": "3.92"
+	},
+	{
+		"name": "Casper",
+		"price": "3.12"
+	},
+	{
+		"name": "Champigny-sur-Marne",
+		"price": "3.91"
+	},
+	{
+		"name": "Frankfort",
+		"price": "0.91"
+	},
+	{
+		"name": "Campomorone",
+		"price": "4.50"
+	},
+	{
+		"name": "Verzegnis",
+		"price": "3.66"
+	},
+	{
+		"name": "Gagliano del Capo",
+		"price": "1.75"
+	},
+	{
+		"name": "Armstrong",
+		"price": "3.69"
+	}
+]

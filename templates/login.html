@@ -1,0 +1,22 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ng-repeat="(key, i) in mainCtrl.config.paths" ng-class="{active: key == mainCtrl.curRoute}">
+                    <a href="{{i[0].href}}">{{i[0].caption}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{{mainCtrl.activeUser.pseudo}}
+<span ng-if="mainCtrl.activeUser === {}">qdzdzq
+</span>
+    {{mainCtrl.message}}
+    <form ng-if="!mainCtrl.logged" class="form-signin" ng-submit="mainCtrl.checkFormLogin()" style="max-width: 330px;padding: 15px;margin: 0 auto;">
+        <label for="inputEmail" class="sr-only">Utilisateur</label>
+        <input type="text" id="inputEmail" ng-model="mainCtrl.inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Mot de passe</label>
+        <input type="password" id="inputPassword" ng-model="mainCtrl.inputPassword" class="form-control" placeholder="Password" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+    </form>

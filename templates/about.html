@@ -1,0 +1,18 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li ng-repeat="(key, i) in mainCtrl.config.paths" ng-class="{active: key == mainCtrl.curRoute}">
+                    <a href="{{i[0].href}}">{{i[0].caption}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1>ABOUT</h1>
+<p>
+    Version {{mainCtrl.config.version}}</br>
+    Nom : {{mainCtrl.config.nom}}
+    {{mainCtrl.url}}
+</p>
