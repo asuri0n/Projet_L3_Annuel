@@ -84,7 +84,7 @@ module.exports = function(){
         version: "1.0",
         paths:
         {
-            "/": [{caption: "Accueil", href: "/"}],
+            "/": [{caption: "Accueil", href: "/autoevaluation_projetl3/"}],
             "/about": [{caption: "A propos", href: "about"}],
             "/login": [{caption: "Se connecter", href: "login"}]
         }
