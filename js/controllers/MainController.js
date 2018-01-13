@@ -16,4 +16,8 @@ module.exports = function($routeParams, config, $location, AuthService){
         else
             self.message = "Connecté";
     }
+
+    this.getCurRoute = function(){
+
+    }
 };

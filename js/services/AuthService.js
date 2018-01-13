@@ -10,7 +10,7 @@ module.exports =  function () {
     authService.checkLogin = function (pseudo, password) {
         var ret = false;
         angular.forEach(users, function(value) {
-            if(value.pseudo == pseudo && value.password == password) {
+            if(value.pseudo === pseudo && value.password === password) {
                 ret = true;
                 self.activeUser = {pseudo: value.pseudo, date: new Date()};
             }
@@ -19,10 +19,7 @@ module.exports =  function () {
     };
 
     authService.isAuth = function (pseudo) {
-        if (activeUser.pseudo == pseudo)
-            return true;
-        else
-            return false;
+        return activeUser.pseudo === pseudo;
     };
 
     return authService;
