@@ -4,7 +4,12 @@
         $.notify({
             message: '".$_SESSION['error']."'
         },{
-            type: 'danger'
+            type: 'danger',     
+	        delay: 1500,       
+            offset: {
+                x: 10,
+                y: 10
+            }
         });
         </script>";
         unset($_SESSION['error']);
