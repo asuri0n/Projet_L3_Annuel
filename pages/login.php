@@ -1,13 +1,16 @@
 <?php
+    if(isset($_SESSION['Auth'])){
+        $_SESSION['error'] = "Vous êtes déja connecté!";
+        session_write_close();
+        header('location: accueil');
+    }
     if(isset($_POST['submit']))
     {
         if(isset($_POST['inputEmail']) and !empty($_POST['inputEmail']) and isset($_POST['inputPassword']) and !empty($_POST['inputPassword']))
         {
-            login($_POST['inputPassword'], $_POST['inputPassword']);
+            login($_POST['inputEmail'], $_POST['inputPassword']);
         } else {
-            $error = "Une erreur est apparu. Veuillez réessayer !";
-            session_write_close();
-            $_SESSION['error'] = $error;
+            $_SESSION['error'] = "Une erreur est apparu. Veuillez réessayer !";
         }
     }
 ?>
