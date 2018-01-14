@@ -2,7 +2,6 @@ module.exports = function($routeParams, config, $location, AuthService){
     var self = this;
     this.config = config;
     this.curRoute = $location.$$path;
-    this.logged = false;
     this.message;
 
     this.inputEmail;
@@ -10,14 +9,14 @@ module.exports = function($routeParams, config, $location, AuthService){
 
     this.checkFormLogin = function(){
         var bool = AuthService.checkLogin(self.inputEmail,self.inputPassword);
-        self.logged = bool;
         if(!bool)
-            self.message = "Mauvais identifiants";
+            self.message = "Mauvais identifiants.";
         else
-            self.message = "Connecté";
-    }
+            self.message = "Connection réussie.";
+        console.log(AuthService.getActiveUser());
+    };
 
-    this.getCurRoute = function(){
-
-    }
+    this.getActiveUser = function(){
+        return AuthService.getActiveUser()
+    };
 };

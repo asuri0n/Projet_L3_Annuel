@@ -15,6 +15,11 @@ module.exports = function($routeProvider,$locationProvider){
             controller: 'mainController',
             controllerAs: 'mainCtrl'
         }).
+        when('/admin', {
+            templateUrl: 'templates/admin.html',
+            controller: 'mainController',
+            controllerAs: 'mainCtrl'
+        }).
         when('/in/', {
             templateUrl: 'templates/main.html',
             controller: 'inController',

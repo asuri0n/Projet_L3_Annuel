@@ -22,5 +22,9 @@ module.exports =  function () {
         return activeUser.pseudo === pseudo;
     };
 
+    authService.getActiveUser = function(){
+        return self.activeUser;
+    };
+
     return authService;
 };

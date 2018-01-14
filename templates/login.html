@@ -1,9 +1,7 @@
 <div ng-include="'include/menu.html'"></div>
-{{mainCtrl.activeUser.pseudo}}
-<span ng-if="mainCtrl.activeUser === {}">qdzdzq
-</span>
     {{mainCtrl.message}}
-    <form ng-if="!mainCtrl.logged" class="form-signin" ng-submit="mainCtrl.checkFormLogin()" style="max-width: 330px;padding: 15px;margin: 0 auto;">
+    <span ng-if="mainCtrl.getActiveUser()">Vous êtes connecté sous le pseudo {{mainCtrl.getActiveUser().pseudo}} depuis {{mainCtrl.getActiveUser().date}}</span>
+    <form ng-if="!mainCtrl.getActiveUser()" class="form-signin" ng-submit="mainCtrl.checkFormLogin()" style="max-width: 330px;padding: 15px;margin: 0 auto;">
         <label for="inputEmail" class="sr-only">Utilisateur</label>
         <input type="text" id="inputEmail" ng-model="mainCtrl.inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Mot de passe</label>

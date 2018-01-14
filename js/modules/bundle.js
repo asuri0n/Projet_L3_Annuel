@@ -16,6 +16,11 @@ module.exports = function($routeProvider,$locationProvider){
             controller: 'mainController',
             controllerAs: 'mainCtrl'
         }).
+        when('/admin', {
+            templateUrl: 'templates/admin.html',
+            controller: 'mainController',
+            controllerAs: 'mainCtrl'
+        }).
         when('/in/', {
             templateUrl: 'templates/main.html',
             controller: 'inController',
@@ -44,19 +49,21 @@ module.exports = function($routeProvider,$locationProvider){
         }
 };
 },{}],2:[function(require,module,exports){
+module.exports = function(AuthService) {
+};
+},{}],3:[function(require,module,exports){
 module.exports = function($routeParams) {
 
 };
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = function($routeParams){
 
 };
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = function($routeParams, config, $location, AuthService){
     var self = this;
     this.config = config;
     this.curRoute = $location.$$path;
-    this.logged = false;
     this.message;
 
     this.inputEmail;
@@ -64,20 +71,20 @@ module.exports = function($routeParams, config, $location, AuthService){
 
     this.checkFormLogin = function(){
         var bool = AuthService.checkLogin(self.inputEmail,self.inputPassword);
-        self.logged = bool;
         if(!bool)
-            self.message = "Mauvais identifiants";
+            self.message = "Mauvais identifiants.";
         else
-            self.message = "Connecté";
-    }
+            self.message = "Connection réussie.";
+        console.log(AuthService.getActiveUser());
+    };
 
-    this.getCurRoute = function(){
-
-    }
+    this.getActiveUser = function(){
+        return AuthService.getActiveUser()
+    };
 };
-},{}],5:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],6:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"dup":3}],7:[function(require,module,exports){
 module.exports = function(){
     return {
         nom: "Mutlti-Modules APP",
@@ -86,24 +93,26 @@ module.exports = function(){
         {
             "/": [{caption: "Accueil", href: "/autoevaluation_projetl3/"}],
             "/about": [{caption: "A propos", href: "about"}],
-            "/login": [{caption: "Se connecter", href: "login"}]
+            "/login": [{caption: "Se connecter", href: "login"}],
+            "/admin": [{caption: "Panel", href: "admin"}]
         }
     }
 };
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var authModule = angular.module("AuthModule", ['ngRoute']);
 module.exports = "AuthModule";
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var mainModule = angular.module("MainModule", ['ngRoute',require('./AuthModule')])
     .factory('config', require('./../factory/Config'))
     .service('AuthService', require("./../services/AuthService"))
     .service('DAOService', require("./../services/DAOService"))
     .controller("mainController",["$routeParams", "config", "$location", "AuthService", require("./../controllers/MainController")])
     .controller("clientsController",["$routeParams",require("./../controllers/ClientsController")])
+    .controller("adminController",["$routeParams", "AuthService", require("./../controllers/AdminController")])
     .controller("productsController",["$routeParams",require("./../controllers/ProductsController")])
     .controller("inController",["$routeParams",require("./../controllers/InController")])
     .config(['$routeProvider','$locationProvider',require("./../Routing")]);
-},{"./../Routing":1,"./../controllers/ClientsController":2,"./../controllers/InController":3,"./../controllers/MainController":4,"./../controllers/ProductsController":5,"./../factory/Config":6,"./../services/AuthService":9,"./../services/DAOService":10,"./AuthModule":7}],9:[function(require,module,exports){
+},{"./../Routing":1,"./../controllers/AdminController":2,"./../controllers/ClientsController":3,"./../controllers/InController":4,"./../controllers/MainController":5,"./../controllers/ProductsController":6,"./../factory/Config":7,"./../services/AuthService":10,"./../services/DAOService":11,"./AuthModule":8}],10:[function(require,module,exports){
 module.exports =  function () {
     var self = this;
     var authService = {};
@@ -128,10 +137,14 @@ module.exports =  function () {
         return activeUser.pseudo === pseudo;
     };
 
+    authService.getActiveUser = function(){
+        return self.activeUser;
+    };
+
     return authService;
 };
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports =  function ($http, Session) {
 
 };
-},{}]},{},[8]);
+},{}]},{},[9]);

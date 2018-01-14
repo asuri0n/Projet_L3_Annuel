@@ -4,6 +4,7 @@ var mainModule = angular.module("MainModule", ['ngRoute',require('./AuthModule')
     .service('DAOService', require("./../services/DAOService"))
     .controller("mainController",["$routeParams", "config", "$location", "AuthService", require("./../controllers/MainController")])
     .controller("clientsController",["$routeParams",require("./../controllers/ClientsController")])
+    .controller("adminController",["$routeParams", "AuthService", require("./../controllers/AdminController")])
     .controller("productsController",["$routeParams",require("./../controllers/ProductsController")])
     .controller("inController",["$routeParams",require("./../controllers/InController")])
     .config(['$routeProvider','$locationProvider',require("./../Routing")]);
