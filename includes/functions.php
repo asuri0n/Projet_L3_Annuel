@@ -40,7 +40,7 @@ function checkbrute($user_id) {
     $valid_attempts = $now - (2 * 60 * 60);
  
     if ($stmt = $pdo->prepare("SELECT count(*) 
-                             FROM hs_login_attempts
+                             FROM login_attempts
                              WHERE u_id = ? 
                             AND la_time > '$valid_attempts'")) {
         $stmt->execute(array($user_id));
@@ -156,7 +156,7 @@ function esc_url($url) {
  */
 function login($email, $password) {
 	$pdo = SPDO::getInstance();
-    if ($stmt = $pdo->prepare("SELECT u_id, u_email, u_password, u_salt, u_isAdmin, u_prenom FROM hs_users WHERE u_email = ? LIMIT 1"))
+    if ($stmt = $pdo->prepare("SELECT id, email, password, salt, isAdmin FROM admins WHERE email = ? LIMIT 1"))
     {
         if ($stmt->execute(array($email)))
         {
@@ -169,7 +169,6 @@ function login($email, $password) {
                 $db_password = $row[2];
                 $salt = $row[3];
                 $isAdmin = $row[4];
-                $prenom = $row[5];
 
 				// Hashe le mot de passe avec le salt unique
 				$password = hash('sha512', $password . $salt);
@@ -191,12 +190,8 @@ function login($email, $password) {
 						// Protection XSS car nous pourrions conserver cette valeur
 						$user_id = preg_replace("/[^0-9]+/", "", $user_id);
 						$_SESSION['Auth']['id'] = $user_id;
-						
-                        $_SESSION['Auth']['prenom'] = $prenom;
 						$_SESSION['Auth']['email'] = $email;
-
 						$_SESSION['Auth']['login_string'] = hash('sha512', $db_password . $user_browser);
-
 						if($isAdmin)
 							$_SESSION['Auth']['role'] = 2;
 						else
@@ -208,8 +203,7 @@ function login($email, $password) {
 						// Le mot de passe n’est pas correct
 						// Nous enregistrons cet essai dans la base de données
 						$now = time();
-						$brut = $pdo->prepare("INSERT INTO hs_login_attempts(u_id, la_time)
-										VALUES ('$user_id', '$now')");
+						$brut = $pdo->prepare("INSERT INTO login_attempts(u_id, la_time) VALUES ('$user_id', '$now')");
                         $brut->execute();
 						$_SESSION['error'] = "Mot de passe incorrect";
 						return false;
@@ -238,9 +232,9 @@ function login($email, $password) {
  * @param mysql $pdo -> database object
  * @return true/false;
  */
-function signup($nom, $prenom, $email, $email2, $password, $password2, $adresse, $codepostal, $ville, $telephone) {   
+function signup() {
     $pdo = SPDO::getInstance(); 
-    if (isset($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['email2'], $_POST['password'], $_POST['password2'], $_POST['adresse'], $_POST['codepostal'], $_POST['ville'], $_POST['telephone'])) {
+    if (isset($_POST['email'], $_POST['email2'], $_POST['password'], $_POST['password2'])) {
         // Nettoyez et validez les données transmises au script
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -253,13 +247,6 @@ function signup($nom, $prenom, $email, $email2, $password, $password2, $adresse,
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_STRING);
 
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $adresse = $_POST['adresse'];
-        $codepostal = $_POST['codepostal'];
-        $ville = $_POST['ville'];
-        $telephone = $_POST['telephone'];
-
         if($email != $email2){                    
             $_SESSION['error'] = "Les emails ne correspondent pas.";
             return false;
@@ -270,42 +257,12 @@ function signup($nom, $prenom, $email, $email2, $password, $password2, $adresse,
             return false;
         }
 
-        if(!preg_match("/^[\p{L}-]*$/u", $nom)){                    
-            $_SESSION['error'] = "Le nom n\'est pas correct.";
-            return false;
-        }
-
-        if(!preg_match("/^[\p{L}-]*$/u", $prenom)){                    
-            $_SESSION['error'] = "Le prenom n\'est pas correct.";
-            return false;
-        }
-
-        if(!preg_match("/^[0-9a-zA-Z]+(?:[\s-][a-zA-Zéèàêàäâêëîï]+)*$/u", $adresse)){                    
-            $_SESSION['error'] = "L\'adresse n\'est pas correct.";
-            return false;
-        }
-
-        if(!preg_match("/^[0-9]{5}$/u", $codepostal)){                    
-            $_SESSION['error'] = "Le code postal n\'est pas correct.";
-            return false;
-        }
-
-        if(!preg_match("/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/u", $ville)){                    
-            $_SESSION['error'] = "La ville n\'est pas correct.";
-            return false;
-        }
-
-        if(!preg_match("/^\d{10}$/u", $telephone)){                    
-            $_SESSION['error'] = "Le numéro de telephone n\'est pas correct.";
-            return false;
-        }
-
         // La forme du nom d’utilisateur et du mot de passe a été vérifiée côté client
         // Cela devrait suffire, car personne ne tire avantage
         // à briser ce genre de règles.
         //
      
-        $prep_stmt = "SELECT u_id FROM hs_users WHERE u_email = ? LIMIT 1";
+        $prep_stmt = "SELECT id FROM admins WHERE email = ? LIMIT 1";
         $stmt = $pdo->prepare($prep_stmt);
      
         if ($stmt) {
@@ -333,25 +290,12 @@ function signup($nom, $prenom, $email, $email2, $password, $password2, $adresse,
         $password = hash('sha512', $password . $random_salt);
  
         // Enregistre le nouvel utilisateur dans la base de données
-        if ($insert_stmt = $pdo->prepare("INSERT INTO hs_users (u_prenom, u_nom, u_email, u_password, u_salt, u_dateInscription, u_actif_token) VALUES (?, ?, ?, ?, ?,now(),?)")) 
+        if ($insert_stmt = $pdo->prepare("INSERT INTO admins (email, password, salt, actif_token) VALUES (?, ?, ?,?)"))
         {
-            if ($insert_stmt->execute(array($prenom, $nom, $email, $password, $random_salt,md5(uniqid(rand(), true)))))
-            {       
-                $u_id = $pdo->lastInsertId();
-                if ($insert_stmt = $pdo->prepare("INSERT INTO hs_facturation (u_id, f_adresse, f_postal, f_ville, f_telephone) VALUES (LAST_INSERT_ID(), ?, ?, ?, ?)")) 
-                {
-                    if ($insert_stmt->execute(array($adresse, $codepostal, $ville, $telephone)))
-                    {       
-                        sendMailConfirmation($u_id);
-                        return true;
-                    } else {
-                        $_SESSION['error'] = "Erreur de base de données facturation";
-                        return false;
-                    }
-                } else {
-                    $_SESSION['error'] = "Erreur de base de données facturation";
-                    return false;
-                }
+            if ($insert_stmt->execute(array($email, $password, $random_salt,md5(uniqid(rand(), true)))))
+            {
+                $_SESSION['success'] = "Inscrit !";
+                return true;
             } else {
                 $_SESSION['error'] = "Erreur de base de données";
                 return false;
