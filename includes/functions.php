@@ -1,4 +1,5 @@
 <?php
+include 'functions_ldap.php';
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Attribue un nom de session
