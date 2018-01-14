@@ -30,7 +30,12 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>login">Se connecter</a></li>
+                <?php if(isset($_SESSION['Auth'])) { ?>
+                    <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>profil">Mon profil</a></li>
+                    <li <?php if ($params[0] == 'signout') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>signout">Se déconnecter</a></li>
+                <?php } else { ?>
+                    <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>login">Se connecter</a></li>
+                <?php } ?>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
