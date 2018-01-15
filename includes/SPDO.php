@@ -31,8 +31,8 @@ class SPDO extends PDO
   {
 	  try {		  
 		parent::__construct('mysql:dbname='.DATABASE.';host='.HOST,USER ,PASSWORD);
-		$this->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );		
-    $this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES 'utf8'");
+		$this->exec("set names utf8");
+		$this->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 		return $this;
 	  } catch(PDOException $e){
 		  echo 'ERROR: '.$e->getMessage();
