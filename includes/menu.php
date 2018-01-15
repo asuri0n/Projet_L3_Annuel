@@ -12,9 +12,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li <?php if ($params[0] == 'accueil') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>accueil">Accueil</a></li>
-                <li <?php if ($params[0] == 'exercices') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>exercices">Exercices</a></li>
-                <li <?php if ($params[0] == 'admin') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>admin">Panel Admin</a></li>
+                <li <?php if ($params[0] == 'accueil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>accueil/">Accueil</a></li>
+                <li <?php if ($params[0] == 'exercices') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>exercices">Exercices</a></li>
+                <li <?php if ($params[0] == 'admin') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>admin">Panel Admin</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -31,10 +31,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($_SESSION['Auth'])) { ?>
-                    <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>profil">Mon profil</a></li>
-                    <li <?php if ($params[0] == 'signout') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>signout">Se déconnecter</a></li>
+                    <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil">Mon profil</a></li>
+                    <li <?php if ($params[0] == 'signout') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>signout">Se déconnecter</a></li>
                 <?php } else { ?>
-                    <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php WEBROOT ?>login">Se connecter</a></li>
+                    <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>login">Se connecter</a></li>
                 <?php } ?>
             </ul>
         </div><!--/.nav-collapse -->
