@@ -78,10 +78,10 @@
 
     } else {
 
-        $nbBonnesReponses = nbBonnesReponses();
+        $nbBonnesReponses = nbBonnesReponses($exercice_id, implode($answers));
 
-        echo "<center><h2>Resultat:</h2>$nbBonnesReponses of $nbQuestions<p><b>8%</b></p><p>You must study much harder!</p><p><b>Time Spent</b><br>0:27</p></center>
-        <form role='form' target='_blank' action='result.asp' method='post'>
+        echo "<center><h2>Resultat:</h2>$nbBonnesReponses of $nbQuestions<p><b>".($nbBonnesReponses*100/$nbQuestions)."%</b></p><p>You must study much harder!</p><p><b>Time Spent</b><br>0:27</p></center>
+        <form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>
             <input name='points' value='2' type='hidden'>
             <input name='percentPoints' value='8' type='hidden'>
             <input name='qtest' value='CSS' type='hidden'>
@@ -90,7 +90,7 @@
     
             <table width='100%'><tbody><tr>
                     <td><input value='Vérifier les réponses' type='submit'></td>
-                    <td align='right'><input value='Try again' onclick='window.location.href = window.location.href;' type='button'></td>
+                    <td align='right'><input value='Réessayer' onclick='window.location.href = window.location.href;' type='button'></td>
                 </tr></tbody></table>
         </form>";
     }
@@ -99,45 +99,3 @@
 ?>
 
 <?php echo $content ?>
-
-<br>
-<hr>
-<br>
-
-<div class="w3-col l10 m12" id="main">
-    <div id="mainLeaderboard" style="overflow:hidden;">
-        <!-- MainLeaderboard-->
-        <div id="div-gpt-ad-1422003450156-2">
-            <script type="text/javascript">googletag.cmd.push(function() { googletag.display('div-gpt-ad-1422003450156-2'); });</script>
-        </div>
-    </div>
-    <h1>W3Schools <span class="color_h1">CSS</span> Quiz</h1>
-    <form>
-        <table class="front" width="100%" cellspacing="0" border="0">
-            <tbody><tr>
-                <th class="front" align="left">CSS QUIZ</th>
-                <th class="front" align="right">Points: 2 out of 25</th>
-            </tr>
-            </tbody></table>
-        <p>
-            <b>1. What does CSS stand for?</b>
-        </p>
-        <p>
-            <b>You answered: </b>
-        </p>
-        Colorful Style Sheets
-        <p style="color:red">
-            &nbsp;Wrong Answer!
-        </p>
-        <hr>
-
-        <br>
-        <table class="front" width="100%" cellspacing="0" border="0">
-            <tbody><tr>
-                <th class="front" align="left">By W3Schools</th>
-                <th class="front" align="right">Time spent: 0:27&nbsp;</th>
-            </tr>
-            </tbody></table>
-    </form>
-
-</div>

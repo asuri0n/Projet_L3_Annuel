@@ -590,3 +590,15 @@ function generateUniqueKey() {
     $uniqid = uniqid(mt_rand(),true);
     return md5($uniqid);
 }
+
+function nbBonnesReponses($exercice_id, $answer) {
+    $pdo = SPDO::getInstance();
+    $questions = getArrayFrom($pdo, "SELECT id_question, reponses FROM questions WHERE id_exercice = ".$exercice_id, "fetchAll");
+
+    $cpt = 0;
+    foreach ($questions as $key => $question){
+        if($question['reponses'] == $answer[$key])
+            $cpt++;
+    }
+    return $cpt;
+}
