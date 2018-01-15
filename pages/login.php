@@ -4,6 +4,9 @@
         if(isset($_POST['inputEmail']) and !empty($_POST['inputEmail']) and isset($_POST['inputPassword']) and !empty($_POST['inputPassword']))
         {
             login($_POST['inputEmail'], $_POST['inputPassword']);
+            $_SESSION['success'] = "Vous êtes maintenant connecté!";
+            session_write_close();
+            header('location: profil');
         } else {
             $_SESSION['error'] = "Une erreur est apparu. Veuillez réessayer !";
         }

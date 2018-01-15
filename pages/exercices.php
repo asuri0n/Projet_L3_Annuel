@@ -1,29 +1,77 @@
 <?php
-    if(!isset($params[1]) or empty($params[1]) or !is_numeric($params[1]) or !isset($params[2]) or empty($params[2]) or !is_numeric($params[2])){
+    // Vérification si l'exercice a bien été selectionné
+    if(!isset($params[1]) or empty($params[1]) or !is_numeric($params[1])){
         $_SESSION['error'] = "Veuillez d abord cliquer sur un exercice";
         session_write_close();
         header('location: '.WEBROOT.'accueil');
     };
 
+    // Récupère l'ID de l'exercice
     $exercice_id = $params[1];
+
+    //
+    // vérifications a chaque nouvelle affichage d'une question
+    //
+    if(isset($_POST['next'])){
+        if(isset($_POST['answers']) and isset($_POST['qnumber']) and !empty($_POST['answers'] and !empty($_POST['qnumber']))){
+            $nbQuestions = $_POST['qnumber'];
+            $answers = str_split($_POST['answers']);
+            if(isset($_POST['quizz']) and is_numeric($_POST['quizz'])){
+                // On rajoute la réponse dans la chaine
+                foreach ($answers as $key => $answer) {
+                    if($answer == '0') {
+                        $answers[$key] = $_POST['quizz'];
+                        break;
+                    }
+                }
+
+            } else {
+                echo "pas de réponse selectionnée";
+            }
+
+            if(sizeof($answers) == $nbQuestions) {
+                $cpt = 0;
+                foreach ($answers as $answer) {
+                    if($answer != '0')
+                        $cpt++;
+                }
+                $nextQuestion = $cpt+1;
+            } else {
+                echo "Erreur nombre de questions et nombres de réponses";
+            }
+        } else {
+            echo "error answers and qnumber values";
+        }
+    } else {
+        $nbQuestions = getArrayFrom($pdo, "SELECT count(*) FROM questions WHERE id_exercice = ".$exercice_id, "fetch", "FETCH_NUM")[0];
+        $nextQuestion = 1;
+        $answers = "";
+        for($i = 0; $i < $nbQuestions; $i++)
+            $answers .= "0";
+        $answers = str_split($answers);
+    }
+
+    $question = getArrayFrom($pdo, "SELECT id_question, question, type_question.libelle as typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = ".$exercice_id." ORDER BY id_question ASC LIMIT ".($nextQuestion-1).", 1 ", "fetch");
+
+
+
+
+
     $exercice = getArrayFrom($pdo, "SELECT libelle FROM exercice WHERE id_exercice = ".$exercice_id." LIMIT 1", "fetch");
 
-    $question_id = $params[2];
-
-    $question = getArrayFrom($pdo, "SELECT id_question, question, type_question.libelle as typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = ".$exercice_id." ORDER BY id_question DESC LIMIT ".($question_id-1).", 1 ", "fetch");
     $choix = explode(",",$question["choix"]);
 
     ob_start();
-    echo "<p style='margin-bottom:30px;'>1. ".$question['question']."</p>";
-    echo "<form role='form' name='quizform' action='<?php echo WEBROOT.$exercice_id ?>' method='post'>";
+    echo "<p style='margin-bottom:30px;'>$nextQuestion. ".$question['question']."</p>";
+    echo "<form role='form' name='quizform' action='".WEBROOT."exercices/".$exercice_id."/1' method='post'>";
     echo "<input name='starttime' value='1/15/2018 3:09:04 AM' type='hidden'>";
-    echo "<input name='answers' value='0000000000000000000000000' size='25' type='hidden'>";
-    echo "<input name='qnumber' value='1' size='25' type='hidden'>";
+    echo "<input name='answers' value='".implode($answers)."' type='hidden'>";
+    echo "<input name='qnumber' value='$nbQuestions' type='hidden'>";
         foreach ($choix as $key => $choi){
-            echo "<div class='radio'><label><input name='quiz' id='$key' value='$key' type='radio'> $choi</label></div>";
+            echo "<div class='radio'><label><input name='quizz' value='$key' type='radio'> $choi</label></div>";
         }
     echo "<br>";
-    echo "<input value=' Next ' type='submit'>";
+    echo "<input name='next' value=' Next ' type='submit'>";
     echo "</form>";
     $content = ob_get_contents();
     ob_end_clean();
