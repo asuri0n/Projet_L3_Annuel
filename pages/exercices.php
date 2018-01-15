@@ -1,5 +1,5 @@
 <?php
-    if(!isset($params[1]) or empty($params[1]) or !is_numeric($params[1])){
+    if(!isset($params[1]) or empty($params[1]) or !is_numeric($params[1]) or !isset($params[2]) or empty($params[2]) or !is_numeric($params[2])){
         $_SESSION['error'] = "Veuillez d abord cliquer sur un exercice";
         session_write_close();
         header('location: '.WEBROOT.'accueil');
@@ -11,6 +11,7 @@
     $question_id = $params[2];
 
     $question = getArrayFrom($pdo, "SELECT id_question, question, type_question.libelle as typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = ".$exercice_id." ORDER BY id_question DESC LIMIT ".($question_id-1).", 1 ", "fetch");
+    $choix = explode(",",$question["choix"]);
 
     ob_start();
     echo "<p style='margin-bottom:30px;'>1. ".$question['question']."</p>";
@@ -18,7 +19,9 @@
     echo "<input name='starttime' value='1/15/2018 3:09:04 AM' type='hidden'>";
     echo "<input name='answers' value='0000000000000000000000000' size='25' type='hidden'>";
     echo "<input name='qnumber' value='1' size='25' type='hidden'>";
-    echo "<div class='radio'><label><input name='quiz' id='2' value='2' type='radio'> False</label></div><div class='radio'><label><input name='quiz' id='1' value='1' type='radio'> True</label></div>";
+        foreach ($choix as $key => $choi){
+            echo "<div class='radio'><label><input name='quiz' id='$key' value='$key' type='radio'> $choi</label></div>";
+        }
     echo "<br>";
     echo "<input value=' Next ' type='submit'>";
     echo "</form>";

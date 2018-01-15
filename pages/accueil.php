@@ -9,7 +9,7 @@ foreach ($exercices as $exercice){
     echo "<td>".$exercice['sem_id']."</td>";
     echo "<td>".$exercice['mlib']."</td>";
     echo "<td>".$exercice['exlib']."</td>";
-    echo "<td><a href='".WEBROOT."exercices/".$exercice['id_exercice']."' class=\"btn btn-default btn-sm\" role=\"button\">
+    echo "<td><a href='".WEBROOT."exercices/".$exercice['id_exercice']."/1' class=\"btn btn-default btn-sm\" role=\"button\">
           <span class=\"glyphicon glyphicon-arrow-right\"></span> Faire l'exercice
         </a></td>";
     echo "</tr>";
