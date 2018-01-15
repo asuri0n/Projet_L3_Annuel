@@ -1,9 +1,4 @@
 <?php
-    if(isset($_SESSION['Auth'])){
-        $_SESSION['error'] = "Vous êtes déja connecté!";
-        session_write_close();
-        header('location: accueil');
-    }
     if(isset($_POST['submit']))
     {
         if(isset($_POST['inputEmail']) and !empty($_POST['inputEmail']) and isset($_POST['inputPassword']) and !empty($_POST['inputPassword']))
@@ -12,6 +7,11 @@
         } else {
             $_SESSION['error'] = "Une erreur est apparu. Veuillez réessayer !";
         }
+    }
+    if(isset($_SESSION['Auth'])){
+        $_SESSION['error'] = "Vous êtes déja connecté!";
+        session_write_close();
+        header('location: accueil');
     }
 ?>
 <form method="POST" class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
