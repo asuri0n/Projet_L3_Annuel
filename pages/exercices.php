@@ -75,7 +75,7 @@
         $choix = explode(",",$question["choix"]);
         echo "<h1>".$exercice['libelle']."</h1>
             <p style='margin-bottom:30px;'>$nextQuestion. " . $question['question'] . "</p>
-            <form role='form' name='quizform' action='" . WEBROOT . "exercices/" . $exercice_id . "/1' method='post'>
+            <form role='form' name='quizform' action='" . WEBROOT . "exercices/" . $exercice_id . "' method='post'>
                 <input name='starttime' value='1/15/2018 3:09:04 AM' type='hidden'>
                 <input name='answers' value='" . implode($answers) . "' type='hidden'>
                 <input name='qnumber' value='$nbQuestions' type='hidden'>";
@@ -90,17 +90,18 @@
     } else {
 
         $nbBonnesReponses = nbBonnesReponses($exercice_id, implode($answers));
+        $percent = ($nbBonnesReponses*100/$nbQuestions);
 
-        echo "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".($nbBonnesReponses*100/$nbQuestions)."%</b></p><p>Vous devez travailler plus!</p><p><b>Temps écoulé</b><br>0:27</p></center>
+        echo "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p><p>Vous devez travailler plus!</p><p><b>Temps écoulé</b><br>0:27</p></center>
         <form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>
-            <input name='points' value='2' type='hidden'>
-            <input name='percentPoints' value='8' type='hidden'>
-            <input name='qtest' value='CSS' type='hidden'>
+            <input name='points' value='$nbBonnesReponses' type='hidden'>
+            <input name='percentPoints' value='$percent' type='hidden'>
+            <input name='id' value='$exercice_id' type='hidden'>
             <input name='timespent' value='0:27' type='hidden'>
             <input name='answers' value='".implode($answers)."' type='hidden'>
     
             <table width='100%'><tbody><tr>
-                    <td><input value='Vérifier les réponses' type='submit'></td>
+                    <td><input value='Vérifier les réponses' name='checkAnswers' type='submit'></td>
                     <td align='right'><input value='Réessayer' onclick='window.location.href = window.location.href;' type='button'></td>
                 </tr></tbody></table>
         </form>";
