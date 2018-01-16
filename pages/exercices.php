@@ -9,6 +9,17 @@
     // Récupère l'ID de l'exercice
     $exercice_id = $params[1];
 
+    if(!isset($_SESSION['Auth'])){
+        $sem_id = getArrayFrom($pdo, "SELECT matieres.sem_id FROM exercice JOIN matieres USING (id_matiere) WHERE id_exercice = ".$exercice_id." LIMIT 1", "fetch")['sem_id'];
+
+        if($sem_id > 2) {
+            $_SESSION['error'] = "Vous devez vous connecter pour acceder a cet exercice";
+            session_write_close();
+            header('location: ' . WEBROOT . 'login');
+        }
+    }
+
+
     //
     // vérifications a chaque nouvelle affichage d'une question
     //

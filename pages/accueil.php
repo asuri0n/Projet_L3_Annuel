@@ -9,7 +9,7 @@ foreach ($exercices as $exercice){
     echo "<td>".$exercice['sem_id']."</td>";
     echo "<td>".$exercice['mlib']."</td>";
     echo "<td>".$exercice['exlib']."</td>";
-    echo "<td><a href='".WEBROOT."exercices/".$exercice['id_exercice']."/1' class=\"btn btn-default btn-sm\" role=\"button\">
+    echo "<td><a href='".WEBROOT."exercices/".$exercice['id_exercice']."' class=\"btn btn-default btn-sm ".(($exercice['sem_id']>2 and !isset($_SESSION['Auth']))?'disabled':"")." \" role=\"button\">
           <span class=\"glyphicon glyphicon-arrow-right\"></span> Faire l'exercice
         </a></td>";
     echo "</tr>";
@@ -26,6 +26,13 @@ ob_end_clean();
     <p style="font-size: small">Ce projet est un projet annuel développé par Lounis Bibi et Nathan Chevalier pendant l'année de L3 Informatique 2017-2018</p>
 </div>
 
+<?php
+    if(!isset($_SESSION['Auth'])){
+        echo "<div class=\"alert alert-danger\">
+          <strong>Attention!</strong> Vous n'êtes actuellement pas connecté, vous pouvez seulement acceder aux exercices de L1 Math et Info.
+        </div>";
+    }
+?>
 <table class="table table-striped">
     <thead>
     <tr>

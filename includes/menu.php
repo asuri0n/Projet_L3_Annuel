@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="accueil">Département Maths-Info</a>
+            <a class="navbar-brand" href="<?php echo WEBROOT ?>accueil/">Département Maths-Info</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
