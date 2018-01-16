@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  Dim 14 jan. 2018 à 22:20
--- Version du serveur :  10.1.29-MariaDB
--- Version de PHP :  7.2.0
+-- Généré le :  mar. 16 jan. 2018 à 15:02
+-- Version du serveur :  10.1.22-MariaDB
+-- Version de PHP :  7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -71,6 +71,7 @@ INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`) VALUES
 CREATE TABLE `exercice` (
   `id_exercice` int(11) NOT NULL,
   `id_matiere` int(11) NOT NULL,
+  `niv_etude` int(11) NOT NULL,
   `libelle` varchar(100) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -79,8 +80,8 @@ CREATE TABLE `exercice` (
 -- Déchargement des données de la table `exercice`
 --
 
-INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `libelle`, `date`) VALUES
-(1, 1, '0', '2018-01-13');
+INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `niv_etude`, `libelle`, `date`) VALUES
+(1, 1, 0, 'Exercice 1', '2018-01-13');
 
 -- --------------------------------------------------------
 
@@ -153,15 +154,17 @@ CREATE TABLE `questions` (
   `id_exercice` int(11) NOT NULL,
   `question` varchar(100) NOT NULL,
   `id_type` int(11) NOT NULL,
-  `reponses` longtext NOT NULL
+  `choix` longtext NOT NULL,
+  `reponses` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `questions`
 --
 
-INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `reponses`) VALUES
-(0, 1, 'Comment définir une variable en JavaScript ?', 1, '{\"var variable;\",\"this.variable;\",\"define variable;\",\"Pas besoin de définir\"}');
+INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `choix`, `reponses`) VALUES
+(1, 1, 'Comment définir une variable en JavaScript ?', 1, 'var variable;,this.variable;,define variable;,Pas besoin de définir', '1'),
+(2, 1, 'Pourquoi ?', 3, 'Parceque,ZQD,qzdq', '1');
 
 -- --------------------------------------------------------
 
@@ -263,31 +266,31 @@ ALTER TABLE `type_question`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `matieres`
 --
 ALTER TABLE `matieres`
   MODIFY `id_matiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
+--
+-- AUTO_INCREMENT pour la table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `scores`
 --
 ALTER TABLE `scores`
   MODIFY `score_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT pour la table `type_question`
 --
 ALTER TABLE `type_question`
   MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- Contraintes pour les tables déchargées
 --
