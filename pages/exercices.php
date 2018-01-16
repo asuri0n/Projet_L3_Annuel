@@ -80,7 +80,7 @@
 
         $nbBonnesReponses = nbBonnesReponses($exercice_id, implode($answers));
 
-        echo "<center><h2>Resultat:</h2>$nbBonnesReponses of $nbQuestions<p><b>".($nbBonnesReponses*100/$nbQuestions)."%</b></p><p>You must study much harder!</p><p><b>Time Spent</b><br>0:27</p></center>
+        echo "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".($nbBonnesReponses*100/$nbQuestions)."%</b></p><p>Vous devez travailler plus!</p><p><b>Temps écoulé</b><br>0:27</p></center>
         <form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>
             <input name='points' value='2' type='hidden'>
             <input name='percentPoints' value='8' type='hidden'>
