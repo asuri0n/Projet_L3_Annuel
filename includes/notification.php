@@ -2,7 +2,7 @@
     if(isset($_SESSION['error']) and !empty($_SESSION['error'])){
         echo "<script>
         $.notify({
-            message: '".$_SESSION['error']."'
+            message: '".addslashes($_SESSION['error'])."'
         },{
             type: 'danger',     
 	        delay: 1500,       

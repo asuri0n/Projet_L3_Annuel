@@ -1,7 +1,7 @@
 <?php
     // Vérification si l'exercice a bien été selectionné
     if(!isset($params[1]) or empty($params[1]) or !is_numeric($params[1])){
-        $_SESSION['error'] = "Veuillez d abord cliquer sur un exercice";
+        $_SESSION['error'] = "Veuillez d'abord cliquer sur un exercice";
         session_write_close();
         header('location: '.WEBROOT.'accueil');
     };
