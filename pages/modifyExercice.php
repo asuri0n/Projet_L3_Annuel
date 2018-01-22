@@ -59,8 +59,7 @@ if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_P
                         }
                         $stringRep = substr($stringRep, 0, -1);
 
-                        var_dump($bonneRep[$key]);
-                        echo $stringBRep = $bonneRep[$key];
+                        $stringBRep = $bonneRep[$key];
 
                         //TODO : POUR LA VERSION AVEC CHECK BOX : Faire différement
                         /*$stringBRep = "";
