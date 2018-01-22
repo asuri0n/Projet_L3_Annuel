@@ -34,13 +34,13 @@
 
 		<!-- Load CSS file -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?php WEBROOT ?>assets/css/custom.css">
+        <link rel="stylesheet" href="<?php echo WEBROOT ?>assets/css/custom.css">
         <!-- Load JS files -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
 		<!--[if lt IE 9] -->
-		<script src="<?php WEBROOT ?>assets/js/html5shiv.js" type="text/javascript"></script>
+		<script src="<?php echo WEBROOT ?>assets/js/html5shiv.js" type="text/javascript"></script>
 		<!-- [endif]-->
 	</head>
 	<body>
