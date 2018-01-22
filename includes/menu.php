@@ -13,7 +13,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li <?php if ($params[0] == 'accueil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>accueil/">Accueil</a></li>
-                <li <?php if ($params[0] == 'exercices') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>exercices">Exercices</a></li>
+                <li <?php if ($params[0] == 'exercices' or $params[0] == 'resultat') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>exercices">Exercices</a></li>
                 <li <?php if ($params[0] == 'admin') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>admin">Panel Admin</a></li>
 
                 <li class="dropdown">

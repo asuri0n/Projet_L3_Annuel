@@ -95,7 +95,6 @@
         echo "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p><p>".getSentenceResult($percent)."</p><p><b>Temps passé</b><br>0:27</p></center>
         <form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>
             <input name='points' value='$nbBonnesReponses' type='hidden'>
-            <input name='percentPoints' value='$percent' type='hidden'>
             <input name='id' value='$exercice_id' type='hidden'>
             <input name='timespent' value='0:27' type='hidden'>
             <input name='answers' value='".implode($answers)."' type='hidden'>

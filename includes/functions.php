@@ -607,9 +607,7 @@ function getSentenceResult($percent){
     if($percent == 0){
         return "Bon, c'est pas grave, essaye encore !";
     } else if ($percent <= 30){
-        return "<30";
-    } else if ($percent <= 50){
-        return "<50";
+        return "Essaye encore !";
     } else if ($percent == 50){
         return "La moitié de bon! ";
     } else if ($percent <= 60){
