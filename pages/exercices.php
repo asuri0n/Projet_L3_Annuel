@@ -80,7 +80,7 @@
                 <input name='answers' value='" . implode($answers) . "' type='hidden'>
                 <input name='qnumber' value='$nbQuestions' type='hidden'>";
         foreach ($choix as $key => $choi) {
-            echo "<div class='radio'><label><input name='quizz' value='$key' type='radio'> $choi</label></div>";
+            echo "<div class='radio'><label><input name='quizz' value='$key' type='radio'>".htmlentities($choi)."</label></div>";
         }
                 echo "<br>
                 <input name='next' value=' Suivant ' type='submit'>
