@@ -38,15 +38,21 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                     if ($insert_stmt = $pdo->prepare("INSERT INTO questions (id_exercice, question, id_type, choix, reponses) VALUES (?, ?, ?, ?, ?)"))
                     {
                         $stringRep = "";
-                        $stringBRep = "";
                         foreach ($repQ[$key] as $rep){
                             $stringRep.=$rep.",";
                         }
-                        foreach ($bonneRep[$key] as $bRep){
-                            $stringBRep.=$bRep.",";
-                        }
                         $stringRep = substr($stringRep, 0, -1);
-                        $stringBRep = substr($stringBRep, 0, -1);
+
+                        var_dump($bonneRep[$key]);
+                        echo $stringBRep = $bonneRep[$key];
+
+                        //TODO : POUR LA VERSION AVEC CHECK BOX : Faire différement
+                        /*$stringBRep = "";
+                        foreach ($bonneRep[$key] as $key2 => $bRep){
+                            $stringBRep.=$key2.",";
+                        }
+                        $stringBRep = substr($stringBRep, 0, -1);*/
+
                         if ($insert_stmt->execute(array($lastId, $inputTitreQuestion[$key], $typeQ[$key]+1, $stringRep, $stringBRep))) {
                             echo "ok";
                         }
@@ -91,10 +97,11 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                             echo "<option value='$key'>".$type['libelle']."</option>";
                         }
                     echo "</select></td>";
-                    echo "<td><input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i][]' type=\"radio\" value=\"\">
-                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i][]' type=\"radio\" value=\"\">
-                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i][]' type=\"radio\" value=\"\">
-                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i][]' type=\"radio\" value=\"\"></td>";
+                    //TODO : POUR LA VERSION AVEC CHECK BOX : AJOUTER [] APRES bonneRep[$i] !!!
+                    echo "<td><input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='0'>
+                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='1'>
+                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='2'>
+                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='3'></td>";
                     echo "</tr>";
                 }?>
                 <input type="number" name="inputNbQuestions" value="<?php echo $nbQuestions; ?>" hidden>
