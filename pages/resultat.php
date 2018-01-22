@@ -10,29 +10,45 @@ $points = $_POST['points'];
 $percentPoints = $_POST['percentPoints'];
 $id_exercice = $_POST['id'];
 $total = 100*$points/$percentPoints;
-$answers = $_POST['answers'];
+$answers = str_split($_POST['answers']);
 $timespent = $_POST['timespent'];
 
+$exerciceInfo = getArrayFrom($pdo, "SELECT exercice.libelle FROM exercice WHERE id_exercice = $id_exercice", "fetch");
+$exeTitre = $exerciceInfo["libelle"];
+
+$query = getArrayFrom($pdo, "SELECT question, choix, reponses FROM questions WHERE id_exercice = $id_exercice", "fetchAll");
 ?>
 
 <form>
     <table width="100%" cellspacing="0" border="0">
         <tbody><tr>
-            <th class="front" align="left"><h1>titre</h1></th>
+            <th class="front" align="left"><h1><?php echo $exeTitre ?></h1></th>
             <th class="front" align="right">Points: <?php echo $points; ?> sur <?php echo $total; ?></th>
         </tr>
         </tbody></table>
-    <p>
-        <b>1. What does CSS stand for?</b>
-    </p>
-    <p>
-        <b>You answered: </b>
-    </p>
-    Colorful Style Sheets
-    <p style="color:red">
-        &nbsp;Wrong Answer!
-    </p>
-    <hr>
+    <?php
+        foreach ($answers as $key => $answer){
 
-    <br>Time spent: <?php echo $timespent; ?>
+                ?>
+    <p>
+        <b><?php echo ($key+1).". ".$query[$key]['question']; ?></b>
+    </p>
+    <p>
+        <b>You answered:</b>
+    </p>
+     <?php echo explode(',',$query[$key]['choix'])[$answer]?>
+    <?php if(!in_array($answer,explode(',',$query[$key]['reponses']))){ ?>
+    <p style="color:red">
+        &nbsp;Mauvaise réponse!
+    </p>
+    <?php } else { ?>
+                <p style="color:green">
+                    &nbsp;Bonne réponse!
+                </p>
+        <?php } ?>
+    <hr>
+       <?php }?>
+
+
+    <br>Temps passé: <?php echo $timespent; ?>
 </form>
