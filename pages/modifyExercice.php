@@ -78,7 +78,7 @@ if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_P
                 else
                     $_SESSION['success'] = "Exercice mofidié";
                 session_write_close();
-               // header('location: admin');
+                header('location: admin');
             }
         }
     } else {

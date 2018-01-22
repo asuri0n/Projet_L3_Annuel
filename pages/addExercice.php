@@ -53,10 +53,16 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                         $stringBRep = substr($stringBRep, 0, -1);*/
 
                         if ($insert_stmt->execute(array($lastId, $inputTitreQuestion[$key], $typeQ[$key]+1, $stringRep, $stringBRep))) {
-                            echo "ok";
+                            $error = true;
                         }
                     }
                 }
+                if(isset($error))
+                    $_SESSION['error'] = "Erreur lors de la modification de l'exercice";
+                else
+                    $_SESSION['success'] = "Exercice mofidié";
+                session_write_close();
+                header('location: admin');
             }
         }
     } else {
