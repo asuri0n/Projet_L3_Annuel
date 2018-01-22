@@ -602,3 +602,25 @@ function nbBonnesReponses($exercice_id, $answer) {
     }
     return $cpt;
 }
+
+function getSentenceResult($percent){
+    if($percent == 0){
+        return "Bon, c'est pas grave, essaye encore !";
+    } else if ($percent <= 30){
+        return "<30";
+    } else if ($percent <= 50){
+        return "<50";
+    } else if ($percent == 50){
+        return "La moitié de bon! ";
+    } else if ($percent <= 60){
+        return "Courage! Il faut travailler davantage";
+    } else if ($percent <= 80){
+        return "Encore un petit effort !";
+    } else if ($percent < 100){
+        return "Presque parfait!";
+    } else if ($percent == 100){
+        return "Parfait! Tu as tout bon!";
+    } else {
+        return "error";
+    }
+}

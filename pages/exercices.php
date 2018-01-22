@@ -92,7 +92,7 @@
         $nbBonnesReponses = nbBonnesReponses($exercice_id, implode($answers));
         $percent = ($nbBonnesReponses*100/$nbQuestions);
 
-        echo "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p><p>Vous devez travailler plus!</p><p><b>Temps écoulé</b><br>0:27</p></center>
+        echo "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p><p>".getSentenceResult($percent)."</p><p><b>Temps passé</b><br>0:27</p></center>
         <form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>
             <input name='points' value='$nbBonnesReponses' type='hidden'>
             <input name='percentPoints' value='$percent' type='hidden'>
