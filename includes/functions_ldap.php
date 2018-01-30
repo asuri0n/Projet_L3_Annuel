@@ -1,11 +1,10 @@
 <?php
 
 function creerConnexionLdap(){
-	$baseDN = "dc=iutc3,dc=unicaen,dc=fr";
 	$ldapServer = "ruche";
 	$ldapServerPort = 389;
-	$mdp="WestBam42";
-	$dn = 'uid=armand.baglin,ou=People,dc=iutc3,dc=unicaen,dc=fr';
+	$mdp="durand";
+	$dn = 'uid=e21999997,ou=people,dc=unicaen,dc=fr';
 
 	//echo "Connexion au serveur <br />";
 	$conn=ldap_connect($ldapServer,$ldapServerPort);
@@ -23,11 +22,11 @@ function creerConnexionLdap(){
 	// et le bind ne passe pas. 
 	if (ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3))
 	{
-	//  echo "Utilisation de LDAP V3 : OK \n";
+	  echo "Utilisation de LDAP V3 : OK \n";
 	} 
 	else 
 	{
-	//  echo "Impossible d'utiliser LDAP V3\n";
+	  echo "Impossible d'utiliser LDAP V3\n";
 	  exit;  
 	}
 
