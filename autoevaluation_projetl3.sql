@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 16 jan. 2018 à 15:02
+-- Généré le :  ven. 02 mars 2018 à 15:12
 -- Version du serveur :  10.1.22-MariaDB
 -- Version de PHP :  7.1.4
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
+  `persopass` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `admins` (
 -- Déchargement des données de la table `admins`
 --
 
-INSERT INTO `admins` (`id`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
+INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
 (2, 'asurion61@gmail.com', '8fdb38bdc487d3d1d49fcc508d34329216a57c4e403ff5441e797b5f9760485871ee0dd8b8aa0f43c18bf387c1ed4a51d73759871e9ca86526ef790cb9b6a03c', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404', 0, 'c74d0fab2873a1a41210e2993bea622e');
 
 -- --------------------------------------------------------
@@ -81,7 +81,9 @@ CREATE TABLE `exercice` (
 --
 
 INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `niv_etude`, `libelle`, `date`) VALUES
-(1, 1, 0, 'Exercice 1', '2018-01-13');
+(1, 3, 1, 'Exercice 7', '2018-01-13'),
+(14, 1, 1, 'Exercice 1', '2018-01-16'),
+(15, 1, 1, 'Exercice 1', '2018-01-16');
 
 -- --------------------------------------------------------
 
@@ -102,46 +104,47 @@ CREATE TABLE `login_attempts` (
 
 CREATE TABLE `matieres` (
   `id_matiere` int(11) NOT NULL,
-  `ue_num` int(11) NOT NULL,
   `sem_id` int(11) NOT NULL,
-  `libelle` varchar(100) NOT NULL
+  `ec_num` int(11) DEFAULT NULL,
+  `ue_num` int(11) NOT NULL,
+  `enonce` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `matieres`
 --
 
-INSERT INTO `matieres` (`id_matiere`, `ue_num`, `sem_id`, `libelle`) VALUES
-(1, 1, 1, 'Algèbre linéaire'),
-(2, 1, 2, 'Algèbre linéaire'),
-(3, 1, 3, 'Introduction à la POO'),
-(4, 1, 4, 'Programmation avancée'),
-(5, 1, 5, 'Génie logiciel'),
-(6, 1, 6, 'Théorie des langages et compilation'),
-(7, 2, 1, 'Outils de Calculs, Probabilités, Statistique'),
-(8, 2, 2, 'Logique'),
-(9, 2, 3, 'Système et réseaux 1'),
-(10, 2, 4, 'Découverte des domaines de l’informatique'),
-(11, 2, 5, 'Système et réseaux 2'),
-(12, 2, 6, 'Structures discrètes pour l’informatique'),
-(13, 3, 1, ' Introduction à la programmation'),
-(14, 3, 2, 'Technologies informatiques'),
-(15, 3, 3, 'Algorithmique'),
-(16, 3, 4, 'Travail personnel approfondi'),
-(17, 3, 5, 'Bases de données 2'),
-(18, 3, 6, 'Technologies web'),
-(19, 4, 1, 'Méthodologie informatique et projet professionnel'),
-(20, 4, 2, 'Conception de logiciels'),
-(21, 4, 3, 'Mathématiques'),
-(22, 4, 4, 'Humanités'),
-(23, 4, 5, 'Découverte d’un domaine de l’informatique'),
-(24, 4, 6, ' Conception d’applications'),
-(25, 5, 1, 'Informatique et Internet'),
-(26, 5, 2, 'Humanités'),
-(27, 5, 3, 'Mathématiques appliquées'),
-(28, 5, 4, 'Structures algébriques pour l’informatique'),
-(29, 5, 5, 'Informatique industrielle'),
-(30, 5, 6, 'Stage et Communication');
+INSERT INTO `matieres` (`id_matiere`, `sem_id`, `ec_num`, `ue_num`, `enonce`) VALUES
+(1, 1, NULL, 1, 'Algèbre linéaire'),
+(2, 2, NULL, 1, 'Algèbre linéaire'),
+(3, 3, NULL, 1, 'Introduction à la POO'),
+(4, 4, NULL, 1, 'Programmation avancée'),
+(5, 5, NULL, 1, 'Génie logiciel'),
+(6, 6, NULL, 1, 'Théorie des langages et compilation'),
+(7, 1, NULL, 2, 'Outils de Calculs, Probabilités, Statistique'),
+(8, 2, NULL, 2, 'Logique'),
+(9, 3, NULL, 2, 'Système et réseaux 1'),
+(10, 4, NULL, 2, 'Découverte des domaines de l’informatique'),
+(11, 5, NULL, 2, 'Système et réseaux 2'),
+(12, 6, NULL, 2, 'Structures discrètes pour l’informatique'),
+(13, 1, NULL, 3, ' Introduction à la programmation'),
+(14, 2, NULL, 3, 'Technologies informatiques'),
+(15, 3, NULL, 3, 'Algorithmique'),
+(16, 4, NULL, 3, 'Travail personnel approfondi'),
+(17, 5, NULL, 3, 'Bases de données 2'),
+(18, 6, NULL, 3, 'Technologies web'),
+(19, 1, NULL, 4, 'Méthodologie informatique et projet professionnel'),
+(20, 2, NULL, 4, 'Conception de logiciels'),
+(21, 3, NULL, 4, 'Mathématiques'),
+(22, 4, NULL, 4, 'Humanités'),
+(23, 5, NULL, 4, 'Découverte d’un domaine de l’informatique'),
+(24, 6, NULL, 4, ' Conception d’applications'),
+(25, 1, NULL, 5, 'Informatique et Internet'),
+(26, 2, NULL, 5, 'Humanités'),
+(27, 3, NULL, 5, 'Mathématiques appliquées'),
+(28, 4, NULL, 5, 'Structures algébriques pour l’informatique'),
+(29, 5, NULL, 5, 'Informatique industrielle'),
+(30, 6, NULL, 5, 'Stage et Communication');
 
 -- --------------------------------------------------------
 
@@ -155,16 +158,21 @@ CREATE TABLE `questions` (
   `question` varchar(100) NOT NULL,
   `id_type` int(11) NOT NULL,
   `choix` longtext NOT NULL,
-  `reponses` varchar(255) NOT NULL
+  `reponses` varchar(255) NOT NULL,
+  `justificaiton` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `questions`
 --
 
-INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `choix`, `reponses`) VALUES
-(1, 1, 'Comment définir une variable en JavaScript ?', 1, 'var variable;,this.variable;,define variable;,Pas besoin de définir', '1'),
-(2, 1, 'Pourquoi ?', 3, 'Parceque,ZQD,qzdq', '1');
+INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `choix`, `reponses`, `justificaiton`) VALUES
+(1, 1, 'Pourquoi ?4', 3, 'Parcequew,ZQD,qzdq', '0', NULL),
+(2, 1, 'Pourquzoi ?', 2, 'Parceque,ZQD,qzdq', '1', NULL),
+(16, 14, 'Comment démarrer une balise PHP ?', 2, '<?php,<php>,?<php,<<php', '1', NULL),
+(17, 14, 'Comment terminer une balise PHP ?', 2, 'php?>,php>,</php>,?>', '1', NULL),
+(18, 15, 'Combien de pâtes ont les chats ?', 2, '1,2,3,12', '1', NULL),
+(19, 15, 'Pourquoi ils ont des poals ?', 3, 'parke c d\'où,parke sait bo,pour miaulait,poux rit un', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -173,18 +181,18 @@ INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `c
 --
 
 CREATE TABLE `scores` (
-  `score_id` int(11) NOT NULL,
   `id_etudiant` int(11) NOT NULL,
   `id_exercice` int(11) NOT NULL,
-  `total` int(11) NOT NULL
+  `resultat` int(11) NOT NULL,
+  `resultat_ancien` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `scores`
 --
 
-INSERT INTO `scores` (`score_id`, `id_etudiant`, `id_exercice`, `total`) VALUES
-(1, 21404260, 1, 37);
+INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien`) VALUES
+(21404260, 1, 37, NULL);
 
 -- --------------------------------------------------------
 
@@ -214,7 +222,7 @@ INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
 -- Index pour la table `admins`
 --
 ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`persopass`);
 
 --
 -- Index pour la table `etudiants`
@@ -247,7 +255,8 @@ ALTER TABLE `questions`
 -- Index pour la table `scores`
 --
 ALTER TABLE `scores`
-  ADD PRIMARY KEY (`score_id`,`id_etudiant`),
+  ADD PRIMARY KEY (`id_etudiant`,`id_exercice`),
+  ADD UNIQUE KEY `scores_id_etudiant_id_exercice_pk` (`id_etudiant`,`id_exercice`),
   ADD KEY `etupass` (`id_etudiant`),
   ADD KEY `ex_id` (`id_exercice`);
 
@@ -262,15 +271,10 @@ ALTER TABLE `type_question`
 --
 
 --
--- AUTO_INCREMENT pour la table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `matieres`
 --
@@ -280,12 +284,7 @@ ALTER TABLE `matieres`
 -- AUTO_INCREMENT pour la table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT pour la table `scores`
---
-ALTER TABLE `scores`
-  MODIFY `score_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `type_question`
 --
