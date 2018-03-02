@@ -1,5 +1,4 @@
 <?php
-include 'functions_ldap.php';
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Attribue un nom de session
@@ -156,7 +155,7 @@ function esc_url($url) {
  */
 function login($email, $password) {
 	$pdo = SPDO::getInstance();
-    if ($stmt = $pdo->prepare("SELECT id, email, password, salt, isAdmin FROM admins WHERE email = ? LIMIT 1"))
+    if ($stmt = $pdo->prepare("SELECT persopass, email, password, salt, isAdmin FROM admins WHERE email = ? LIMIT 1"))
     {
         if ($stmt->execute(array($email)))
         {
@@ -164,7 +163,7 @@ function login($email, $password) {
 
             if ($row) 
             {
-                $user_id = $row[0];
+                $persopass = $row[0];
                 $email = $row[1];
                 $db_password = $row[2];
                 $salt = $row[3];
@@ -174,7 +173,7 @@ function login($email, $password) {
 				$password = hash('sha512', $password . $salt);
 				// Si l’utilisateur existe, le script vérifie qu’il n’est pas verrouillé
 				// à cause d’essais de connexion trop répétés 
-				if (checkbrute($user_id) == true) {
+				if (checkbrute($persopass) == true) {
 					// Le compte est verrouillé 
 					// Envoie un email à l’utilisateur l’informant que son compte est verrouillé
 					$_SESSION['error'] = "Compte vérouillé, veuillez contactez un administrateur ou verifier vos mails";
@@ -188,8 +187,8 @@ function login($email, $password) {
 						$user_browser = $_SERVER['HTTP_USER_AGENT'];
 						
 						// Protection XSS car nous pourrions conserver cette valeur
-						$user_id = preg_replace("/[^0-9]+/", "", $user_id);
-						$_SESSION['Auth']['id'] = $user_id;
+                        $persopass = preg_replace("/[^0-9]+/", "", $persopass);
+						$_SESSION['Auth']['id'] = $persopass;
 						$_SESSION['Auth']['email'] = $email;
 						$_SESSION['Auth']['login_string'] = hash('sha512', $db_password . $user_browser);
 						if($isAdmin)
@@ -203,7 +202,7 @@ function login($email, $password) {
 						// Le mot de passe n’est pas correct
 						// Nous enregistrons cet essai dans la base de données
 						$now = time();
-						$brut = $pdo->prepare("INSERT INTO login_attempts(u_id, la_time) VALUES ('$user_id', '$now')");
+						$brut = $pdo->prepare("INSERT INTO login_attempts(u_id, la_time) VALUES ('$persopass', '$now')");
                         $brut->execute();
 						$_SESSION['error'] = "Mot de passe incorrect";
 						return false;
@@ -621,4 +620,49 @@ function getSentenceResult($percent){
     } else {
         return "error";
     }
+}
+
+function connectionLdap($ldapuser, $ldappass)
+{
+    $ldapServer = "srv-ldap.iutc3.unicaen.fr";
+    $ldapServerPort = 389;
+    $ldaptree = 'uid=e' . $ldapuser . ',ou=people,dc=unicaen,dc=fr';
+
+    // connect
+    $ldapconn = ldap_connect($ldapServer, $ldapServerPort) or die("Could not connect to LDAP server.");
+
+    if ($ldapconn) {
+        $setoption = ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3) or die ("Error trying to set option: " . ldap_error($ldapconn));
+
+        // binding to ldap server
+        $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass) or die ("Error trying to bind: " . ldap_error($ldapconn));
+        // verify binding
+        if ($ldapbind) {
+            echo "LDAP bind successful...<br /><br />";
+
+            $result = ldap_search($ldapconn, $ldaptree, "(cn=*)") or die ("Error in search query: " . ldap_error($ldapconn));
+            $data = ldap_get_entries($ldapconn, $result);
+
+            echo $email = $data[0]['mail'][0] . "<br>";
+            echo $diplome = $data[0]['ucbnsecteurdisciplinaire'][0] . "<br>";
+            echo $person = $data[0]['cn'][0] . "<br>";
+            echo $fininscription = $data[0]['datefininscription'][0] . "<br>";
+            echo $ufr = $data[0]['supannaffectation'][0] . "<br>";
+            echo $elemPedag = $data[0]['supannetuelementpedagogique'][0] . "<br>";
+
+            if($ufr == UFRSCIENCES){
+                echo "ok";
+            }
+            echo "::".UFRSCIENCES;
+
+            $_SESSION['Auth']['user'] = $ldapuser;
+            $_SESSION['Auth']['email'] = $email;
+            $_SESSION['Auth']['login_string'] = hash('sha512', $db_password . $user_browser);
+
+            // SHOW ALL DATA
+            //print_r($data);
+            return true;
+        }
+    }
+    return false;
 }

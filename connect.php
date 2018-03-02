@@ -1,16 +1,4 @@
 <?php
-// Local path of folder project
-define('WEBROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
-
-// Full path of folder project
-define('PATH', "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
-
-// Start session safely
-sec_session_start();
-
-// Login system
-require 'includes/Auth.php';
-
 /*
  *  Page system
  */

@@ -1,13 +1,20 @@
 <?php
     if(isset($_POST['submit']))
     {
-        if(isset($_POST['inputEmail']) and !empty($_POST['inputEmail']) and isset($_POST['inputPassword']) and !empty($_POST['inputPassword']))
+        if(isset($_POST['inputEtuPersoPass']) and !empty($_POST['inputEtuPersoPass']) and isset($_POST['inputPassword']) and !empty($_POST['inputPassword']))
         {
-            login($_POST['inputEmail'], $_POST['inputPassword']);
-            $_SESSION['success'] = "Vous êtes maintenant connecté!";
-            session_write_close();
-            header('location: '.WEBROOT.'profil');
-        } else {
+            $inputEtuPersoPass = "21999997";
+            $inputPassword = "durand";
+
+            //if(login($inputEtuPersoPass, $inputPassword))
+            if(connectionLdap($inputEtuPersoPass,$inputPassword)){
+                $_SESSION['success'] = "Vous êtes maintenant connecté!";
+                session_write_close();
+                header('location: '.WEBROOT.'profil');
+            } else {
+                $_SESSION['error'] = "Mauvais identifiants !";
+            }
+        }else {
             $_SESSION['error'] = "Une erreur est apparu. Veuillez réessayer !";
         }
     }
@@ -19,8 +26,9 @@
 ?>
 <form method="POST" class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
     <h2 class="form-signin-heading">Connectez-vous</h2>
-    <label for="inputEmail" class="sr-only">Adresse mail</label>
-    <input name="inputEmail" class="form-control" placeholder="Adresse mail"  autofocus="" type="email">
+    <h5>Avec votre persopass ou etupass</h5>
+    <label for="inputEtuPersoPass" class="sr-only">Persopass ou Etupass</label>
+    <input name="inputEtuPersoPass" class="form-control" placeholder="Persopass ou Etupass" autofocus="" type="text">
     <label for="inputPassword" class="sr-only">Mot de passe</label>
     <input name="inputPassword" class="form-control" placeholder="Mot de passe"  type="password">
     <div class="checkbox">
