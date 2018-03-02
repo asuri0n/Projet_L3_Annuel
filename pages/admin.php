@@ -1,6 +1,6 @@
 <?php
-    if(!isset($_SESSION['Auth']['isTeacher'])){
-        $_SESSION['error'] = "Tu n'as pas accès a cette page !";
+    if(!isset($_SESSION['Auth']['isTeacher']) and !isset($_SESSION['Auth']['isAdmin'])){
+        $_SESSION['error'] = "Vous n'avez pas acces a cette page!";
         session_write_close();
         header('location: '.WEBROOT.'accueil');
     }
@@ -11,7 +11,7 @@
     if(isset($_POST['modifyExercice']))
         include 'modifyExercice.php';
 
-$exercicesListe = getArrayFrom($pdo, "SELECT id_exercice, libelle FROM exercice", "fetchAll", 'FETCH_BOTH');
+    $exercicesListe = getArrayFrom($pdo, "SELECT id_exercice, libelle FROM exercice", "fetchAll", 'FETCH_BOTH');
 
 ?>
 

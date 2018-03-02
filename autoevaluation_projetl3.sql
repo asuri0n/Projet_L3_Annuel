@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 02 mars 2018 à 15:12
+-- Généré le :  ven. 02 mars 2018 à 19:10
 -- Version du serveur :  10.1.22-MariaDB
 -- Version de PHP :  7.1.4
 
@@ -52,15 +52,16 @@ INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `acti
 
 CREATE TABLE `etudiants` (
   `id_etudiant` int(8) NOT NULL,
-  `date_prem_conn` date NOT NULL
+  `date_prem_conn` date NOT NULL,
+  `fin_inscription` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `etudiants`
 --
 
-INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`) VALUES
-(21404260, '2018-01-12');
+INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`, `fin_inscription`) VALUES
+(21404260, '2018-01-12', NULL);
 
 -- --------------------------------------------------------
 

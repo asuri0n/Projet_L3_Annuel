@@ -1,8 +1,13 @@
 <?php
     if(!isset($_SESSION['Auth'])){
-        $_SESSION['error'] = "Vous n êtes pas connecté!";
+        $_SESSION['error'] = "Vous n'êtes pas connecté!";
         session_write_close();
         header('location: '.WEBROOT.'login');
+    }
+    if(isset($_SESSION['Auth']['isAdmin'])){
+        $_SESSION['error'] = "Vous n'avez pas acces a cette page!";
+        session_write_close();
+        header('location: '.WEBROOT.'accueil');
     }
 ?>
 

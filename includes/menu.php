@@ -30,10 +30,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($_SESSION['Auth'])) { ?>
-                    <?php if(isset($_SESSION['Auth']["isTeacher"])) { ?>
+                    <?php if(isset($_SESSION['Auth']["isTeacher"]) or isset($_SESSION['Auth']["isAdmin"])) { ?>
                         <li <?php if ( $params[0] == 'admin') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>admin">Gestion</a></li>
                     <?php } ?>
-                        <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil"><?php echo $_SESSION['Auth']['givenname'] ?></a></li>
+                    <?php if(!isset($_SESSION['Auth']["isAdmin"])) { ?>
+                        <li <?php if (!$params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil"><?php echo $_SESSION['Auth']['givenname'] ?></a></li>
+                    <?php } ?>
                     <li <?php if ($params[0] == 'signout') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>signout">Se déconnecter</a></li>
                 <?php } else { ?>
                     <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>login">Se connecter</a></li>

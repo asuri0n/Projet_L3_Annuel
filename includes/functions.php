@@ -24,193 +24,44 @@ function sec_session_start() {
 }
 
 /**
- * Verification de brute force
- *
- * @param String $user_id -> ID de l'utilisation
- * @param PDO $pdo -> objet PDO
- * @return true/false;
- */
-function checkbrute($user_id) {
-    $pdo = SPDO::getInstance();
-    // Récupère le timestamp actuel
-    $now = time();
- 
-    // Tous les essais de connexion sont répertoriés pour les 2 dernières heures
-    $valid_attempts = $now - (2 * 60 * 60);
- 
-    if ($stmt = $pdo->prepare("SELECT count(*) 
-                             FROM login_attempts
-                             WHERE u_id = ? 
-                            AND la_time > '$valid_attempts'")) {
-        $stmt->execute(array($user_id));
- 
-        $row = $stmt->fetch(PDO::FETCH_BOTH);
-				
-        // S’il y a eu plus de 5 essais de connexion 
-        if ($row[0] > 5) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-/**
- * Verification de la session en cours
- *
- * @return true/false;
- */
-function login_check() {	
-	$pdo = SPDO::getInstance();
-    // Vérifie que toutes les variables de session sont mises en place
-    if (isset($_SESSION['Auth']['id'], $_SESSION['Auth']['username'],$_SESSION['Auth']['login_string'])) 
-	{
-        $user_id = $_SESSION['Auth']['id'];
-        $login_string = $_SESSION['Auth']['username'];
-        $username = $_SESSION['Auth']['login_string'];
- 
-        // Récupère la chaîne user-agent de l’utilisateur
-        $user_browser = $_SERVER['HTTP_USER_AGENT'];
- 
-        if ($stmt = $pdo->prepare("SELECT u_password FROM hs_users WHERE u_id = ? LIMIT 1")) 
-		{
-            if ($stmt->execute(array($user_id)))
-			{
-				$row = $stmt->fetch(PDO::FETCH_BOTH);
-
-				if ($row) 
-				{
-					$password = $row[0];
-					$login_check = hash('sha512', $password . $user_browser);
-	 
-					if ($login_check == $login_string) {
-						// Connecté!!!! 
-						return true;
-					} else {
-						// Pas connecté 
-						return false;
-					}
-				} else {
-					// Pas connecté 
-					return false;
-				}
-			} else {
-				// Pas connecté 
-				return false;
-			}
-        } else {
-            // Pas connecté 
-            return false;
-        }
-    } else {
-        // Pas connecté 
-        return false;
-    }
-}
-
-/**
- * Nettoyage de la vairable PHP_SELF
- *
- * @param String $url -> variable PHP_SELF
- * @return $url;
- */
-function esc_url($url) {
- 
-    if ('' == $url) {
-        return $url;
-    }
- 
-    $url = preg_replace('|[^a-z0-9-~+_.?#=!&;,/:%@$\|*\'()\\x80-\\xff]|i', '', $url);
- 
-    $strip = array('%0d', '%0a', '%0D', '%0A');
-    $url = (string) $url;
- 
-    $count = 1;
-    while ($count) {
-        $url = str_replace($strip, '', $url, $count);
-    }
- 
-    $url = str_replace(';//', '://', $url);
- 
-    $url = htmlentities($url);
- 
-    $url = str_replace('&amp;', '&#038;', $url);
-    $url = str_replace("'", '&#039;', $url);
- 
-    if ($url[0] !== '/') {
-        // Nous ne voulons que les liens relatifs de $_SERVER['PHP_SELF']
-        return '';
-    } else {
-        return $url;
-    }
-}
-
-/**
  * Connection d'un utilisateur
  *
  * @param String $email -> email of the user (lel)
  * @param String $password -> password of the user (lel)
- * @param mysql $pdo -> database object
  * @return true/false;
  */
 function login($email, $password) {
 	$pdo = SPDO::getInstance();
-    if ($stmt = $pdo->prepare("SELECT persopass, email, password, salt, isAdmin FROM admins WHERE email = ? LIMIT 1"))
+    if ($stmt = $pdo->prepare("SELECT persopass, email, password, salt FROM admins WHERE email = ? LIMIT 1"))
     {
         if ($stmt->execute(array($email)))
         {
             $row = $stmt->fetch(PDO::FETCH_BOTH);
-
-            if ($row) 
+            if ($row)
             {
                 $persopass = $row[0];
                 $email = $row[1];
                 $db_password = $row[2];
                 $salt = $row[3];
-                $isAdmin = $row[4];
 
 				// Hashe le mot de passe avec le salt unique
 				$password = hash('sha512', $password . $salt);
-				// Si l’utilisateur existe, le script vérifie qu’il n’est pas verrouillé
-				// à cause d’essais de connexion trop répétés 
-				if (checkbrute($persopass) == true) {
-					// Le compte est verrouillé 
-					// Envoie un email à l’utilisateur l’informant que son compte est verrouillé
-					$_SESSION['error'] = "Compte vérouillé, veuillez contactez un administrateur ou verifier vos mails";
-					return false;
-				} else {
-					// Vérifie si les deux mots de passe sont les mêmes
-					// Le mot de passe que l’utilisateur a donné.
-					if ($db_password == $password) {						
-						// Le mot de passe est correct!
-						// Récupère la chaîne user-agent de l’utilisateur						
-						$user_browser = $_SERVER['HTTP_USER_AGENT'];
-						
-						// Protection XSS car nous pourrions conserver cette valeur
-                        $persopass = preg_replace("/[^0-9]+/", "", $persopass);
-						$_SESSION['Auth']['id'] = $persopass;
-						$_SESSION['Auth']['email'] = $email;
-						$_SESSION['Auth']['login_string'] = hash('sha512', $db_password . $user_browser);
-						if($isAdmin)
-							$_SESSION['Auth']['role'] = 2;
-						else
-							$_SESSION['Auth']['role'] = 1;
-												
-						// Ouverture de session réussie.
-						return true;					
-					} else {
-						// Le mot de passe n’est pas correct
-						// Nous enregistrons cet essai dans la base de données
-						$now = time();
-						$brut = $pdo->prepare("INSERT INTO login_attempts(u_id, la_time) VALUES ('$persopass', '$now')");
-                        $brut->execute();
-						$_SESSION['error'] = "Mot de passe incorrect";
-						return false;
-					}
-				}
+                // Vérifie si les deux mots de passe sont les mêmes
+                // Le mot de passe que l’utilisateur a donné.
+                if ($db_password == $password) {
+                    // Protection XSS car nous pourrions conserver cette valeur
+                    $persopass = preg_replace("/[^0-9]+/", "", $persopass);
+                    $_SESSION['Auth']['id'] = $persopass;
+                    $_SESSION['Auth']['user'] = $email;
+                    $_SESSION['Auth']['isAdmin'] = true;
+
+                    return true;
+                } else {
+                    $_SESSION['error'] = "Mot de passe incorrect";
+                    return false;
+                }
 			} else {
-				// L’utilisateur n’existe pas.
-				$_SESSION['error'] = "L\'utilisateur n\'existe pas";
+				$_SESSION['error'] = "L'utilisateur n'existe pas";
 				return false;
 			}
 		} else {
@@ -221,6 +72,120 @@ function login($email, $password) {
 		$_SESSION['error'] = "Erreur lors de la connexion";
 		return false;
 	}
+}
+
+/**
+ * Connection avec le serveur ldap
+ *
+ * @param String $ldapuser
+ * @param String $ldappass
+ * @return true/false;
+ */
+function connectionLdap($ldapuser, $ldappass)
+{
+    $ldapServer = "srv-ldap.iutc3.unicaen.fr";
+    $ldapServerPort = 389;
+    $ldaptree = 'uid=e' . $ldapuser . ',ou=people,dc=unicaen,dc=fr';
+
+    // connect
+    $ldapconn = ldap_connect($ldapServer, $ldapServerPort);
+
+    if ($ldapconn) {
+        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+
+        // binding to ldap server
+        $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass);
+        if ($ldapbind) {
+            $result = ldap_search($ldapconn, $ldaptree, "(cn=*)") or die ("Error in search query: " . ldap_error($ldapconn));
+            $data = ldap_get_entries($ldapconn, $result);
+
+            $email = $data[0]['mail'][0];
+            $displayname = $data[0]['displayname'][0];
+            $givenname = $data[0]['givenname'][0];
+
+            $diplome = explode(';',$data[0]['ucbncodeetape'][0])[1];
+            $status = $data[0]['ucbnstatus'][0];
+
+            $ufr = $data[0]['supannaffectation'][0];
+            $elempedag = $data[0]['supannetuelementpedagogique'];
+
+            // Si la personne est un étudiant
+            if(strcmp($status,"ETUDIANT") == 0)
+            {
+                // Si la personne un étudiant à l'UFR des Sciences
+                if(strcmp($ufr,UFRSCIENCES) == 0) {
+                    if (!updateAccount(0, $data)) {
+                        $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
+                        return false;
+                    }
+
+                    $_SESSION['Auth']['user'] = $ldapuser;
+                    $_SESSION['Auth']['givenname'] = $givenname;
+                    $_SESSION['Auth']['displayname'] = $displayname;
+                    $_SESSION['Auth']['email'] = $email;
+                    $_SESSION['Auth']['diplome'] = $diplome;
+                    $_SESSION['Auth']['elempedag'] = $elempedag;
+
+                    //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
+                    $_SESSION['Auth']['isTeacher'] = true;
+                    //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
+
+                    //TODO: METTRE EN BDD la fin d'inscription pour gérer le vidage de bdd
+
+                    return true;
+
+                } else {
+                    $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
+                }
+            } else {
+
+                if (!updateAccount(1, $data)) {
+                    $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
+                    return false;
+                }
+
+                // Si la personne est un professeur
+                $_SESSION['Auth']['user'] = $ldapuser;
+                $_SESSION['Auth']['givenname'] = $givenname;
+                $_SESSION['Auth']['displayname'] = $displayname;
+                $_SESSION['Auth']['email'] = $email;
+                $_SESSION['Auth']['isTeacher'] = true;
+
+                return true;
+            }
+        }
+    } else {
+        $_SESSION['error'] = "Could not connect to LDAP server";
+    }
+    return false;
+}
+
+/**
+ * Mets a jour l'user dans la DB
+ *
+ * @param Boolean $isTeacher
+ * @param array $data
+ * @return true/false;
+ */
+function updateAccount($isTeacher,$data){
+    $pdo = SPDO::getInstance();
+
+    if($isTeacher) {
+        //TODO : Pour les professeurs
+    } else {
+        // Si l'étudiant s'est déja connecté sur le site
+        $etupass = $data[0]['uidnumber'][0];
+
+        if (!getArrayFrom($pdo,"SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
+            $fininscription = $data[0]['datefininscription'][0];
+            $fininscription = DateTime::createFromFormat('Ymd', $fininscription)->format('Y-m-d');
+
+            if ($insert_stmt = $pdo->prepare("INSERT INTO etudiants (id_etudiant, date_prem_conn, fin_inscription) VALUES (?, now(), ?)"))
+                if ($insert_stmt->execute(array($etupass, $fininscription)))
+                    return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -309,105 +274,6 @@ function signup() {
     }
 }
 
-function changepassword() {   
-    $pdo = SPDO::getInstance(); 
-    if (isset($_POST['password'], $_POST['password2'], $_POST['password3'], $_POST['email'])) {
-
-        $email = $_POST['email'];
-        // Nettoyez et validez les données transmises au script
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-        $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_STRING);
-        $password3 = filter_input(INPUT_POST, 'password3', FILTER_SANITIZE_STRING);
-
-        if($password2 != $password3){                    
-            $_SESSION['error'] = "Les mots de passes ne correspondent pas";
-            session_write_close();
-            return false;
-        }
-     
-        // La forme du nom d’utilisateur et du mot de passe a été vérifiée côté client
-        // Cela devrait suffire, car personne ne tire avantage
-        // à briser ce genre de règles.
-        //
-     
-        $prep_stmt = "SELECT * FROM hs_users WHERE u_email = ? LIMIT 1";
-        $stmt = $pdo->prepare($prep_stmt);
-     
-        $stmt->execute(array($email));
-        $row = $stmt->fetch(PDO::FETCH_BOTH);     
-        $verifPassword = $row['u_password'];
-     
-        // CE QUE VOUS DEVEZ FAIRE: 
-        // Nous devons aussi penser à la situation où l’utilisateur n’a pas
-        // le droit de s’enregistrer, en vérifiant quel type d’utilisateur essaye de
-        // s’enregistrer.
- 
-        // Crée le mot de passe en se servant du salt généré ci-dessus 
-        $password = hash('sha512', $password . $row['u_salt']);
-
-        if ( $password != $verifPassword ) {
-            $_SESSION['error'] = "Votre ancien mot de passe est incorrect";
-            session_write_close();
-            return false;
-        } else {
-            $new = hash('sha512', $password2 . $row['u_salt']);
-            $queryUpdate = "UPDATE hs_users SET u_password = ? WHERE u_email = ?";
-            $stmt = $pdo->prepare($queryUpdate);
-            $stmt->execute(array($new, $email));
-
-            return true;
-        }
-    } else {
-        $_SESSION['error'] = "Erreur de base de données";
-        return false; 
-    }
-}
-
-function changeEmail() {   
-    $pdo = SPDO::getInstance(); 
-    if (isset($_POST['email'])) {
-        // Nettoyez et validez les données transmises au script
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {          
-            $_SESSION['error'] = "Adresse mail non valide";
-            session_write_close();
-            return false;
-        }
-     
-        $prep_stmt = "SELECT u_id FROM hs_users WHERE u_email = ? LIMIT 1";
-        $stmt = $pdo->prepare($prep_stmt);
-     
-        if ($stmt) {
-            $stmt->execute(array($email));
-            $row = $stmt->fetch();
-            if ($row) {            
-                $_SESSION['error'] = "Il existe déja un utilisateur avec le même email";
-                session_write_close();
-                return false;
-            }
-        } else {
-            $_SESSION['error'] = "Erreur de base de données";
-            return false;
-        }
-
-        $queryUpdate = "UPDATE hs_users SET u_email = ? WHERE u_id = ?";
-        $stmt = $pdo->prepare($queryUpdate);
-
-        if ( $stmt ) {
-            $stmt->execute(array($email,$_SESSION['Auth']['id']));
-            $_SESSION['Auth']['email'] = $email;
-        } else {
-            return false;
-        }
-
-        return true;
-
-    } else {
-            $_SESSION['error'] = "Erreur de base de données";
-            return false; }
-}
-
 /**
  * Return le resultat d'une requete SQL
  *
@@ -470,123 +336,6 @@ function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC")
     return false;
 }
 
-/**
- * Return la partie GET d'un lien donné
- *
- * @return String.
- */
-function getLink(){
-    $actual_link = $_SERVER['REQUEST_URI'];
-    return explode('?',$actual_link)[1];
-}
-
-/**
- * Return le resultat d'une comparaison
- *
- * @param $first -> String
- * @param $second -> String
- * @return Boolean.
- */
-function isSelected($first, $second){
-    if($first == $second)
-        return "true";
-    return "false";
-}
-
-/**
- * 
- *
- * @param $array -> Array
- * @param $default -> String
- * @return String.
- */
-function isReturned($pdo, $query){
-
-    if ($stmt = $pdo->prepare($query)) 
-    {
-        if ($stmt->execute()) 
-        {
-            $row = $stmt->fetch(PDO::FETCH_BOTH);
-            if($row){
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-}
-
-/**
- * Return une chaine de caractère contenant un Select/Option HTML
- *
- * @param $array -> Array
- * @param $default -> String
- * @return String.
- */
-function isInArray($array, $test){
-    do {
-        foreach ($array as $subArray) {
-            foreach ($subArray as $value) {
-                if ($value == $test) return true;
-            }
-        }
-        $array = $value;
-    } while (is_array($array));
-    return false;
-}
-
-/**
- * Vérification 
- *
- * @param $array -> Array
- * @param $default -> String
- * @return String.
- */
-function checkReCaptcha($post){
-	$secret="6LdamA0UAAAAAA_o8HIR6JbBCIKpr1YLTMmuJy7I";
-	$response=$post["g-recaptcha-response"];
-	$verify=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
-	$captcha_success=json_decode($verify);
-
-	if ($captcha_success->success==false) {
-		return false;
-	} else if ($captcha_success->success==true) {
-		return true;
-	}
-}
-
-// Function to get the client IP address
-function get_client_ip() {
-    $ipaddress = '';
-    if (isset($_SERVER['HTTP_CLIENT_IP']))
-        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    else if(isset($_SERVER['HTTP_X_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-    else if(isset($_SERVER['HTTP_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED'];
-    else if(isset($_SERVER['REMOTE_ADDR']))
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
-}
-
-// COOOOOKIE
-function setCookieUser($name,$content,$time) {
-    $time = $time*60;
-    setcookie ($name, $content, time() + $time, '/', 'heavyserver.com',1);
-}
-
-// Générer une clé unique pour la réinitialisation de mot de passe
-function generateUniqueKey() {
-    $uniqid = uniqid(mt_rand(),true);
-    return md5($uniqid);
-}
-
 function nbBonnesReponses($exercice_id, $answer) {
     $pdo = SPDO::getInstance();
     $questions = getArrayFrom($pdo, "SELECT id_question, reponses FROM questions WHERE id_exercice = ".$exercice_id, "fetchAll");
@@ -617,106 +366,4 @@ function getSentenceResult($percent){
     } else {
         return "error";
     }
-}
-
-function connectionLdap($ldapuser, $ldappass)
-{
-    $ldapServer = "srv-ldap.iutc3.unicaen.fr";
-    $ldapServerPort = 389;
-    $ldaptree = 'uid=e' . $ldapuser . ',ou=people,dc=unicaen,dc=fr';
-
-    // connect
-    $ldapconn = ldap_connect($ldapServer, $ldapServerPort);
-
-    if ($ldapconn) {
-        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
-
-        // binding to ldap server
-        $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass);
-        if ($ldapbind) {
-            $result = ldap_search($ldapconn, $ldaptree, "(cn=*)") or die ("Error in search query: " . ldap_error($ldapconn));
-            $data = ldap_get_entries($ldapconn, $result);
-
-            $email = $data[0]['mail'][0];
-            $displayname = $data[0]['displayname'][0];
-            $givenname = $data[0]['givenname'][0];
-
-            $diplome = explode(';',$data[0]['ucbncodeetape'][0])[1];
-            $status = $data[0]['ucbnstatus'][0];
-
-            $ufr = $data[0]['supannaffectation'][0];
-            $elempedag = $data[0]['supannetuelementpedagogique'];
-
-            // Si la personne est un étudiant
-            if(strcmp($status,"ETUDIANT") == 0)
-            {
-                // Si la personne un étudiant à l'UFR des Sciences
-                if(strcmp($ufr,UFRSCIENCES) == 0) {
-                    if (!updateAccount(0, $data)) {
-                        $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
-                        return false;
-                    }
-
-                    $_SESSION['Auth']['user'] = $ldapuser;
-                    $_SESSION['Auth']['givenname'] = $givenname;
-                    $_SESSION['Auth']['displayname'] = $displayname;
-                    $_SESSION['Auth']['email'] = $email;
-                    $_SESSION['Auth']['diplome'] = $diplome;
-                    $_SESSION['Auth']['elempedag'] = $elempedag;
-
-                    //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
-                    $_SESSION['Auth']['isTeacher'] = true;
-                    //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
-
-                    //TODO: METTRE EN BDD la fin d'inscription pour gérer le vidage de bdd
-
-                    return true;
-
-                } else {
-                    $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
-                }
-            } else {
-
-                if (!updateAccount(1, $data)) {
-                    $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
-                    return false;
-                }
-
-                // Si la personne est un professeur
-                $_SESSION['Auth']['user'] = $ldapuser;
-                $_SESSION['Auth']['givenname'] = $givenname;
-                $_SESSION['Auth']['displayname'] = $displayname;
-                $_SESSION['Auth']['email'] = $email;
-                $_SESSION['Auth']['isTeacher'] = true;
-
-                return true;
-            }
-        } else {
-            $_SESSION['error'] = "Error trying to bind: " . ldap_error($ldapconn);
-        }
-    } else {
-        $_SESSION['error'] = "Could not connect to LDAP server";
-    }
-    return false;
-}
-
-function updateAccount($isTeacher,$data){
-    global $pdo;
-
-    if($isTeacher) {
-        //TODO : Pour les professeurs
-    } else {
-        // Si l'étudiant s'est déja connecté sur le site
-        $etupass = $data[0]['uidnumber'][0];
-
-        if (!getArrayFrom($pdo,"SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
-            $fininscription = $data[0]['datefininscription'][0];
-            $fininscription = DateTime::createFromFormat('Ymd', $fininscription)->format('Y-m-d');
-
-            if ($insert_stmt = $pdo->prepare("INSERT INTO etudiants (id_etudiant, date_prem_conn, fin_inscription) VALUES (?, now(), ?)"))
-                if ($insert_stmt->execute(array($etupass, $fininscription)))
-                    return true;
-        }
-    }
-    return false;
 }
