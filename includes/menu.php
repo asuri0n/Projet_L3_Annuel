@@ -14,7 +14,6 @@
             <ul class="nav navbar-nav">
                 <li <?php if ($params[0] == 'accueil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>accueil/">Accueil</a></li>
                 <li <?php if ($params[0] == 'exercices' or $params[0] == 'resultat') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>exercices">Exercices</a></li>
-                <li <?php if ($params[0] == 'admin') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>admin">Panel Admin</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -31,7 +30,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($_SESSION['Auth'])) { ?>
-                    <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil"><?php echo $_SESSION['Auth']['person'] ?></a></li>
+                    <?php if(isset($_SESSION['Auth']["isTeacher"])) { ?>
+                        <li <?php if ( $params[0] == 'admin') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>admin">Gestion</a></li>
+                    <?php } ?>
+                        <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil"><?php echo $_SESSION['Auth']['givenname'] ?></a></li>
                     <li <?php if ($params[0] == 'signout') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>signout">Se déconnecter</a></li>
                 <?php } else { ?>
                     <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>login">Se connecter</a></li>

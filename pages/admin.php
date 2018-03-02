@@ -1,4 +1,10 @@
 <?php
+    if(!isset($_SESSION['Auth']['isTeacher'])){
+        $_SESSION['error'] = "Tu n'as pas accès a cette page !";
+        session_write_close();
+        header('location: '.WEBROOT.'accueil');
+    }
+
     if(isset($_POST['addExercice']))
         include 'addExercice.php';
 

@@ -415,7 +415,7 @@ function changeEmail() {
  * @param $query -> String
  * @param $fetch -> String fetch name
  * @param $type -> String fetch type
- * @return array.
+ * @return bool
  */
 function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC")
 {
@@ -463,14 +463,11 @@ function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC")
                     }
                     break;
             }
-
-            if ($row) 
-            {
+            if (isset($row))
                 return $row;
-            }
         }
     }
-    return 0;
+    return false;
 }
 
 /**
@@ -641,26 +638,85 @@ function connectionLdap($ldapuser, $ldappass)
             $data = ldap_get_entries($ldapconn, $result);
 
             $email = $data[0]['mail'][0];
-            $diplome = $data[0]['ucbnsecteurdisciplinaire'][0];
-            $person = $data[0]['cn'][0];
-            $fininscription = $data[0]['datefininscription'][0];
-            $ufr = $data[0]['supannaffectation'][0];
-            $elemPedag = $data[0]['supannetuelementpedagogique'][0];
+            $displayname = $data[0]['displayname'][0];
+            $givenname = $data[0]['givenname'][0];
 
-            if(strcmp($ufr,UFRSCIENCES) == 0)
+            $diplome = explode(';',$data[0]['ucbncodeetape'][0])[1];
+            $status = $data[0]['ucbnstatus'][0];
+
+            $ufr = $data[0]['supannaffectation'][0];
+            $elempedag = $data[0]['supannetuelementpedagogique'];
+
+            // Si la personne est un étudiant
+            if(strcmp($status,"ETUDIANT") == 0)
             {
-                $_SESSION['Auth']['user'] = $ldapuser;
-                $_SESSION['Auth']['person'] = $person;
-                $_SESSION['Auth']['email'] = $email;
-                return true;
+                // Si la personne un étudiant à l'UFR des Sciences
+                if(strcmp($ufr,UFRSCIENCES) == 0) {
+                    if (!updateAccount(0, $data)) {
+                        $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
+                        return false;
+                    }
+
+                    $_SESSION['Auth']['user'] = $ldapuser;
+                    $_SESSION['Auth']['givenname'] = $givenname;
+                    $_SESSION['Auth']['displayname'] = $displayname;
+                    $_SESSION['Auth']['email'] = $email;
+                    $_SESSION['Auth']['diplome'] = $diplome;
+                    $_SESSION['Auth']['elempedag'] = $elempedag;
+
+                    //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
+                    $_SESSION['Auth']['isTeacher'] = true;
+                    //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
+
+                    //TODO: METTRE EN BDD la fin d'inscription pour gérer le vidage de bdd
+
+                    return true;
+
+                } else {
+                    $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
+                }
             } else {
-                $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
+
+                if (!updateAccount(1, $data)) {
+                    $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
+                    return false;
+                }
+
+                // Si la personne est un professeur
+                $_SESSION['Auth']['user'] = $ldapuser;
+                $_SESSION['Auth']['givenname'] = $givenname;
+                $_SESSION['Auth']['displayname'] = $displayname;
+                $_SESSION['Auth']['email'] = $email;
+                $_SESSION['Auth']['isTeacher'] = true;
+
+                return true;
             }
         } else {
             $_SESSION['error'] = "Error trying to bind: " . ldap_error($ldapconn);
         }
     } else {
         $_SESSION['error'] = "Could not connect to LDAP server";
+    }
+    return false;
+}
+
+function updateAccount($isTeacher,$data){
+    global $pdo;
+
+    if($isTeacher) {
+        //TODO : Pour les professeurs
+    } else {
+        // Si l'étudiant s'est déja connecté sur le site
+        $etupass = $data[0]['uidnumber'][0];
+
+        if (!getArrayFrom($pdo,"SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
+            $fininscription = $data[0]['datefininscription'][0];
+            $fininscription = DateTime::createFromFormat('Ymd', $fininscription)->format('Y-m-d');
+
+            if ($insert_stmt = $pdo->prepare("INSERT INTO etudiants (id_etudiant, date_prem_conn, fin_inscription) VALUES (?, now(), ?)"))
+                if ($insert_stmt->execute(array($etupass, $fininscription)))
+                    return true;
+        }
     }
     return false;
 }

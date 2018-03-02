@@ -6,6 +6,6 @@ if(isset($_SESSION['error']) and !empty($_SESSION['error']))
 }
 if(isset($_SESSION['success']) and !empty($_SESSION['success']))
 {
-    echo '<script>toast("'.$_SESSION['success'].'", "success", "SuccÃ¨s", 5000)</script>';
+    echo '<script>toast("'.$_SESSION['success'].'", "success", "Succès", 5000)</script>';
     unset($_SESSION['success']);
 }

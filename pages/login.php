@@ -15,11 +15,12 @@
         }else {
             $_SESSION['error'] = "Une erreur est apparu. Veuillez réessayer !";
         }
-    }
-    if(isset($_SESSION['Auth'])){
-        $_SESSION['error'] = "Vous êtes déja connecté!";
-        session_write_close();
-        header('location: '.WEBROOT.'accueil');
+    } else {
+        if(isset($_SESSION['Auth'])){
+            $_SESSION['error'] = "Vous êtes déja connecté!";
+            session_write_close();
+            header('location: '.WEBROOT.'accueil');
+        }
     }
 ?>
 <form method="POST" class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
