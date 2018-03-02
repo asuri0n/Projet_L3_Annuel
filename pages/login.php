@@ -11,8 +11,6 @@
                 $_SESSION['success'] = "Vous êtes maintenant connecté!";
                 session_write_close();
                 header('location: '.WEBROOT.'profil');
-            } else {
-                $_SESSION['error'] = "Mauvais identifiants !";
             }
         }else {
             $_SESSION['error'] = "Une erreur est apparu. Veuillez réessayer !";

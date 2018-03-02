@@ -629,40 +629,38 @@ function connectionLdap($ldapuser, $ldappass)
     $ldaptree = 'uid=e' . $ldapuser . ',ou=people,dc=unicaen,dc=fr';
 
     // connect
-    $ldapconn = ldap_connect($ldapServer, $ldapServerPort) or die("Could not connect to LDAP server.");
+    $ldapconn = ldap_connect($ldapServer, $ldapServerPort);
 
     if ($ldapconn) {
-        $setoption = ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3) or die ("Error trying to set option: " . ldap_error($ldapconn));
+        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
 
         // binding to ldap server
-        $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass) or die ("Error trying to bind: " . ldap_error($ldapconn));
-        // verify binding
+        $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass);
         if ($ldapbind) {
-            echo "LDAP bind successful...<br /><br />";
-
             $result = ldap_search($ldapconn, $ldaptree, "(cn=*)") or die ("Error in search query: " . ldap_error($ldapconn));
             $data = ldap_get_entries($ldapconn, $result);
 
-            echo $email = $data[0]['mail'][0] . "<br>";
-            echo $diplome = $data[0]['ucbnsecteurdisciplinaire'][0] . "<br>";
-            echo $person = $data[0]['cn'][0] . "<br>";
-            echo $fininscription = $data[0]['datefininscription'][0] . "<br>";
-            echo $ufr = $data[0]['supannaffectation'][0] . "<br>";
-            echo $elemPedag = $data[0]['supannetuelementpedagogique'][0] . "<br>";
+            $email = $data[0]['mail'][0];
+            $diplome = $data[0]['ucbnsecteurdisciplinaire'][0];
+            $person = $data[0]['cn'][0];
+            $fininscription = $data[0]['datefininscription'][0];
+            $ufr = $data[0]['supannaffectation'][0];
+            $elemPedag = $data[0]['supannetuelementpedagogique'][0];
 
-            if($ufr == UFRSCIENCES){
-                echo "ok";
+            if(strcmp($ufr,UFRSCIENCES) == 0)
+            {
+                $_SESSION['Auth']['user'] = $ldapuser;
+                $_SESSION['Auth']['person'] = $person;
+                $_SESSION['Auth']['email'] = $email;
+                return true;
+            } else {
+                $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
             }
-            echo "::".UFRSCIENCES;
-
-            $_SESSION['Auth']['user'] = $ldapuser;
-            $_SESSION['Auth']['email'] = $email;
-            $_SESSION['Auth']['login_string'] = hash('sha512', $db_password . $user_browser);
-
-            // SHOW ALL DATA
-            //print_r($data);
-            return true;
+        } else {
+            $_SESSION['error'] = "Error trying to bind: " . ldap_error($ldapconn);
         }
+    } else {
+        $_SESSION['error'] = "Could not connect to LDAP server";
     }
     return false;
 }

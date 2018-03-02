@@ -6,4 +6,6 @@
     }
 ?>
 
-Vous êtes connecté en tant que <?php echo $_SESSION['Auth']['email'] ?>
+Votre identifiant est le : <?php echo $_SESSION['Auth']['user'] ?> <br>
+Vous vous appeler : <?php echo $_SESSION['Auth']['person'] ?> <br>
+Votre adresse mail est : <?php echo $_SESSION['Auth']['email'] ?> <br>

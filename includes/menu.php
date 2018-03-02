@@ -31,7 +31,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($_SESSION['Auth'])) { ?>
-                    <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil">Mon profil</a></li>
+                    <li <?php if ($params[0] == 'profil') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>profil"><?php echo $_SESSION['Auth']['person'] ?></a></li>
                     <li <?php if ($params[0] == 'signout') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>signout">Se déconnecter</a></li>
                 <?php } else { ?>
                     <li <?php if ($params[0] == 'login') {echo 'class="active"';} ?> ><a href="<?php echo WEBROOT ?>login">Se connecter</a></li>
