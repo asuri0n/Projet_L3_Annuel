@@ -128,7 +128,7 @@ function connectionLdap($ldapuser, $ldappass)
                         $_SESSION['Auth']['elempedag'] = $elempedag;
 
                         //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
-                        $_SESSION['Auth']['isTeacher'] = true;
+                        $_SESSION['Auth']['isStudent'] = true;
                         //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
 
                         return true;
