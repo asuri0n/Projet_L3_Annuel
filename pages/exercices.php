@@ -71,9 +71,9 @@
 
     ob_start();
     if(!$end) {
-        $exercice = getArrayFrom($pdo, "SELECT libelle FROM exercice WHERE id_exercice = ".$exercice_id." LIMIT 1", "fetch");
+        $exercice = getArrayFrom($pdo, "SELECT enonce FROM exercice WHERE id_exercice = ".$exercice_id." LIMIT 1", "fetch");
         $choix = explode(",",$question["choix"]);
-        echo "<h1>".htmlentities($exercice['libelle'])."</h1>
+        echo "<h1>".htmlentities($exercice['enonce'])."</h1>
             <p style='margin-bottom:30px;'>$nextQuestion. " .htmlentities($question['question']). "</p>
             <form role='form' name='quizform' action='" . WEBROOT . "exercices/" . $exercice_id . "' method='post'>
                 <input name='starttime' value='1/15/2018 3:09:04 AM' type='hidden'>

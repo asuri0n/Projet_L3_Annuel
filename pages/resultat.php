@@ -15,8 +15,8 @@ $questions = getArrayFrom($pdo, "SELECT question, choix, reponses FROM questions
 $total = sizeof($questions);
 $timespent = $_POST['timespent'];
 
-$exerciceInfo = getArrayFrom($pdo, "SELECT exercice.libelle FROM exercice WHERE id_exercice = $id_exercice", "fetch");
-$exeTitre = $exerciceInfo["libelle"];
+$exerciceInfo = getArrayFrom($pdo, "SELECT exercice.enonce FROM exercice WHERE id_exercice = $id_exercice", "fetch");
+$exeTitre = $exerciceInfo["enonce"];
 
 ?>
 
