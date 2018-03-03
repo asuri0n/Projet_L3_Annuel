@@ -56,6 +56,16 @@
                 <?php echo $content; ?>
             </main>
         </div>
+        <footer class="page-footer font-small blue pt-4 mt-4">
+            <br><br>
+            <div class="footer-copyright py-3 text-center">
+                <div class="container-fluid">
+                    © Université de Caen -
+                    <a href="mailto:<?php echo ADMINEMAIL ?>?subject=[AUTOEVALUATION] Signalement d'un bogue">Signaler un bogue</a> -
+                    <a href="mailto:<?php echo ADMINEMAIL ?>?subject=[AUTOEVALUATION] Proposition suggestion">Proposer une suggestion</a>
+                </div>
+            </div>
+        </footer>
 	</body>
     <?php include 'includes/notification.php'; ?>
 </html>

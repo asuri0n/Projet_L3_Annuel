@@ -15,6 +15,7 @@
     define('SERVERHOST',$_SERVER['HTTP_HOST']);
     define('PATH', "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 	define("UFRSCIENCES","13;UFR des Sciences");
+    define("ADMINEMAIL", "asurion61@gmail.com");
 
     /*
      * DATABASE
