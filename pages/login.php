@@ -11,10 +11,11 @@
             //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
 
             // Si c'est pas un ID LDAP alors on test avec un id de la base mysql
-            if(connectionLdap($inputEtuPersoPass,$inputPassword) or login($inputEtuPersoPass, $inputPassword)){
+            // @ -> Car sinon un warning apparait si l'utilisateur existe pas.
+            if(@connectionLdap($inputEtuPersoPass,$inputPassword) or login($inputEtuPersoPass, $inputPassword)){
                 $_SESSION['success'] = "Vous êtes maintenant connecté!";
                 session_write_close();
-                header('location: '.WEBROOT.'profil');
+                header('location: '.WEBROOT.'accueil');
             } else {
                 $_SESSION['error'] = "Les identifiants sont incorects  !";
             }

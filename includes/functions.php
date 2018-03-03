@@ -95,63 +95,63 @@ function connectionLdap($ldapuser, $ldappass)
 
         // binding to ldap server
         $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass);
-        if ($ldapbind) {
-            $result = ldap_search($ldapconn, $ldaptree, "(cn=*)") or die ("Error in search query: " . ldap_error($ldapconn));
-            $data = ldap_get_entries($ldapconn, $result);
+        if($ldapbind){
+            $result = ldap_search($ldapconn, $ldaptree, "(cn=*)");
+            if($result){
+                $data = ldap_get_entries($ldapconn, $result);
 
-            $email = $data[0]['mail'][0];
-            $displayname = $data[0]['displayname'][0];
-            $givenname = $data[0]['givenname'][0];
+                $email = $data[0]['mail'][0];
+                $displayname = $data[0]['displayname'][0];
+                $givenname = $data[0]['givenname'][0];
 
-            $diplome = explode(';',$data[0]['ucbncodeetape'][0])[1];
-            $status = $data[0]['ucbnstatus'][0];
+                $diplome = explode(';',$data[0]['ucbncodeetape'][0])[1];
+                $status = $data[0]['ucbnstatus'][0];
 
-            $ufr = $data[0]['supannaffectation'][0];
-            $elempedag = $data[0]['supannetuelementpedagogique'];
+                $ufr = $data[0]['supannaffectation'][0];
+                $elempedag = $data[0]['supannetuelementpedagogique'];
 
-            // Si la personne est un étudiant
-            if(strcmp($status,"ETUDIANT") == 0)
-            {
-                // Si la personne un étudiant à l'UFR des Sciences
-                if(strcmp($ufr,UFRSCIENCES) == 0) {
-                    if (!updateAccount(0, $data)) {
+                // Si la personne est un étudiant
+                if(strcmp($status,"ETUDIANT") == 0)
+                {
+                    // Si la personne un étudiant à l'UFR des Sciences
+                    if(strcmp($ufr,UFRSCIENCES) == 0) {
+                        if (!updateAccount(0, $data)) {
+                            $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
+                            return false;
+                        }
+
+                        $_SESSION['Auth']['user'] = $ldapuser;
+                        $_SESSION['Auth']['givenname'] = $givenname;
+                        $_SESSION['Auth']['displayname'] = $displayname;
+                        $_SESSION['Auth']['email'] = $email;
+                        $_SESSION['Auth']['diplome'] = $diplome;
+                        $_SESSION['Auth']['elempedag'] = $elempedag;
+
+                        //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
+                        $_SESSION['Auth']['isTeacher'] = true;
+                        //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
+
+                        return true;
+
+                    } else {
+                        $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
+                    }
+                } else {
+
+                    if (!updateAccount(1, $data)) {
                         $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
                         return false;
                     }
 
+                    // Si la personne est un professeur
                     $_SESSION['Auth']['user'] = $ldapuser;
                     $_SESSION['Auth']['givenname'] = $givenname;
                     $_SESSION['Auth']['displayname'] = $displayname;
                     $_SESSION['Auth']['email'] = $email;
-                    $_SESSION['Auth']['diplome'] = $diplome;
-                    $_SESSION['Auth']['elempedag'] = $elempedag;
-
-                    //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
                     $_SESSION['Auth']['isTeacher'] = true;
-                    //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
-
-                    //TODO: METTRE EN BDD la fin d'inscription pour gérer le vidage de bdd
 
                     return true;
-
-                } else {
-                    $_SESSION['error'] = "Vous n'êtes pas un(e) étudiant(e) de l'UFR des Science";
                 }
-            } else {
-
-                if (!updateAccount(1, $data)) {
-                    $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
-                    return false;
-                }
-
-                // Si la personne est un professeur
-                $_SESSION['Auth']['user'] = $ldapuser;
-                $_SESSION['Auth']['givenname'] = $givenname;
-                $_SESSION['Auth']['displayname'] = $displayname;
-                $_SESSION['Auth']['email'] = $email;
-                $_SESSION['Auth']['isTeacher'] = true;
-
-                return true;
             }
         }
     } else {
@@ -183,6 +183,8 @@ function updateAccount($isTeacher,$data){
             if ($insert_stmt = $pdo->prepare("INSERT INTO etudiants (id_etudiant, date_prem_conn, fin_inscription) VALUES (?, now(), ?)"))
                 if ($insert_stmt->execute(array($etupass, $fininscription)))
                     return true;
+        } else {
+            return true;
         }
     }
     return false;
