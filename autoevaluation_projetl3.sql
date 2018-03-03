@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le :  ven. 02 mars 2018 à 19:10
--- Version du serveur :  10.1.22-MariaDB
--- Version de PHP :  7.1.4
+-- Client :  mysql.info.unicaen.fr:3306
+-- Généré le :  Sam 03 Mars 2018 à 17:58
+-- Version du serveur :  5.5.59-0+deb8u1-log
+-- Version de PHP :  5.6.30-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `autoevaluation_projetl3`
+-- Base de données :  `21404260_dev`
 --
 
 -- --------------------------------------------------------
@@ -38,11 +36,11 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `admins`
+-- Contenu de la table `admins`
 --
 
 INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
-(2, 'asurion61@gmail.com', '8fdb38bdc487d3d1d49fcc508d34329216a57c4e403ff5441e797b5f9760485871ee0dd8b8aa0f43c18bf387c1ed4a51d73759871e9ca86526ef790cb9b6a03c', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404', 0, 'c74d0fab2873a1a41210e2993bea622e');
+(2, 'asurion61@gmail.com', 'bdd4f2a2ab707f538331670b0c2c1a2b556dee4896052530383090e8a13282c43600a61739959048d6167f060cd42fd0e654ace64bdf777dfd141b50fcef02af', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404', 0, 'c74d0fab2873a1a41210e2993bea622e');
 
 -- --------------------------------------------------------
 
@@ -57,11 +55,12 @@ CREATE TABLE `etudiants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `etudiants`
+-- Contenu de la table `etudiants`
 --
 
 INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`, `fin_inscription`) VALUES
-(21404260, '2018-01-12', NULL);
+(21404260, '2018-01-12', NULL),
+(21999997, '2018-03-02', '2018-11-30');
 
 -- --------------------------------------------------------
 
@@ -73,15 +72,15 @@ CREATE TABLE `exercice` (
   `id_exercice` int(11) NOT NULL,
   `id_matiere` int(11) NOT NULL,
   `niv_etude` int(11) NOT NULL,
-  `libelle` varchar(100) NOT NULL,
+  `enonce` varchar(100) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `exercice`
+-- Contenu de la table `exercice`
 --
 
-INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `niv_etude`, `libelle`, `date`) VALUES
+INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `niv_etude`, `enonce`, `date`) VALUES
 (1, 3, 1, 'Exercice 7', '2018-01-13'),
 (14, 1, 1, 'Exercice 1', '2018-01-16'),
 (15, 1, 1, 'Exercice 1', '2018-01-16');
@@ -108,14 +107,14 @@ CREATE TABLE `matieres` (
   `sem_id` int(11) NOT NULL,
   `ec_num` int(11) DEFAULT NULL,
   `ue_num` int(11) NOT NULL,
-  `enonce` varchar(100) NOT NULL
+  `libelle` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `matieres`
+-- Contenu de la table `matieres`
 --
 
-INSERT INTO `matieres` (`id_matiere`, `sem_id`, `ec_num`, `ue_num`, `enonce`) VALUES
+INSERT INTO `matieres` (`id_matiere`, `sem_id`, `ec_num`, `ue_num`, `libelle`) VALUES
 (1, 1, NULL, 1, 'Algèbre linéaire'),
 (2, 2, NULL, 1, 'Algèbre linéaire'),
 (3, 3, NULL, 1, 'Introduction à la POO'),
@@ -164,7 +163,7 @@ CREATE TABLE `questions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `questions`
+-- Contenu de la table `questions`
 --
 
 INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `choix`, `reponses`, `justificaiton`) VALUES
@@ -189,7 +188,7 @@ CREATE TABLE `scores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `scores`
+-- Contenu de la table `scores`
 --
 
 INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien`) VALUES
@@ -207,7 +206,7 @@ CREATE TABLE `type_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `type_question`
+-- Contenu de la table `type_question`
 --
 
 INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
@@ -216,7 +215,7 @@ INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
 (3, 'Normal');
 
 --
--- Index pour les tables déchargées
+-- Index pour les tables exportées
 --
 
 --
@@ -268,7 +267,7 @@ ALTER TABLE `type_question`
   ADD PRIMARY KEY (`id_type`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
@@ -292,7 +291,7 @@ ALTER TABLE `questions`
 ALTER TABLE `type_question`
   MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- Contraintes pour les tables déchargées
+-- Contraintes pour les tables exportées
 --
 
 --
@@ -314,7 +313,6 @@ ALTER TABLE `questions`
 ALTER TABLE `scores`
   ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiants` (`id_etudiant`),
   ADD CONSTRAINT `scores_ibfk_2` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

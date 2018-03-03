@@ -28,7 +28,7 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
         $repQ = $_POST['repQ'];
         $bonneRep = $_POST['bonneRep'];
 
-        if ($insert_stmt = $pdo->prepare("INSERT INTO exercice (id_matiere, niv_etude, libelle, date) VALUES (?, 1, ?, NOW())"))
+        if ($insert_stmt = $pdo->prepare("INSERT INTO exercice (id_matiere, niv_etude, enonce, date) VALUES (?, 1, ?, NOW())"))
         {
             if ($insert_stmt->execute(array($inputMatiere, $inputTitre)))
             {
@@ -116,4 +116,4 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
 
     <button name="addExercice" class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
 </form>
-</div>
+</div><hr style="border-color: gray;">

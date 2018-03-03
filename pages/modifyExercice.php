@@ -14,7 +14,7 @@ if(!isset($_POST['modifyExercice']) or !is_numeric($_POST['inputIdExercice']))
     header('location: accueil');
 
 $exercice_id = $_POST['inputIdExercice'];
-$exercice = getArrayFrom($pdo, "SELECT libelle, id_matiere FROM exercice WHERE exercice.id_exercice = $exercice_id", "fetch");
+$exercice = getArrayFrom($pdo, "SELECT enonce, id_matiere FROM exercice WHERE exercice.id_exercice = $exercice_id", "fetch");
 
 
 
@@ -45,7 +45,7 @@ if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_P
         $repQ = $_POST['repQ'];
         $bonneRep = $_POST['bonneRep'];
 
-        if ($insert_stmt = $pdo->prepare("UPDATE exercice set id_matiere = ?, niv_etude = 1, libelle = ? WHERE id_exercice = $exercice_id"))
+        if ($insert_stmt = $pdo->prepare("UPDATE exercice set id_matiere = ?, niv_etude = 1, enonce = ? WHERE id_exercice = $exercice_id"))
         {
             if ($insert_stmt->execute(array($inputMatiere, $inputTitre)))
             {
@@ -89,7 +89,7 @@ if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_P
 
 <div style="background-color: cornsilk; padding:20px">
 <form method="POST" class="form-signin">
-    <input name="inputTitre" class="form-control" placeholder="Titre" type="text" value="<?php echo $exercice['libelle'] ?>">
+    <input name="inputTitre" class="form-control" placeholder="Titre" type="text" value="<?php echo $exercice['enonce'] ?>">
     <div class="form-group">
         <label for="sel1">Matière :</label>
         <select class="form-control" id="sel1" name="inputMatiere">

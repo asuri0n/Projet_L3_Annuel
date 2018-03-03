@@ -1,5 +1,5 @@
 <?php
-$exercices = getArrayFrom($pdo, "SELECT id_exercice, ue_num, sem_id, matieres.enonce as mlib, exercice.libelle as exlib, date FROM exercice JOIN matieres USING (id_matiere)", "fetchAll");
+$exercices = getArrayFrom($pdo, "SELECT id_exercice, ue_num, sem_id, matieres.libelle as mlib, exercice.enonce as exlib, date FROM exercice JOIN matieres USING (id_matiere)", "fetchAll");
 
 ob_start();
 foreach ($exercices as $exercice){
