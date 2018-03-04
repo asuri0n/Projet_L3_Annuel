@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Client :  mysql.info.unicaen.fr:3306
--- Généré le :  Sam 03 Mars 2018 à 17:58
--- Version du serveur :  5.5.59-0+deb8u1-log
--- Version de PHP :  5.6.30-0+deb8u1
+-- Hôte : 127.0.0.1
+-- Généré le :  Dim 04 mars 2018 à 19:59
+-- Version du serveur :  10.1.22-MariaDB
+-- Version de PHP :  7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `21404260_dev`
+-- Base de données :  `autoevaluation_projetl3`
 --
 
 -- --------------------------------------------------------
@@ -36,11 +38,30 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `admins`
+-- Déchargement des données de la table `admins`
 --
 
 INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
 (2, 'asurion61@gmail.com', 'bdd4f2a2ab707f538331670b0c2c1a2b556dee4896052530383090e8a13282c43600a61739959048d6167f060cd42fd0e654ace64bdf777dfd141b50fcef02af', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404', 0, 'c74d0fab2873a1a41210e2993bea622e');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `diplomes`
+--
+
+CREATE TABLE `diplomes` (
+  `code_diplome` varchar(10) NOT NULL,
+  `libelle` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `diplomes`
+--
+
+INSERT INTO `diplomes` (`code_diplome`, `libelle`) VALUES
+('INFO', 'informatique'),
+('MATH', 'mathématique');
 
 -- --------------------------------------------------------
 
@@ -55,7 +76,7 @@ CREATE TABLE `etudiants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `etudiants`
+-- Déchargement des données de la table `etudiants`
 --
 
 INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`, `fin_inscription`) VALUES
@@ -70,31 +91,19 @@ INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`, `fin_inscription`) VAL
 
 CREATE TABLE `exercice` (
   `id_exercice` int(11) NOT NULL,
-  `id_matiere` int(11) NOT NULL,
-  `niv_etude` int(11) NOT NULL,
+  `id_matiere` int(10) NOT NULL,
   `enonce` varchar(100) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `exercice`
+-- Déchargement des données de la table `exercice`
 --
 
-INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `niv_etude`, `enonce`, `date`) VALUES
-(1, 3, 1, 'Exercice 7', '2018-01-13'),
-(14, 1, 1, 'Exercice 1', '2018-01-16'),
-(15, 1, 1, 'Exercice 1', '2018-01-16');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `login_attempts`
---
-
-CREATE TABLE `login_attempts` (
-  `u_id` int(11) NOT NULL,
-  `la_time` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `enonce`, `date`) VALUES
+(1, 1, 'Exercice 1', '2018-01-13'),
+(14, 2, 'Exercice 2', '2018-01-16'),
+(15, 3, 'Exercice 3', '2018-01-27');
 
 -- --------------------------------------------------------
 
@@ -104,47 +113,29 @@ CREATE TABLE `login_attempts` (
 
 CREATE TABLE `matieres` (
   `id_matiere` int(11) NOT NULL,
-  `sem_id` int(11) NOT NULL,
-  `ec_num` int(11) DEFAULT NULL,
-  `ue_num` int(11) NOT NULL,
+  `code_diplome` varchar(10) NOT NULL,
+  `code_annee` varchar(10) NOT NULL,
+  `code_semestre` varchar(10) NOT NULL,
+  `code_ue` varchar(10) DEFAULT NULL,
+  `code_ec` varchar(10) DEFAULT NULL,
   `libelle` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `matieres`
+-- Déchargement des données de la table `matieres`
 --
 
-INSERT INTO `matieres` (`id_matiere`, `sem_id`, `ec_num`, `ue_num`, `libelle`) VALUES
-(1, 1, NULL, 1, 'Algèbre linéaire'),
-(2, 2, NULL, 1, 'Algèbre linéaire'),
-(3, 3, NULL, 1, 'Introduction à la POO'),
-(4, 4, NULL, 1, 'Programmation avancée'),
-(5, 5, NULL, 1, 'Génie logiciel'),
-(6, 6, NULL, 1, 'Théorie des langages et compilation'),
-(7, 1, NULL, 2, 'Outils de Calculs, Probabilités, Statistique'),
-(8, 2, NULL, 2, 'Logique'),
-(9, 3, NULL, 2, 'Système et réseaux 1'),
-(10, 4, NULL, 2, 'Découverte des domaines de l’informatique'),
-(11, 5, NULL, 2, 'Système et réseaux 2'),
-(12, 6, NULL, 2, 'Structures discrètes pour l’informatique'),
-(13, 1, NULL, 3, ' Introduction à la programmation'),
-(14, 2, NULL, 3, 'Technologies informatiques'),
-(15, 3, NULL, 3, 'Algorithmique'),
-(16, 4, NULL, 3, 'Travail personnel approfondi'),
-(17, 5, NULL, 3, 'Bases de données 2'),
-(18, 6, NULL, 3, 'Technologies web'),
-(19, 1, NULL, 4, 'Méthodologie informatique et projet professionnel'),
-(20, 2, NULL, 4, 'Conception de logiciels'),
-(21, 3, NULL, 4, 'Mathématiques'),
-(22, 4, NULL, 4, 'Humanités'),
-(23, 5, NULL, 4, 'Découverte d’un domaine de l’informatique'),
-(24, 6, NULL, 4, ' Conception d’applications'),
-(25, 1, NULL, 5, 'Informatique et Internet'),
-(26, 2, NULL, 5, 'Humanités'),
-(27, 3, NULL, 5, 'Mathématiques appliquées'),
-(28, 4, NULL, 5, 'Structures algébriques pour l’informatique'),
-(29, 5, NULL, 5, 'Informatique industrielle'),
-(30, 6, NULL, 5, 'Stage et Communication');
+INSERT INTO `matieres` (`id_matiere`, `code_diplome`, `code_annee`, `code_semestre`, `code_ue`, `code_ec`, `libelle`) VALUES
+(1, 'INFO', '3LINFO', 'INF5', 'A', '1', 'Génie logiciel'),
+(2, 'INFO', '3LINFO', 'INF5', 'A', '2', 'Système et réseaux 2'),
+(3, 'INFO', '3LINFO', 'INF5', NULL, NULL, 'Bases de données 2'),
+(4, 'INFO', '3LINFO', 'INF5', 'C', '1', 'Découverte d’un domaine de l’informatique'),
+(5, 'INFO', '3LINFO', 'INF5', NULL, NULL, 'Informatique industrielle'),
+(6, 'INFO', '3LINFO', 'INF6', 'A', '1', 'Théorie des langages et compilation'),
+(7, 'INFO', '3LINFO', 'INF6', NULL, NULL, 'Structures discrètes pour l’informatique'),
+(8, 'INFO', '3LINFO', 'INF6', 'B', '1', 'Technologies web'),
+(9, 'INFO', '3LINFO', 'INF6', 'B', '2', 'Conception d’applications'),
+(10, 'INFO', '3LINFO', 'INF6', NULL, NULL, 'Stage et Communication');
 
 -- --------------------------------------------------------
 
@@ -163,7 +154,7 @@ CREATE TABLE `questions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `questions`
+-- Déchargement des données de la table `questions`
 --
 
 INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `choix`, `reponses`, `justificaiton`) VALUES
@@ -188,11 +179,40 @@ CREATE TABLE `scores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `scores`
+-- Déchargement des données de la table `scores`
 --
 
 INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien`) VALUES
 (21404260, 1, 37, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `semestres`
+--
+
+CREATE TABLE `semestres` (
+  `code_semestre` varchar(10) NOT NULL,
+  `num_semestre` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `semestres`
+--
+
+INSERT INTO `semestres` (`code_semestre`, `num_semestre`) VALUES
+('INF1', 1),
+('INF2', 2),
+('INF3', 3),
+('INF4', 4),
+('INF5', 5),
+('INF6', 6),
+('MAT1', 1),
+('MAT2', 2),
+('MAT3', 3),
+('MAT4', 4),
+('MAT5', 5),
+('MAT6', 6);
 
 -- --------------------------------------------------------
 
@@ -206,7 +226,7 @@ CREATE TABLE `type_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `type_question`
+-- Déchargement des données de la table `type_question`
 --
 
 INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
@@ -215,7 +235,7 @@ INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
 (3, 'Normal');
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -223,6 +243,12 @@ INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`persopass`);
+
+--
+-- Index pour la table `diplomes`
+--
+ALTER TABLE `diplomes`
+  ADD PRIMARY KEY (`code_diplome`);
 
 --
 -- Index pour la table `etudiants`
@@ -241,7 +267,8 @@ ALTER TABLE `exercice`
 -- Index pour la table `matieres`
 --
 ALTER TABLE `matieres`
-  ADD PRIMARY KEY (`id_matiere`);
+  ADD PRIMARY KEY (`id_matiere`),
+  ADD KEY `matieres_semestres_id_semestre_id_diplome_fk` (`code_semestre`,`code_diplome`);
 
 --
 -- Index pour la table `questions`
@@ -261,13 +288,19 @@ ALTER TABLE `scores`
   ADD KEY `ex_id` (`id_exercice`);
 
 --
+-- Index pour la table `semestres`
+--
+ALTER TABLE `semestres`
+  ADD PRIMARY KEY (`code_semestre`);
+
+--
 -- Index pour la table `type_question`
 --
 ALTER TABLE `type_question`
   ADD PRIMARY KEY (`id_type`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
@@ -275,11 +308,6 @@ ALTER TABLE `type_question`
 --
 ALTER TABLE `exercice`
   MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT pour la table `matieres`
---
-ALTER TABLE `matieres`
-  MODIFY `id_matiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT pour la table `questions`
 --
@@ -291,14 +319,14 @@ ALTER TABLE `questions`
 ALTER TABLE `type_question`
   MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables déchargées
 --
 
 --
 -- Contraintes pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  ADD CONSTRAINT `exercice_ibfk_1` FOREIGN KEY (`id_matiere`) REFERENCES `matieres` (`id_matiere`);
+  ADD CONSTRAINT `exercice_matieres_id_matiere_fk` FOREIGN KEY (`id_matiere`) REFERENCES `matieres` (`id_matiere`);
 
 --
 -- Contraintes pour la table `questions`
@@ -313,6 +341,7 @@ ALTER TABLE `questions`
 ALTER TABLE `scores`
   ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiants` (`id_etudiant`),
   ADD CONSTRAINT `scores_ibfk_2` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
