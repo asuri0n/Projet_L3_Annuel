@@ -283,13 +283,14 @@ function signup() {
  * @param $query -> String
  * @param $fetch -> String fetch name
  * @param $type -> String fetch type
+ * @param $sec_array -> Array of secure vars
  * @return bool
  */
-function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC")
+function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_array = null)
 {
     if ($stmt = $pdo->prepare($query)) 
     {
-        if ($stmt->execute()) 
+        if ($stmt->execute($sec_array))
         {
             switch ($fetch) {
                 case 'fetchAll':
