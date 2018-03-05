@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  Dim 04 mars 2018 à 19:59
+-- Généré le :  lun. 05 mars 2018 à 13:43
 -- Version du serveur :  10.1.22-MariaDB
 -- Version de PHP :  7.1.4
 
@@ -43,6 +43,29 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
 (2, 'asurion61@gmail.com', 'bdd4f2a2ab707f538331670b0c2c1a2b556dee4896052530383090e8a13282c43600a61739959048d6167f060cd42fd0e654ace64bdf777dfd141b50fcef02af', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404', 0, 'c74d0fab2873a1a41210e2993bea622e');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `annees`
+--
+
+CREATE TABLE `annees` (
+  `code_annee` varchar(10) NOT NULL,
+  `num_annee` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `annees`
+--
+
+INSERT INTO `annees` (`code_annee`, `num_annee`) VALUES
+('1LINFO', 1),
+('1LMATH', 1),
+('2LINFO', 2),
+('2LMATH', 2),
+('3LINFO', 3),
+('3LMATH', 3);
 
 -- --------------------------------------------------------
 
@@ -101,9 +124,8 @@ CREATE TABLE `exercice` (
 --
 
 INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `enonce`, `date`) VALUES
-(1, 1, 'Exercice 1', '2018-01-13'),
-(14, 2, 'Exercice 2', '2018-01-16'),
-(15, 3, 'Exercice 3', '2018-01-27');
+(16, 9, 'Les bases de la sécurité informatique', '2018-03-14'),
+(17, 17, 'PHP Objet', '2018-03-31');
 
 -- --------------------------------------------------------
 
@@ -116,7 +138,7 @@ CREATE TABLE `matieres` (
   `code_diplome` varchar(10) NOT NULL,
   `code_annee` varchar(10) NOT NULL,
   `code_semestre` varchar(10) NOT NULL,
-  `code_ue` varchar(10) DEFAULT NULL,
+  `code_ue` varchar(10) NOT NULL,
   `code_ec` varchar(10) DEFAULT NULL,
   `libelle` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -126,16 +148,31 @@ CREATE TABLE `matieres` (
 --
 
 INSERT INTO `matieres` (`id_matiere`, `code_diplome`, `code_annee`, `code_semestre`, `code_ue`, `code_ec`, `libelle`) VALUES
-(1, 'INFO', '3LINFO', 'INF5', 'A', '1', 'Génie logiciel'),
-(2, 'INFO', '3LINFO', 'INF5', 'A', '2', 'Système et réseaux 2'),
-(3, 'INFO', '3LINFO', 'INF5', NULL, NULL, 'Bases de données 2'),
-(4, 'INFO', '3LINFO', 'INF5', 'C', '1', 'Découverte d’un domaine de l’informatique'),
-(5, 'INFO', '3LINFO', 'INF5', NULL, NULL, 'Informatique industrielle'),
-(6, 'INFO', '3LINFO', 'INF6', 'A', '1', 'Théorie des langages et compilation'),
-(7, 'INFO', '3LINFO', 'INF6', NULL, NULL, 'Structures discrètes pour l’informatique'),
-(8, 'INFO', '3LINFO', 'INF6', 'B', '1', 'Technologies web'),
-(9, 'INFO', '3LINFO', 'INF6', 'B', '2', 'Conception d’applications'),
-(10, 'INFO', '3LINFO', 'INF6', NULL, NULL, 'Stage et Communication');
+(1, 'INFO', '3LINFO', 'INF5', 'A', NULL, 'Génie logiciel'),
+(2, 'INFO', '3LINFO', 'INF5', 'A', '1', 'Méthodes de conception'),
+(3, 'INFO', '3LINFO', 'INF5', 'A', '2', 'Conduite de projet'),
+(4, 'INFO', '3LINFO', 'INF5', 'B', NULL, 'Système et Réseaux 2'),
+(5, 'INFO', '3LINFO', 'INF5', 'B', '1', 'Système'),
+(6, 'INFO', '3LINFO', 'INF5', 'B', '2', 'Réseaux'),
+(7, 'INFO', '3LINFO', 'INF5', 'C', NULL, 'Bases de données 2'),
+(8, 'INFO', '3LINFO', 'INF5', 'D', NULL, 'Découverte d\'un domaine de l\'informatique'),
+(9, 'INFO', '3LINFO', 'INF5', 'D', '1', 'Sécurité Informatique et Protection des données'),
+(10, 'INFO', '3LINFO', 'INF5', 'D', '2', 'Option2'),
+(11, 'INFO', '3LINFO', 'INF5', 'D', '3', 'Option3'),
+(12, 'INFO', '3LINFO', 'INF5', 'E', NULL, 'Informatique Industrielle'),
+(13, 'INFO', '3LINFO', 'INF5', 'E', '1', 'Machines numériques'),
+(14, 'INFO', '3LINFO', 'INF5', 'E', '2', 'Parallélisme'),
+(15, 'INFO', '3LINFO', 'INF6', 'A', NULL, 'Théorie des Langages et Compilation'),
+(16, 'INFO', '3LINFO', 'INF6', 'B', NULL, 'Structures discrètes pour l\'Informatique'),
+(17, 'INFO', '3LINFO', 'INF6', 'C', NULL, 'Technologies Web'),
+(18, 'INFO', '3LINFO', 'INF6', 'D', NULL, 'Conception d\'applications'),
+(19, 'INFO', '3LINFO', 'INF6', 'D', '1', 'Programmation Androïd'),
+(20, 'INFO', '3LINFO', 'INF6', 'D', '2', 'Créativité logicielle'),
+(21, 'INFO', '3LINFO', 'INF6', 'D', '3', 'Projet'),
+(22, 'INFO', '3LINFO', 'INF6', 'C', NULL, 'Stage et Communication S6'),
+(23, 'INFO', '3LINFO', 'INF6', 'C', '1', 'Stage'),
+(24, 'INFO', '3LINFO', 'INF6', 'C', '2', 'Anglais S6'),
+(25, 'INFO', '3LINFO', 'INF6', 'C', '3', 'Communication');
 
 -- --------------------------------------------------------
 
@@ -153,18 +190,6 @@ CREATE TABLE `questions` (
   `justificaiton` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Déchargement des données de la table `questions`
---
-
-INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `choix`, `reponses`, `justificaiton`) VALUES
-(1, 1, 'Pourquoi ?4', 3, 'Parcequew,ZQD,qzdq', '0', NULL),
-(2, 1, 'Pourquzoi ?', 2, 'Parceque,ZQD,qzdq', '1', NULL),
-(16, 14, 'Comment démarrer une balise PHP ?', 2, '<?php,<php>,?<php,<<php', '1', NULL),
-(17, 14, 'Comment terminer une balise PHP ?', 2, 'php?>,php>,</php>,?>', '1', NULL),
-(18, 15, 'Combien de pâtes ont les chats ?', 2, '1,2,3,12', '1', NULL),
-(19, 15, 'Pourquoi ils ont des poals ?', 3, 'parke c d\'où,parke sait bo,pour miaulait,poux rit un', '1', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -178,13 +203,6 @@ CREATE TABLE `scores` (
   `resultat_ancien` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Déchargement des données de la table `scores`
---
-
-INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien`) VALUES
-(21404260, 1, 37, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -193,7 +211,7 @@ INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien
 
 CREATE TABLE `semestres` (
   `code_semestre` varchar(10) NOT NULL,
-  `num_semestre` int(1) DEFAULT NULL
+  `num_semestre` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -207,12 +225,12 @@ INSERT INTO `semestres` (`code_semestre`, `num_semestre`) VALUES
 ('INF4', 4),
 ('INF5', 5),
 ('INF6', 6),
-('MAT1', 1),
-('MAT2', 2),
-('MAT3', 3),
-('MAT4', 4),
-('MAT5', 5),
-('MAT6', 6);
+('MATH1', 1),
+('MATH2', 2),
+('MATH3', 3),
+('MATH4', 4),
+('MATH5', 5),
+('MATH6', 6);
 
 -- --------------------------------------------------------
 
@@ -245,6 +263,12 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`persopass`);
 
 --
+-- Index pour la table `annees`
+--
+ALTER TABLE `annees`
+  ADD PRIMARY KEY (`code_annee`);
+
+--
 -- Index pour la table `diplomes`
 --
 ALTER TABLE `diplomes`
@@ -268,7 +292,9 @@ ALTER TABLE `exercice`
 --
 ALTER TABLE `matieres`
   ADD PRIMARY KEY (`id_matiere`),
-  ADD KEY `matieres_semestres_id_semestre_id_diplome_fk` (`code_semestre`,`code_diplome`);
+  ADD KEY `matieres_semestres_id_semestre_id_diplome_fk` (`code_semestre`,`code_diplome`),
+  ADD KEY `matieres_annees_code_annee_fk` (`code_annee`),
+  ADD KEY `matieres_diplomes_code_diplome_fk` (`code_diplome`);
 
 --
 -- Index pour la table `questions`
@@ -307,7 +333,12 @@ ALTER TABLE `type_question`
 -- AUTO_INCREMENT pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT pour la table `matieres`
+--
+ALTER TABLE `matieres`
+  MODIFY `id_matiere` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT pour la table `questions`
 --
@@ -327,6 +358,14 @@ ALTER TABLE `type_question`
 --
 ALTER TABLE `exercice`
   ADD CONSTRAINT `exercice_matieres_id_matiere_fk` FOREIGN KEY (`id_matiere`) REFERENCES `matieres` (`id_matiere`);
+
+--
+-- Contraintes pour la table `matieres`
+--
+ALTER TABLE `matieres`
+  ADD CONSTRAINT `matieres_annees_code_annee_fk` FOREIGN KEY (`code_annee`) REFERENCES `annees` (`code_annee`),
+  ADD CONSTRAINT `matieres_diplomes_code_diplome_fk` FOREIGN KEY (`code_diplome`) REFERENCES `diplomes` (`code_diplome`),
+  ADD CONSTRAINT `matieres_semestres_code_semestre_fk` FOREIGN KEY (`code_semestre`) REFERENCES `semestres` (`code_semestre`);
 
 --
 -- Contraintes pour la table `questions`
