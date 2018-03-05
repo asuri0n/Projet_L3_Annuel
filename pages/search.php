@@ -45,7 +45,7 @@ foreach ($exercices as $exercice){
     echo "<td>Semestre ".$exercice['semestre']."</td>";
     echo "<td>".$exercice['mlib']."</td>";
     echo "<td>".$exercice['exlib']."</td>";
-    echo "<td><a href='".WEBROOT."exercices/".$exercice['id_exercice']."' class=\"btn btn-default btn-sm ".(($exercice['semestre']>2 and !isset($_SESSION['Auth']))?'disabled':"")." \" role=\"button\">
+    echo "<td><a href='".WEBROOT."exercices/".$exercice['id_exercice']."' class=\"btn btn-default btn-sm ".(($exercice['annee']>2 and !isset($_SESSION['Auth']))?'disabled':"")." \" role=\"button\">
           <span class=\"glyphicon glyphicon-arrow-right\"></span> Faire l'exercice
         </a></td>";
     echo "</tr>";

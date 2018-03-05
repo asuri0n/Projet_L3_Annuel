@@ -303,7 +303,7 @@ function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $s
 {
     if ($stmt = $pdo->prepare($query)) 
     {
-        if ($stmt->execute($sec_array))
+        if ($stmt->execute(array($sec_array)))
         {
             switch ($fetch) {
                 case 'fetchAll':
