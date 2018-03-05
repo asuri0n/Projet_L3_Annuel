@@ -11,7 +11,7 @@
     if(isset($_POST['modifyExercice']))
         include 'modifyExercice.php';
 
-    $exercicesListe = getArrayFrom($pdo, "SELECT id_exercice, enonce FROM exercice", "fetchAll", 'FETCH_BOTH');
+    $exercicesListe = getArrayFrom( "SELECT id_exercice, enonce FROM exercice", "fetchAll", 'FETCH_BOTH');
 
 ?>
 

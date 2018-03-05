@@ -11,8 +11,8 @@ if(!isset($_POST['addExercice']) or !is_numeric($_POST['inputNbQuestions']))
 
 $nbQuestions = $_POST['inputNbQuestions'];
 
-$matieres = getArrayFrom($pdo, "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "fetchAll");
-$type_question = getArrayFrom($pdo, "SELECT id_type, libelle FROM type_question", "fetchAll");
+$matieres = getArrayFrom( "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "fetchAll");
+$type_question = getArrayFrom( "SELECT id_type, libelle FROM type_question", "fetchAll");
 
 if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST['inputMatiere']) and isset($_POST['inputTitreQuestion']) and isset($_POST['typeQ']) and isset($_POST['repQ']) and isset($_POST['bonneRep']))
 {

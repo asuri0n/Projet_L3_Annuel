@@ -14,20 +14,20 @@ if(!isset($_POST['modifyExercice']) or !is_numeric($_POST['inputIdExercice']))
     header('location: accueil');
 
 $exercice_id = $_POST['inputIdExercice'];
-$exercice = getArrayFrom($pdo, "SELECT enonce, id_matiere FROM exercice WHERE exercice.id_exercice = $exercice_id", "fetch");
+$exercice = getArrayFrom( "SELECT enonce, id_matiere FROM exercice WHERE exercice.id_exercice = $exercice_id", "fetch");
 
 
 
 
 //TODO: faure selon le nb de questions de la page et pas de la base
-$questions = getArrayFrom($pdo, "SELECT id_question, question, type_question.libelle typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = $exercice_id", "fetchAll");
+$questions = getArrayFrom( "SELECT id_question, question, type_question.libelle typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = $exercice_id", "fetchAll");
 
 
 
 
 // TODO: A concatener en 1 requete
-$matieres = getArrayFrom($pdo, "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "fetchAll");
-$type_question = getArrayFrom($pdo, "SELECT id_type, libelle FROM type_question", "fetchAll");
+$matieres = getArrayFrom( "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "fetchAll");
+$type_question = getArrayFrom( "SELECT id_type, libelle FROM type_question", "fetchAll");
 
 if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_POST['inputMatiere']) and isset($_POST['inputTitreQuestion']) and isset($_POST['typeQ']) and isset($_POST['repQ']) and isset($_POST['bonneRep']))
 {

@@ -189,7 +189,7 @@ function updateAccount($isTeacher,$data){
         // Si l'étudiant s'est déja connecté sur le site
         $etupass = $data[0]['uidnumber'][0];
 
-        if (!getArrayFrom($pdo,"SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
+        if (!getArrayFrom("SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
             $fininscription = $data[0]['datefininscription'][0];
             $fininscription = DateTime::createFromFormat('Ymd', $fininscription)->format('Y-m-d');
 
@@ -355,7 +355,7 @@ function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_ar
 
 function nbBonnesReponses($exercice_id, $reponses_user) {
     $pdo = SPDO::getInstance();
-    $reponses_bdd = getArrayFrom($pdo, "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
+    $reponses_bdd = getArrayFrom( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
 
     $cpt = 0;
     foreach ($reponses_bdd as $key => $reponse_bdd) {

@@ -10,12 +10,12 @@ $points = $_POST['points'];
 $id_exercice = $_POST['id'];
 $answers = str_split($_POST['answers']);
 
-$questions = getArrayFrom($pdo, "SELECT question, choix, reponses FROM questions WHERE id_exercice = $id_exercice", "fetchAll");
+$questions = getArrayFrom( "SELECT question, choix, reponses FROM questions WHERE id_exercice = $id_exercice", "fetchAll");
 
 $total = sizeof($questions);
 $timespent = $_POST['timespent'];
 
-$exerciceInfo = getArrayFrom($pdo, "SELECT exercice.enonce FROM exercice WHERE id_exercice = $id_exercice", "fetch");
+$exerciceInfo = getArrayFrom( "SELECT exercice.enonce FROM exercice WHERE id_exercice = $id_exercice", "fetch");
 $exeTitre = $exerciceInfo["enonce"];
 
 ?>

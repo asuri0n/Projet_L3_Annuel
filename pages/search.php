@@ -34,7 +34,7 @@ if(isset($params[2]) and !empty($params[2])){
     else
         $query .= " WHERE d.num_annee = '$annee'";
 }
-$exercices = getArrayFrom($pdo, $query, "fetchAll");
+$exercices = getArrayFrom( $query, "fetchAll");
 
 ob_start();
 // Pour chaque exercices on créer une nouvelle ligne

@@ -35,13 +35,13 @@
             $pedagarray = $_SESSION['Auth']['elempedag'];
             $content .= "<h4>Mes ".sizeof($pedagarray)." cours : </h4><br>";
             // Requete pour récuperer les UE (sans les EC)
-            $query = getArrayFrom($pdo,"SELECT concat(code_semestre,code_ue), libelle, code_ue, code_semestre FROM matieres WHERE code_ec is null;","fetchAll", "FETCH_NUM");
+            $query = getArrayFrom("SELECT concat(code_semestre,code_ue), libelle, code_ue, code_semestre FROM matieres WHERE code_ec is null;","fetchAll", "FETCH_NUM");
             foreach ($pedagarray as $elem) {
                 foreach ($query as $item) {
                     if($elem == $item[0]) {
                         $content .= "<b>".$elem . " : " . $item[1] . "</b><br>";
                         // Les EC de l'UE
-                        $subquery = getArrayFrom($pdo,"SELECT libelle FROM matieres WHERE code_ec is not null and code_ue = '$item[2]' and code_semestre = '$item[3]';","fetchAll", "FETCH_NUM");
+                        $subquery = getArrayFrom("SELECT libelle FROM matieres WHERE code_ec is not null and code_ue = '$item[2]' and code_semestre = '$item[3]';","fetchAll", "FETCH_NUM");
                         foreach ($subquery as $subitem) {
                             $content .= "&mdash;&mdash;	$subitem[0]"."<br>";
                         }
