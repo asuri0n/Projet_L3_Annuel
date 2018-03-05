@@ -17,19 +17,19 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Exercices <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-submenu">
-                            <a href="#">Informatique <span class="caret caret-right"></span></a>
+                            <a href="<?php echo WEBROOT ?>search/informatique">Informatique <span class="caret caret-right"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Licence 1</a></li>
-                                <li><a href="#">Licence 2</a></li>
-                                <li><a href="#">Licence 3</a></li>
+                                <li><a href="<?php echo WEBROOT ?>search/informatique/1">Licence 1</a></li>
+                                <li><a href="<?php echo WEBROOT ?>search/informatique/2">Licence 2</a></li>
+                                <li><a href="<?php echo WEBROOT ?>search/informatique/3">Licence 3</a></li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
-                            <a href="#">Mathématique <span class="caret caret-right"></span></a>
+                            <a href="<?php echo WEBROOT ?>search/mathematique">Mathématique <span class="caret caret-right"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Licence 1</a></li>
-                                <li><a href="#">Licence 2</a></li>
-                                <li><a href="#">Licence 3</a></li>
+                                <li><a href="<?php echo WEBROOT ?>search/mathematique/1">Licence 1</a></li>
+                                <li><a href="<?php echo WEBROOT ?>search/mathematique/2">Licence 2</a></li>
+                                <li><a href="<?php echo WEBROOT ?>search/mathematique/3">Licence 3</a></li>
                             </ul>
                         </li>
                     </ul>
