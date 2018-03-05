@@ -125,7 +125,20 @@ function connectionLdap($ldapuser, $ldappass)
                         $_SESSION['Auth']['displayname'] = $displayname;
                         $_SESSION['Auth']['email'] = $email;
                         $_SESSION['Auth']['diplome'] = $diplome;
-                        $_SESSION['Auth']['elempedag'] = $elempedag;
+
+                        $elemnewarray = [];
+                        $j=0;
+                        // Pour chaque elem pédag trouvé via ldap
+                        foreach ($elempedag as $elem) {
+                            if(!is_numeric($elem)) {
+                                $str = explode('_', $elem)[1];
+                                if (!preg_match("/INFOS[0-9]/", $str)) {
+                                    $elemnewarray[$j] = explode('_', $elem)[1]; // composition element pédag : {UAI:0141408E}AE_INF6D ; On garde que la partie apres le _ donc on explode
+                                }
+                            }
+                            $j++;
+                        }
+                        $_SESSION['Auth']['elempedag'] = $elemnewarray;
 
                         //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
                         $_SESSION['Auth']['isStudent'] = true;
@@ -284,7 +297,7 @@ function signup() {
  * @param $fetch -> String fetch name
  * @param $type -> String fetch type
  * @param $sec_array -> Array of secure vars
- * @return bool
+ * @return array
  */
 function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_array = null)
 {
@@ -336,7 +349,7 @@ function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $s
                 return $row;
         }
     }
-    return false;
+    return null;
 }
 
 function nbBonnesReponses($exercice_id, $answer) {

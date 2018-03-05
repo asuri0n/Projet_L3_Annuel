@@ -31,11 +31,22 @@
             $content .= "Votre identifiant est le : " . $_SESSION['Auth']['user'] . " <br>";
             $content .= "Votre adresse mail est : " . $_SESSION['Auth']['email'] . " <br>";
             $content .= "Vous vous appeler : " . $_SESSION['Auth']['givenname'] . " <br><br>";
-            foreach ($_SESSION['Auth']['elempedag'] as $elem) {
-                if (is_numeric($elem))
-                    $content .= "Mes $elem cours : <br>";
-                else
-                    $content .= $elem . "<br>";
+
+            $pedagarray = $_SESSION['Auth']['elempedag'];
+            $content .= "<h4>Mes ".sizeof($pedagarray)." cours : </h4><br>";
+            // Requete pour récuperer les UE (sans les EC)
+            $query = getArrayFrom($pdo,"SELECT concat(code_semestre,code_ue), libelle, code_ue, code_semestre FROM matieres WHERE code_ec is null;","fetchAll", "FETCH_NUM");
+            foreach ($pedagarray as $elem) {
+                foreach ($query as $item) {
+                    if($elem == $item[0]) {
+                        $content .= "<b>".$elem . " : " . $item[1] . "</b><br>";
+                        // Les EC de l'UE
+                        $subquery = getArrayFrom($pdo,"SELECT libelle FROM matieres WHERE code_ec is not null and code_ue = '$item[2]' and code_semestre = '$item[3]';","fetchAll", "FETCH_NUM");
+                        foreach ($subquery as $subitem) {
+                            $content .= "&mdash;&mdash;	$subitem[0]"."<br>";
+                        }
+                    }
+                }
             }
             $content .= "<br> Mon cursur : " . $_SESSION['Auth']['diplome'] . "<br><br>";
             $content .= "<a type=\"button\" class=\"btn btn-info\" href=\"<?php echo WEBROOT ?>signout\">Se déconnecter</a>";
