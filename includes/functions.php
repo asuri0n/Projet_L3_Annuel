@@ -299,8 +299,9 @@ function signup() {
  * @param $sec_array -> Array of secure vars
  * @return array
  */
-function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_array = null)
+function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_array = null)
 {
+    $pdo = SPDO::getInstance();
     if ($stmt = $pdo->prepare($query)) 
     {
         if ($stmt->execute(array($sec_array)))
@@ -352,15 +353,38 @@ function getArrayFrom($pdo,$query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $s
     return null;
 }
 
-function nbBonnesReponses($exercice_id, $answer) {
+function nbBonnesReponses($exercice_id, $reponses_user) {
     $pdo = SPDO::getInstance();
-    $questions = getArrayFrom($pdo, "SELECT id_question, reponses FROM questions WHERE id_exercice = ".$exercice_id, "fetchAll");
+    $reponses_bdd = getArrayFrom($pdo, "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
 
     $cpt = 0;
-    foreach ($questions as $key => $question){
-        if($question['reponses'] == $answer[$key])
-            $cpt++;
+    foreach ($reponses_bdd as $key => $reponse_bdd) {
+        // si reponse multiple
+        if(is_array($reponses_user[$key]))
+        {
+            $rep_bdd_array = explode(',',$reponse_bdd[0]);
+            $erreur = false;
+            foreach ($reponses_user[$key] as $reponse_user) {
+                if($reponse_user != $rep_bdd_array[$key])
+                    $erreur = true;
+            }
+            if($erreur)
+                $cpt++;
+        } else if($reponse_bdd[0] != null){ // si reponse simple
+            if($reponse_bdd[0] == $reponses_user[$key])
+                $cpt++;
+        } else if($reponse_bdd[1] != null){ // si reponse fixe
+            $repbdd = str_replace(' ', '', strtolower($reponse_bdd[1]));
+            $repuser = str_replace(' ', '', strtolower($reponses_user[$key]));
+
+            // 2  vérifications
+            if(strcmp($repbdd,$repuser))
+                $cpt++;
+            else if ($repbdd === $repuser)
+                $cpt++;
+        }
     }
+
     return $cpt;
 }
 
