@@ -377,10 +377,7 @@ function nbBonnesReponses($exercice_id, $reponses_user) {
             $repbdd = str_replace(' ', '', strtolower($reponse_bdd[1]));
             $repuser = str_replace(' ', '', strtolower($reponses_user[$key]));
 
-            // 2  vérifications
-            if(strcmp($repbdd,$repuser))
-                $cpt++;
-            else if ($repbdd === $repuser)
+            if ($repbdd == $repuser)
                 $cpt++;
         }
     }
