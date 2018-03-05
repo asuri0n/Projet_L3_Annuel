@@ -1,6 +1,9 @@
 <?php
+    //!\\//!\\//!\\//!\\//!\\ POUR LE DEV //!\\//!\\//!\\//!\\//!\\
 	error_reporting(-1);
   	ini_set('display_errors','On');
+    //!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\//!\\
+
 	mb_internal_encoding('UTF-8');
 	date_default_timezone_set("Europe/Paris");
 
@@ -9,8 +12,6 @@
 	/*
 	 * Global Variables
 	 */
-	//define("CAN_REGISTER", "any");
-	//define("DEFAULT_ROLE", "member");
     define('WEBROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
     define('SERVERHOST',$_SERVER['HTTP_HOST']);
     define('PATH', "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
@@ -33,11 +34,6 @@
         define("USER", "21404260");
         define("PASSWORD", "DaeSheeWu6weephi");
         define("DATABASE", "21404260_dev");
-    } else {
-        define("HOST", "localhost");
-        define("USER", "root");
-        define("PASSWORD", "");
-        define("DATABASE", "autoevaluation_projetl3");
     }
 
     require_once ('SPDO.php');
