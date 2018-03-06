@@ -28,35 +28,31 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
     if(is_array($reponses_user[$key]))
     {
         $content .= "<b>Vos réponses:</b><br>";
-        foreach ($choix_bdd as $choi_bdd){
-            foreach ($reponses_user[$key] as $reponse_user) {
+        foreach ($choix_bdd as $choi_bdd)
+            foreach ($reponses_user[$key] as $reponse_user)
                 if ($choi_bdd["id_choix"] == $reponse_user)
-                    $content .= $choi_bdd["choix"]."<br>";
-            }
-        }
+                    $content .= $choi_bdd["choix"] . "<br>";
 
         // Vérification erreurs
         $rep_bdd_array = explode(',',$reponse_bdd["id_choix_bonn_rep"]);
-        foreach ($rep_bdd_array as $key2 => $rep_bdd) {
-            if (!array_key_exists($key2,$reponses_user[$key]) or $rep_bdd != $reponses_user[$key][$key2])
+        foreach ($rep_bdd_array as $key2 => $rep_bdd)
+            if (!array_key_exists($key2, $reponses_user[$key]) or $rep_bdd != $reponses_user[$key][$key2])
                 $erreur = true;
-        }
     }
     // Sinon si c'est pas un tableau mais que le type de réponse est un choix unique, alors il faut récuperer aussi le libelle du choix
     else if($reponse_bdd["id_choix_bonn_rep"] != null)
     {
         $content .= "<b>Votre réponse:</b><br>";
-        foreach ($choix_bdd as $choi_bdd){
+        foreach ($choix_bdd as $choi_bdd)
             if($choi_bdd['id_choix'] == $reponses_user[$key])
                 $content .= $choi_bdd['choix']."<br>";
-        }
 
         // Vérification erreurs
         if($reponse_bdd["id_choix_bonn_rep"] != $reponses_user[$key])
             $erreur = true;
     }
-    // Sinon on affiche le text
-    else {
+    // Sinon on affiche le texte
+    else if($reponse_bdd["reponse_fixe"] != null) {
         $content .= "<b>Votre réponse:</b><br>";
         $content .= $reponses_user[$key]."<br>";
 
@@ -66,16 +62,35 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
 
         if ($repbdd != $repuser)
             $erreur = true;
-    }
+    } else
+        $content .= "<p style='color:red'>Erreur lors de la vérification des réponses. Veuillez contacter un administrateur.</p>";
     $content .= "</p>";
 
-    if(!isset($erreur)){
-        $content .= "<p style='color:#1dff00'>ERREUR</p>";
-    } else if($erreur){
-        $content .= "<p style='color:red'>Mauvaise réponse!</p>";
-    } else {
+    if(!isset($erreur))
+        $content .= "<p style='color:red'>Erreur lors de la vérification des réponses. Veuillez contacter un administrateur.</p>";
+    else if($erreur)
+    {
+        $content .= "<p> <span style='color:red'>Mauvaise réponse!</span><br>";
+        if($reponses_bdd[$key]['reponse_fixe'] != null)
+            $content .= "<span style='color:green'>Bonne réponse : ".$reponses_bdd[$key]['reponse_fixe']."</span></p>";
+        else if($reponses_bdd[$key]['id_choix_bonn_rep'] != null)
+        {
+            $rep_bdd_array = explode(',',$reponses_bdd[$key]['id_choix_bonn_rep']);
+
+            $query = "SELECT choix FROM choix WHERE id_choix in (".$rep_bdd_array[0];
+            foreach ($rep_bdd_array as $key3 => $rep)
+                if($key3 != 0)
+                    $query .= ",$rep";
+            $query .= ");";
+
+            $bonnes_reponses = getArrayFrom($query,"fetchAll");
+            $content .= "<span style='color:green'>Bonne réponse : ";
+            foreach($bonnes_reponses as $bonne_reponse)
+                $content .= $bonne_reponse["choix"].", ";
+            $content .= "</span></p>";
+        }
+    } else
         $content .= "<p style='color:green'>Bonne réponse!</p>";
-    }
     $content .= "<hr>";
 }
 $content .= "<br>Temps passé: $timespent";
