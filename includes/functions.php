@@ -355,24 +355,32 @@ function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_ar
 
 function nbBonnesReponses($exercice_id, $reponses_user) {
     $reponses_bdd = getArrayFrom( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
-
     $cpt = 0;
-    foreach ($reponses_bdd as $key => $reponse_bdd) {
+    foreach ($reponses_bdd as $key => $reponse_bdd)
+    {
         // si reponse multiple
         if(is_array($reponses_user[$key]))
         {
             $rep_bdd_array = explode(',',$reponse_bdd[0]);
             $erreur = false;
-            foreach ($reponses_user[$key] as $reponse_user) {
-                if($reponse_user != $rep_bdd_array[$key])
+
+            // Vérification erreurs
+            foreach ($rep_bdd_array as $key2 => $rep_bdd) {
+                if (!array_key_exists($key2,$reponses_user[$key]) or $rep_bdd != $reponses_user[$key][$key2])
                     $erreur = true;
             }
-            if($erreur)
+            if(!$erreur)
                 $cpt++;
-        } else if($reponse_bdd[0] != null){ // si reponse simple
+        }
+        // si reponse simple
+        else if($reponse_bdd[0] != null)
+        {
             if($reponse_bdd[0] == $reponses_user[$key])
                 $cpt++;
-        } else if($reponse_bdd[1] != null){ // si reponse fixe
+        }
+        // si reponse fixe
+        else if($reponse_bdd[1] != null)
+        {
             $repbdd = str_replace(' ', '', strtolower($reponse_bdd[1]));
             $repuser = str_replace(' ', '', strtolower($reponses_user[$key]));
 
@@ -380,7 +388,6 @@ function nbBonnesReponses($exercice_id, $reponses_user) {
                 $cpt++;
         }
     }
-
     return $cpt;
 }
 
