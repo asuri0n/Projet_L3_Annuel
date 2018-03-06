@@ -354,7 +354,6 @@ function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_ar
 }
 
 function nbBonnesReponses($exercice_id, $reponses_user) {
-    $pdo = SPDO::getInstance();
     $reponses_bdd = getArrayFrom( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
 
     $cpt = 0;
