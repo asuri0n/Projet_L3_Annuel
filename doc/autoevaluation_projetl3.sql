@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.6.6deb4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le :  lun. 05 mars 2018 à 13:43
--- Version du serveur :  10.1.22-MariaDB
--- Version de PHP :  7.1.4
+-- Client :  mysql.info.unicaen.fr:3306
+-- Généré le :  Jeu 08 Mars 2018 à 13:07
+-- Version du serveur :  5.5.59-0+deb8u1-log
+-- Version de PHP :  5.6.30-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `autoevaluation_projetl3`
+-- Base de données :  `21404260_dev`
 --
 
 -- --------------------------------------------------------
@@ -38,7 +36,7 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `admins`
+-- Contenu de la table `admins`
 --
 
 INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
@@ -56,7 +54,7 @@ CREATE TABLE `annees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `annees`
+-- Contenu de la table `annees`
 --
 
 INSERT INTO `annees` (`code_annee`, `num_annee`) VALUES
@@ -70,6 +68,18 @@ INSERT INTO `annees` (`code_annee`, `num_annee`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `choix`
+--
+
+CREATE TABLE `choix` (
+  `id_choix` int(10) NOT NULL,
+  `id_question` int(10) DEFAULT NULL,
+  `choix` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `diplomes`
 --
 
@@ -79,7 +89,7 @@ CREATE TABLE `diplomes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `diplomes`
+-- Contenu de la table `diplomes`
 --
 
 INSERT INTO `diplomes` (`code_diplome`, `libelle`) VALUES
@@ -99,7 +109,7 @@ CREATE TABLE `etudiants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `etudiants`
+-- Contenu de la table `etudiants`
 --
 
 INSERT INTO `etudiants` (`id_etudiant`, `date_prem_conn`, `fin_inscription`) VALUES
@@ -119,14 +129,6 @@ CREATE TABLE `exercice` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Déchargement des données de la table `exercice`
---
-
-INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `enonce`, `date`) VALUES
-(16, 9, 'Les bases de la sécurité informatique', '2018-03-14'),
-(17, 17, 'PHP Objet', '2018-03-31');
-
 -- --------------------------------------------------------
 
 --
@@ -144,12 +146,12 @@ CREATE TABLE `matieres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `matieres`
+-- Contenu de la table `matieres`
 --
 
 INSERT INTO `matieres` (`id_matiere`, `code_diplome`, `code_annee`, `code_semestre`, `code_ue`, `code_ec`, `libelle`) VALUES
 (1, 'INFO', '3LINFO', 'INF5', 'A', NULL, 'Génie logiciel'),
-(2, 'INFO', '3LINFO', 'INF5', 'A', '1', 'Méthodes de conception'),
+(2, 'INFO', '1LINFO', 'INF5', 'A', '1', 'Méthodes de conception'),
 (3, 'INFO', '3LINFO', 'INF5', 'A', '2', 'Conduite de projet'),
 (4, 'INFO', '3LINFO', 'INF5', 'B', NULL, 'Système et Réseaux 2'),
 (5, 'INFO', '3LINFO', 'INF5', 'B', '1', 'Système'),
@@ -183,11 +185,23 @@ INSERT INTO `matieres` (`id_matiere`, `code_diplome`, `code_annee`, `code_semest
 CREATE TABLE `questions` (
   `id_question` int(11) NOT NULL,
   `id_exercice` int(11) NOT NULL,
-  `question` varchar(100) NOT NULL,
+  `question` longtext NOT NULL,
   `id_type` int(11) NOT NULL,
-  `choix` longtext NOT NULL,
-  `reponses` varchar(255) NOT NULL,
-  `justificaiton` longtext
+  `justification` longtext,
+  `commentaire` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reponses`
+--
+
+CREATE TABLE `reponses` (
+  `id_reponse` int(10) NOT NULL,
+  `id_question` int(10) DEFAULT NULL,
+  `id_choix_bonn_rep` varchar(50) DEFAULT NULL,
+  `reponse_fixe` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -215,7 +229,7 @@ CREATE TABLE `semestres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `semestres`
+-- Contenu de la table `semestres`
 --
 
 INSERT INTO `semestres` (`code_semestre`, `num_semestre`) VALUES
@@ -244,7 +258,7 @@ CREATE TABLE `type_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `type_question`
+-- Contenu de la table `type_question`
 --
 
 INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
@@ -253,7 +267,7 @@ INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
 (3, 'Normal');
 
 --
--- Index pour les tables déchargées
+-- Index pour les tables exportées
 --
 
 --
@@ -267,6 +281,13 @@ ALTER TABLE `admins`
 --
 ALTER TABLE `annees`
   ADD PRIMARY KEY (`code_annee`);
+
+--
+-- Index pour la table `choix`
+--
+ALTER TABLE `choix`
+  ADD PRIMARY KEY (`id_choix`),
+  ADD KEY `choix_questions_id_question_fk` (`id_question`);
 
 --
 -- Index pour la table `diplomes`
@@ -305,6 +326,13 @@ ALTER TABLE `questions`
   ADD KEY `id_type` (`id_type`);
 
 --
+-- Index pour la table `reponses`
+--
+ALTER TABLE `reponses`
+  ADD PRIMARY KEY (`id_reponse`),
+  ADD KEY `reponses_questions_id_question_fk` (`id_question`);
+
+--
 -- Index pour la table `scores`
 --
 ALTER TABLE `scores`
@@ -326,14 +354,19 @@ ALTER TABLE `type_question`
   ADD PRIMARY KEY (`id_type`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT pour les tables exportées
 --
 
+--
+-- AUTO_INCREMENT pour la table `choix`
+--
+ALTER TABLE `choix`
+  MODIFY `id_choix` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT pour la table `matieres`
 --
@@ -343,15 +376,26 @@ ALTER TABLE `matieres`
 -- AUTO_INCREMENT pour la table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT pour la table `reponses`
+--
+ALTER TABLE `reponses`
+  MODIFY `id_reponse` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `type_question`
 --
 ALTER TABLE `type_question`
   MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- Contraintes pour les tables déchargées
+-- Contraintes pour les tables exportées
 --
+
+--
+-- Contraintes pour la table `choix`
+--
+ALTER TABLE `choix`
+  ADD CONSTRAINT `choix_questions_id_question_fk` FOREIGN KEY (`id_question`) REFERENCES `questions` (`id_question`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `exercice`
@@ -371,16 +415,21 @@ ALTER TABLE `matieres`
 -- Contraintes pour la table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`),
+  ADD CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`) ON DELETE CASCADE,
   ADD CONSTRAINT `questions_ibfk_2` FOREIGN KEY (`id_type`) REFERENCES `type_question` (`id_type`);
+
+--
+-- Contraintes pour la table `reponses`
+--
+ALTER TABLE `reponses`
+  ADD CONSTRAINT `reponses_questions_id_question_fk` FOREIGN KEY (`id_question`) REFERENCES `questions` (`id_question`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `scores`
 --
 ALTER TABLE `scores`
-  ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiants` (`id_etudiant`),
-  ADD CONSTRAINT `scores_ibfk_2` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`);
-COMMIT;
+  ADD CONSTRAINT `scores_etudiants_id_etudiant_fk` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiants` (`id_etudiant`),
+  ADD CONSTRAINT `scores_exercice_id_exercice_fk` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
