@@ -14,7 +14,7 @@
     if(!isset($_SESSION['Auth']))
     {
         $query = "SELECT a.num_annee as annee FROM exercice JOIN matieres m ON exercice.id_matiere = m.id_matiere JOIN annees a ON m.code_annee = a.code_annee WHERE id_exercice = ? LIMIT 1";
-        $sem_id = getArrayFrom( $query, "fetch", "FETCH_NUM", $exercice_id)[0];
+        $sem_id = newSQLQuery( $query, "select", "fetch", "FETCH_NUM", $exercice_id)[0];
 
         if($sem_id != 1) {
             $_SESSION['error'] = "Vous devez vous connecter pour acceder a cet exercice";
@@ -72,7 +72,7 @@
         }
     } else {
         // Si c'est la première question. Initialisation du système
-        $nbQuestions = getArrayFrom( "SELECT count(*) FROM questions WHERE id_exercice = ?", "fetch", "FETCH_NUM", $exercice_id)[0];
+        $nbQuestions = newSQLQuery( "SELECT count(*) FROM questions WHERE id_exercice = ?", "select", "fetch", "FETCH_NUM", $exercice_id)[0];
         $nextQuestion = 1;
         $answers = array();
     }
@@ -80,14 +80,14 @@
     $content = "";
     // Si l'exercice n'est pas terminé
     if(!$end) {
-        $question = getArrayFrom( "SELECT id_question, question, id_type FROM questions JOIN type_question USING (id_type) WHERE id_exercice = ? ORDER BY id_question ASC LIMIT " . ($nextQuestion - 1) . ", 1 ", "fetch", "FETCH_ASSOC", $exercice_id);
+        $question = newSQLQuery( "SELECT id_question, question, id_type FROM questions JOIN type_question USING (id_type) WHERE id_exercice = ? ORDER BY id_question ASC LIMIT " . ($nextQuestion - 1) . ", 1 ", "select", "fetch", "FETCH_ASSOC", $exercice_id);
 
         $id_question = $question['id_question'];
-        $liste_choix = getArrayFrom( "SELECT id_choix, choix FROM choix WHERE id_question = ?","fetchAll", "FETCH_NUM", $id_question);
+        $liste_choix = newSQLQuery( "SELECT id_choix, choix FROM choix WHERE id_question = ?", "select","fetchAll", "FETCH_NUM", $id_question);
 
 
         // On récup l'énoncé
-        $exercice = getArrayFrom( "SELECT enonce FROM exercice WHERE id_exercice = ? LIMIT 1", "fetch", "FETCH_ASSOC", $exercice_id);
+        $exercice = newSQLQuery( "SELECT enonce FROM exercice WHERE id_exercice = ? LIMIT 1", "select", "fetch", "FETCH_ASSOC", $exercice_id);
 
         $content = "<h1>" . htmlentities($exercice['enonce']) . "</h1>";
         $content .= "<p style='margin-bottom:30px;'>$nextQuestion. " . htmlentities($question['question']) . "</p>";

@@ -1,21 +1,31 @@
 <?php
-    if(!isset($_SESSION['Auth']['isTeacher']) and !isset($_SESSION['Auth']['isAdmin'])){
+    if(!isset($_SESSION['Auth']['isAdmin'])){
         $_SESSION['error'] = "Vous n'avez pas acces a cette page!";
         session_write_close();
         header('location: '.WEBROOT.'accueil');
     }
 
     if(isset($_POST['addExercice']))
-        include 'addExercice.php';
+        include './pages/addExercice.php';
 
     if(isset($_POST['modifyExercice']))
-        include 'modifyExercice.php';
+        include './pages/modifyExercice.php';
 
-    $exercicesListe = getArrayFrom( "SELECT id_exercice, enonce FROM exercice", "fetchAll", 'FETCH_BOTH');
+    if(isset($_POST['seeScores']))
+        include './pages/seeScores.php';
 
+    if(isset($_POST['deleteOldScores']))
+        include './pages/deleteOldScores.php';
+
+
+    $exercicesListe = newSQLQuery( "SELECT id_exercice, enonce FROM exercice", "select", "fetchAll", 'FETCH_BOTH');
+    $exeValues = "";
+    foreach ($exercicesListe as $exercice)
+        $exeValues .= "<option value='$exercice[0]'>$exercice[0] - $exercice[1]</option>";
+
+    echo $titre
 ?>
 
-<?= $titre ?>
 
 <form method="POST" action="" class="form-signin">
     <label> Ajouter un exercice de
@@ -28,10 +38,16 @@
     <div class="form-group">
         <label> Modifier l'exercice suivant : </label>
         <select class="form-control" name="inputIdExercice">
-            <?php foreach ($exercicesListe as $exercice) {
-                echo "<option value='$exercice[0]'>$exercice[0] - $exercice[1]</option>";
-            } ?>
+            <?= $exeValues ?>
         </select>
     </div>
     <button name="modifyExercice" class="btn btn-lg btn-primary btn-block" type="submit">Modifier</button>
+</form>
+<hr>
+<form method="POST" action="" class="form-signin">
+    <button name="seeScores" class="btn btn-lg btn-primary btn-block" type="submit">Voir les scores</button>
+</form>
+<hr>
+<form method="POST" action="" class="form-signin">
+    <button name="deleteOldScores" class="btn btn-lg btn-primary btn-block" type="submit">Supprimer scores des anciens étudiants</button>
 </form>

@@ -43,7 +43,7 @@
             $tab1 .= "<h4>Mes ".sizeof($pedagarray)." cours : </h4>";
 
             // Requete pour récuperer les UE (sans les EC)
-            $query = getArrayFrom("SELECT concat(code_semestre,code_ue), libelle, code_ue, code_semestre FROM matieres WHERE code_ec is null;","fetchAll", "FETCH_NUM");
+            $query = newSQLQuery("SELECT concat(code_semestre,code_ue), libelle, code_ue, code_semestre FROM matieres WHERE code_ec is null;", "select", "fetchAll", "FETCH_NUM");
             foreach ($pedagarray as $elem)
             {
                 foreach ($query as $item)
@@ -52,7 +52,7 @@
                     {
                         $tab1 .= "<b>".$elem . " : " . $item[1] . "</b><br>";
                         // Les EC de l'UE
-                        $subquery = getArrayFrom("SELECT libelle FROM matieres WHERE code_ec is not null and code_ue = '$item[2]' and code_semestre = '$item[3]';","fetchAll", "FETCH_NUM");
+                        $subquery = newSQLQuery("SELECT libelle FROM matieres WHERE code_ec is not null and code_ue = '$item[2]' and code_semestre = '$item[3]';", "select", "fetchAll", "FETCH_NUM");
                         foreach ($subquery as $subitem)
                             $tab1 .= "&mdash;&mdash;	$subitem[0]"."<br>";
                     }
@@ -63,7 +63,7 @@
             /*
              * TAB N°2
              */
-            $scores = getArrayFrom("SELECT id_exercice, enonce, resultat FROM scores JOIN exercice USING (id_exercice) WHERE id_etudiant = ?", "fetchAll", "FETCH_ASSOC", $_SESSION['Auth']['user']);
+            $scores = newSQLQuery("SELECT id_exercice, enonce, resultat FROM scores JOIN exercice USING (id_exercice) WHERE id_etudiant = ?", "select","fetchAll", "FETCH_ASSOC", $_SESSION['Auth']['user']);
             foreach ($scores as $score)
                 $tab2 .= "Exercice n°".$score["id_exercice"]." : ".$score["enonce"] . "&nbsp;&nbsp;&mdash;&mdash;&nbsp;&nbsp;Score : " . $score["resultat"]."<br>";
 
@@ -77,6 +77,6 @@
             $content .= "Erreur, veuillez contacter l'administrateur";
         }
     }
-    $content .= "<a type='button' class='btn btn-info' href='".WEBROOT."signout'>Se déconnecter</a>";
+    $content .= "<br><a type='button' class='btn btn-info' href='".WEBROOT."signout'>Se déconnecter</a>";
 
     echo $content;

@@ -194,7 +194,7 @@ function updateAccount($isTeacher,$data){
         // Si l'étudiant s'est déja connecté sur le site
         $etupass = $data[0]['uidnumber'][0];
 
-        if (!getArrayFrom("SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
+        if (!newSQLQuery("SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
             $fininscription = $data[0]['datefininscription'][0];
             $fininscription = DateTime::createFromFormat('Ymd', $fininscription)->format('Y-m-d');
 
@@ -297,73 +297,83 @@ function signup() {
 /**
  * Return le resultat d'une requete SQL
  *
- * @param $query -> String
- * @param $fetch -> String fetch name
- * @param $type -> String fetch type
- * @param $sec_array -> Array of secure vars
- * @return array
+ * @param $query
+ * @param $typeQuery
+ * @param string $fetch
+ * @param string $typeFetch
+ * @param null $sec_array
+ * @return bool|null|array
  */
-function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_array = null)
+function newSQLQuery($query, $typeQuery, $fetch = "fetchAll", $typeFetch = "FETCH_ASSOC", $sec_array = null)
 {
     $pdo = SPDO::getInstance();
-    if ($stmt = $pdo->prepare($query)) 
+    switch($typeQuery)
     {
-        if(!is_array($sec_array)){
-            $sec_array = array($sec_array);
-        }
-        if ($stmt->execute($sec_array))
-        {
-            switch ($fetch)
-            {
-                case 'fetchAll':
-                    switch ($type) {
-                        case 'FETCH_ASSOC':
-                            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        case 'select':
+            if(!is_array($sec_array) and $sec_array != null)
+                $sec_array = array($sec_array);
+
+            if($stmt = $pdo->prepare($query)) {
+                if ($stmt->execute($sec_array)) {
+                    switch ($fetch) {
+                        case 'fetchAll':
+                            switch ($typeFetch) {
+                                case 'FETCH_ASSOC':
+                                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    break;
+                                case 'FETCH_BOTH':
+                                    return $stmt->fetchAll(PDO::FETCH_BOTH);
+                                    break;
+                                case 'FETCH_NUM':
+                                    return $stmt->fetchAll(PDO::FETCH_NUM);
+                                    break;
+                                case 'FETCH_OBJ':
+                                    return $stmt->fetchAll(PDO::FETCH_OBJ);
+                                    break;
+                            }
                             break;
-                        case 'FETCH_BOTH':
-                            $row = $stmt->fetchAll(PDO::FETCH_BOTH);
+                        case 'fetch':
+                            switch ($typeFetch) {
+                                case 'FETCH_ASSOC':
+                                    return $stmt->fetch(PDO::FETCH_ASSOC);
+                                    break;
+
+                                case 'FETCH_BOTH':
+                                    return $stmt->fetch(PDO::FETCH_BOTH);
+                                    break;
+
+                                case 'FETCH_NUM':
+                                    return $stmt->fetch(PDO::FETCH_NUM);
+                                    break;
+
+                                case 'FETCH_OBJ':
+                                    return $stmt->fetch(PDO::FETCH_OBJ);
+                                    break;
+                            }
                             break;
-                        case 'FETCH_NUM':
-                            $row = $stmt->fetchAll(PDO::FETCH_NUM);
-                            break;
-                        case 'FETCH_OBJ':
-                            $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+                        default:
                             break;
                     }
-                    break;
-                case 'fetch':
-                    switch ($type) {
-                        case 'FETCH_ASSOC':
-                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                            break;
-                        
-                        case 'FETCH_BOTH':
-                            $row = $stmt->fetch(PDO::FETCH_BOTH);
-                            break;
-                        
-                        case 'FETCH_NUM':
-                            $row = $stmt->fetch(PDO::FETCH_NUM);
-                            break;
-                        
-                        case 'FETCH_OBJ':
-                            $row = $stmt->fetch(PDO::FETCH_OBJ);
-                            break;
-                    }
-                    break;
-                case 'insert':
-                    break;
-                default:
-                    break;
+                }
             }
-            if (isset($row))
-                return $row;
-        }
+            break;
+        case 'delete':
+            if($stmt = $pdo->prepare($query))
+                if ($stmt->execute())
+                    return $stmt->rowCount();
+            break;
+        case 'update':
+            if($stmt = $pdo->prepare($query))
+                if ($stmt->execute())
+                    return $stmt->rowCount();
+            break;
+
     }
-    return null;
+    return null; // Si erreur
 }
 
 function nbBonnesReponses($exercice_id, $reponses_user) {
-    $reponses_bdd = getArrayFrom( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
+    $reponses_bdd = newSQLQuery( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
     $cpt = 0;
     foreach ($reponses_bdd as $key => $reponse_bdd)
     {
@@ -425,15 +435,15 @@ function saveScore($exercice_id, $nbBonnesReponses){
     {
         if ($nbBonnesReponses >= 0)
         {
-            $score = getArrayFrom("SELECT resultat_ancien FROM scores WHERE id_etudiant = ? and id_exercice = ?", "fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
+            $score = newSQLQuery("SELECT resultat_ancien FROM scores WHERE id_etudiant = ? and id_exercice = ?", "fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
 
             if(!$score) {
-                getArrayFrom("INSERT INTO scores (resultat_ancien, id_etudiant, id_exercice, resultat) VALUES (resultat,?,?,?)", "insert", null, array($_SESSION['Auth']['user'], $exercice_id, $nbBonnesReponses));
+                newSQLQuery("INSERT INTO scores (resultat_ancien, id_etudiant, id_exercice, resultat) VALUES (resultat,?,?,?)", "insert", null, array($_SESSION['Auth']['user'], $exercice_id, $nbBonnesReponses));
                 $_SESSION['success'] = "Score sauvegardé";
                 return null;
             } else {
                 if ($score['resultat_ancien'] != $nbBonnesReponses ){
-                    getArrayFrom("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, array($nbBonnesReponses));
+                    newSQLQuery("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, array($nbBonnesReponses));
                     $_SESSION['success'] = "Score mis a jour";
                 }
                 return $score['resultat_ancien'];

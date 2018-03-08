@@ -1,4 +1,12 @@
-<?= $titre ?>
+<?php
+    if(!isset($_SESSION['Auth']['isStudent'])){
+        $_SESSION['error'] = "Vous n'avez pas acces a cette page!";
+        session_write_close();
+        header('location: '.WEBROOT.'accueil');
+    }
+
+    echo $titre
+?>
 
 <div>
     <ul class='nav nav-tabs' role='tablist'>

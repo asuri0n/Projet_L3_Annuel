@@ -14,20 +14,20 @@ if(!isset($_POST['modifyExercice']) or !is_numeric($_POST['inputIdExercice']))
     header('location: accueil');
 
 $exercice_id = $_POST['inputIdExercice'];
-$exercice = getArrayFrom( "SELECT enonce, id_matiere FROM exercice WHERE exercice.id_exercice = $exercice_id", "fetch");
+$exercice = newSQLQuery( "SELECT enonce, id_matiere FROM exercice WHERE exercice.id_exercice = $exercice_id", "select", "fetch");
 
 
 
 
 //TODO: faure selon le nb de questions de la page et pas de la base
-$questions = getArrayFrom( "SELECT id_question, question, type_question.libelle typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = $exercice_id", "fetchAll");
+$questions = newSQLQuery( "SELECT id_question, question, type_question.libelle typelib, choix, reponses FROM questions JOIN type_question USING (id_type) WHERE id_exercice = $exercice_id", "select", "fetchAll");
 
 
 
 
 // TODO: A concatener en 1 requete
-$matieres = getArrayFrom( "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "fetchAll");
-$type_question = getArrayFrom( "SELECT id_type, libelle FROM type_question", "fetchAll");
+$matieres = newSQLQuery( "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "select", "fetchAll");
+$type_question = newSQLQuery( "SELECT id_type, libelle FROM type_question", "select", "fetchAll");
 
 if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_POST['inputMatiere']) and isset($_POST['inputTitreQuestion']) and isset($_POST['typeQ']) and isset($_POST['repQ']) and isset($_POST['bonneRep']))
 {
@@ -45,41 +45,38 @@ if(isset($_POST['modifyExercice']) and isset($_POST['inputTitre']) and isset($_P
         $repQ = $_POST['repQ'];
         $bonneRep = $_POST['bonneRep'];
 
-        if ($insert_stmt = $pdo->prepare("UPDATE exercice set id_matiere = ?, niv_etude = 1, enonce = ? WHERE id_exercice = $exercice_id"))
+        if (newSQLQuery("UPDATE exercice set id_matiere = ?, niv_etude = 1, enonce = ? WHERE id_exercice = $exercice_id","update"))
         {
-            if ($insert_stmt->execute(array($inputMatiere, $inputTitre)))
+            foreach ($questions as $key => $question)
             {
-                foreach ($questions as $key => $question)
+                if ($insert_stmt = $pdo->prepare("UPDATE questions set question = ?, id_type = ?, choix = ?, reponses = ? WHERE id_question = ".$question['id_question']))
                 {
-                    if ($insert_stmt = $pdo->prepare("UPDATE questions set question = ?, id_type = ?, choix = ?, reponses = ? WHERE id_question = ".$question['id_question']))
-                    {
-                        $stringRep = "";
-                        foreach ($repQ[$key] as $rep){
-                            $stringRep.=$rep.",";
-                        }
-                        $stringRep = substr($stringRep, 0, -1);
+                    $stringRep = "";
+                    foreach ($repQ[$key] as $rep){
+                        $stringRep.=$rep.",";
+                    }
+                    $stringRep = substr($stringRep, 0, -1);
 
-                        $stringBRep = $bonneRep[$key];
+                    $stringBRep = $bonneRep[$key];
 
-                        //TODO : POUR LA VERSION AVEC CHECK BOX : Faire différement
-                        /*$stringBRep = "";
-                        foreach ($bonneRep[$key] as $key2 => $bRep){
-                            $stringBRep.=$key2.",";
-                        }
-                        $stringBRep = substr($stringBRep, 0, -1);*/
+                    //TODO : POUR LA VERSION AVEC CHECK BOX : Faire différement
+                    /*$stringBRep = "";
+                    foreach ($bonneRep[$key] as $key2 => $bRep){
+                        $stringBRep.=$key2.",";
+                    }
+                    $stringBRep = substr($stringBRep, 0, -1);*/
 
-                        if (!$insert_stmt->execute(array($inputTitreQuestion[$key], $typeQ[$key]+1, $stringRep, $stringBRep))) {
-                            $error = true;
-                        }
+                    if (!$insert_stmt->execute(array($inputTitreQuestion[$key], $typeQ[$key]+1, $stringRep, $stringBRep))) {
+                        $error = true;
                     }
                 }
-                if(isset($error))
-                    $_SESSION['error'] = "Erreur lors de la modification de l'exercice";
-                else
-                    $_SESSION['success'] = "Exercice mofidié";
-                session_write_close();
-                header('location: admin');
             }
+            if(isset($error))
+                $_SESSION['error'] = "Erreur lors de la modification de l'exercice";
+            else
+                $_SESSION['success'] = "Exercice mofidié";
+            session_write_close();
+            header('location: admin');
         }
     } else {
         echo "erreur ";

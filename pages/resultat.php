@@ -10,7 +10,7 @@ $points = $_POST['points'];
 $id_exercice = $_POST['id'];
 
 $reponses_user = json_decode($_POST['answers']);
-$reponses_bdd = getArrayFrom( "SELECT id_question, enonce, question, id_choix_bonn_rep, reponse_fixe FROM reponses JOIN questions USING (id_question) JOIN exercice USING (id_exercice) WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_ASSOC", $id_exercice);
+$reponses_bdd = newSQLQuery( "SELECT id_question, enonce, question, id_choix_bonn_rep, reponse_fixe FROM reponses JOIN questions USING (id_question) JOIN exercice USING (id_exercice) WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "select", "fetchAll", "FETCH_ASSOC", $id_exercice);
 
 $total = sizeof($reponses_bdd);
 $timespent = $_POST['timespent'];
@@ -20,7 +20,7 @@ $content = "";
 foreach ($reponses_bdd as $key => $reponse_bdd)
 {
     $erreur = false;
-    $choix_bdd = getArrayFrom("SELECT id_choix, choix FROM choix WHERE id_question = ?", "fetchAll", "FETCH_ASSOC", $reponse_bdd['id_question']);
+    $choix_bdd = newSQLQuery("SELECT id_choix, choix FROM choix WHERE id_question = ?", "select","fetchAll", "FETCH_ASSOC", $reponse_bdd['id_question']);
     $content .= "<p><b>".($key+1).". ".ucfirst($reponse_bdd['question'])."</b></p>";
 
     $content .= "<p>";
@@ -83,7 +83,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
                     $query .= ",$rep";
             $query .= ");";
 
-            $bonnes_reponses = getArrayFrom($query,"fetchAll");
+            $bonnes_reponses = newSQLQuery($query, "select","fetchAll");
             $content .= "<span style='color:green'>Bonne réponse : ";
             foreach($bonnes_reponses as $bonne_reponse)
                 $content .= $bonne_reponse["choix"].", ";
