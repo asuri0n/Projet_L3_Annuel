@@ -90,14 +90,16 @@ function connectionLdap($ldapuser, $ldappass)
     // connect
     $ldapconn = ldap_connect($ldapServer, $ldapServerPort);
 
-    if ($ldapconn) {
+    if ($ldapconn)
+    {
         ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
-
         // binding to ldap server
         $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass);
-        if($ldapbind){
+        if($ldapbind)
+        {
             $result = ldap_search($ldapconn, $ldaptree, "(cn=*)");
-            if($result){
+            if($result)
+            {
                 $data = ldap_get_entries($ldapconn, $result);
 
                 $email = $data[0]['mail'][0];
@@ -114,8 +116,10 @@ function connectionLdap($ldapuser, $ldappass)
                 if(strcmp($status,"ETUDIANT") == 0)
                 {
                     // Si la personne un étudiant à l'UFR des Sciences
-                    if(strcmp($ufr,UFRSCIENCES) == 0) {
-                        if (!updateAccount(0, $data)) {
+                    if(strcmp($ufr,UFRSCIENCES) == 0)
+                    {
+                        if (!updateAccount(0, $data))
+                        {
                             $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
                             return false;
                         }
@@ -129,12 +133,13 @@ function connectionLdap($ldapuser, $ldappass)
                         $elemnewarray = [];
                         $j=0;
                         // Pour chaque elem pédag trouvé via ldap
-                        foreach ($elempedag as $elem) {
-                            if(!is_numeric($elem)) {
+                        foreach ($elempedag as $elem)
+                        {
+                            if(!is_numeric($elem))
+                            {
                                 $str = explode('_', $elem)[1];
-                                if (!preg_match("/INFOS[0-9]/", $str)) {
+                                if (!preg_match("/INFOS[0-9]/", $str))
                                     $elemnewarray[$j] = explode('_', $elem)[1]; // composition element pédag : {UAI:0141408E}AE_INF6D ; On garde que la partie apres le _ donc on explode
-                                }
                             }
                             $j++;
                         }
@@ -292,7 +297,6 @@ function signup() {
 /**
  * Return le resultat d'une requete SQL
  *
- * @param $pdo -> Object
  * @param $query -> String
  * @param $fetch -> String fetch name
  * @param $type -> String fetch type
@@ -304,23 +308,24 @@ function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_ar
     $pdo = SPDO::getInstance();
     if ($stmt = $pdo->prepare($query)) 
     {
-        if ($stmt->execute(array($sec_array)))
+        if(!is_array($sec_array)){
+            $sec_array = array($sec_array);
+        }
+        if ($stmt->execute($sec_array))
         {
-            switch ($fetch) {
+            switch ($fetch)
+            {
                 case 'fetchAll':
                     switch ($type) {
                         case 'FETCH_ASSOC':
                             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             break;
-                        
                         case 'FETCH_BOTH':
                             $row = $stmt->fetchAll(PDO::FETCH_BOTH);
                             break;
-                        
                         case 'FETCH_NUM':
                             $row = $stmt->fetchAll(PDO::FETCH_NUM);
                             break;
-                        
                         case 'FETCH_OBJ':
                             $row = $stmt->fetchAll(PDO::FETCH_OBJ);
                             break;
@@ -344,6 +349,10 @@ function getArrayFrom($query,$fetch = "fetchAll", $type = "FETCH_ASSOC", $sec_ar
                             $row = $stmt->fetch(PDO::FETCH_OBJ);
                             break;
                     }
+                    break;
+                case 'insert':
+                    break;
+                default:
                     break;
             }
             if (isset($row))
@@ -408,5 +417,24 @@ function getSentenceResult($percent){
         return "Parfait! Tu as tout bon!";
     } else {
         return "error";
+    }
+}
+
+function saveScore($exercice_id, $nbBonnesReponses){
+    if(isset($_SESSION['Auth']['user']) and isset($_SESSION['Auth']['isStudent']))
+    {
+        if ($nbBonnesReponses >= 0)
+        {
+            $score = getArrayFrom("SELECT * FROM scores WHERE id_etudiant = ? and id_exercice = ?", "fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
+
+            if(!$score)
+                getArrayFrom("INSERT INTO scores (resultat_ancien, id_etudiant, id_exercice, resultat) VALUES (resultat,?,?,?)", "insert", null, array($_SESSION['Auth']['user'], $exercice_id, $nbBonnesReponses));
+            else
+                getArrayFrom("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, array($nbBonnesReponses));
+            $_SESSION['success'] = "Score sauvegardé";
+        } else
+            $_SESSION['error'] = "Erreur lors de la sauvegarde du score";
+    } else {
+        $_SESSION['error'] = "Vous n'êtes pas étudiant, il n'y a donc pas de sauvegarde du score";
     }
 }

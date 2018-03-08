@@ -130,6 +130,9 @@
         $nbBonnesReponses = nbBonnesReponses($exercice_id, $answers);
         $percent = ($nbBonnesReponses*100/$nbQuestions);
 
+        // Sauvegarde du score
+        saveScore($exercice_id, $nbBonnesReponses);
+
         $content .= "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p><p>".getSentenceResult($percent)."</p><p><b>Temps passé</b><br>0:27</p></center>";
         $content .= "<form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>";
             $content .= "<input name='points' value='$nbBonnesReponses' type='hidden'>";
