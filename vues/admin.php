@@ -17,6 +17,9 @@
     if(isset($_POST['deleteOldScores']))
         include './pages/deleteOldScores.php';
 
+    if(isset($_POST['deleteExercice']))
+        include './pages/deleteExercice.php';
+
 
     $exercicesListe = newSQLQuery( "SELECT id_exercice, enonce FROM exercice", "select", "fetchAll", 'FETCH_BOTH');
     $exeValues = "";
@@ -31,23 +34,24 @@
     <label> Ajouter un exercice de
         <input type="number" name="inputNbQuestions" value="0" min="0" max="10">
     </label> questions<br>
-    <button name="addExercice" class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
+    <button name="addExercice" class="btn btn-lg btn-primary" type="submit">Ajouter</button>
 </form>
 <hr>
 <form method="POST" action="" class="form-signin">
     <div class="form-group">
-        <label> Modifier l'exercice suivant : </label>
+        <label> Modifier/Supprimer l'exercice suivant : </label>
         <select class="form-control" name="inputIdExercice">
             <?= $exeValues ?>
         </select>
     </div>
-    <button name="modifyExercice" class="btn btn-lg btn-primary btn-block" type="submit">Modifier</button>
+    <button name="modifyExercice" class="btn btn-lg btn-primary" type="submit">Modifier</button>
+    <button name="deleteExercice" class="btn btn-lg btn-primary" type="submit">Supprimer</button>
 </form>
 <hr>
 <form method="POST" action="" class="form-signin">
-    <button name="seeScores" class="btn btn-lg btn-primary btn-block" type="submit">Voir les scores</button>
+    <button name="seeScores" class="btn btn-lg btn-primary" type="submit">Voir les scores</button>
 </form>
 <hr>
 <form method="POST" action="" class="form-signin">
-    <button name="deleteOldScores" class="btn btn-lg btn-primary btn-block" type="submit">Supprimer scores des anciens étudiants</button>
+    <button name="deleteOldScores" class="btn btn-lg btn-primary" type="submit">Supprimer scores des anciens étudiants</button>
 </form>
