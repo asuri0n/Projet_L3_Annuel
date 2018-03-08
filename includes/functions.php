@@ -425,16 +425,23 @@ function saveScore($exercice_id, $nbBonnesReponses){
     {
         if ($nbBonnesReponses >= 0)
         {
-            $score = getArrayFrom("SELECT * FROM scores WHERE id_etudiant = ? and id_exercice = ?", "fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
+            $score = getArrayFrom("SELECT resultat_ancien FROM scores WHERE id_etudiant = ? and id_exercice = ?", "fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
 
-            if(!$score)
+            if(!$score) {
                 getArrayFrom("INSERT INTO scores (resultat_ancien, id_etudiant, id_exercice, resultat) VALUES (resultat,?,?,?)", "insert", null, array($_SESSION['Auth']['user'], $exercice_id, $nbBonnesReponses));
-            else
-                getArrayFrom("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, array($nbBonnesReponses));
-            $_SESSION['success'] = "Score sauvegardé";
+                $_SESSION['success'] = "Score sauvegardé";
+                return null;
+            } else {
+                if ($score['resultat_ancien'] != $nbBonnesReponses ){
+                    getArrayFrom("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, array($nbBonnesReponses));
+                    $_SESSION['success'] = "Score mis a jour";
+                }
+                return $score['resultat_ancien'];
+            }
         } else
             $_SESSION['error'] = "Erreur lors de la sauvegarde du score";
     } else {
         $_SESSION['error'] = "Vous n'êtes pas étudiant, il n'y a donc pas de sauvegarde du score";
     }
+    return null;
 }

@@ -131,9 +131,23 @@
         $percent = ($nbBonnesReponses*100/$nbQuestions);
 
         // Sauvegarde du score
-        saveScore($exercice_id, $nbBonnesReponses);
+        $ancien_score = saveScore($exercice_id, $nbBonnesReponses);
 
-        $content .= "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p><p>".getSentenceResult($percent)."</p><p><b>Temps passé</b><br>0:27</p></center>";
+
+        // Création du contenue de la vue
+        $content .= "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p>";
+        $content .= "<p>".getSentenceResult($percent)."<br>";
+
+        // Si un score a été retourné
+        if($ancien_score)
+            if($ancien_score > $nbBonnesReponses)
+                $content .= "Votre score précédent était de ".$ancien_score.". C'était mieux !";
+            else if($ancien_score > $nbBonnesReponses)
+                $content .= "Votre score précédent était de ".$ancien_score.". C'est mieux !";
+            else
+                $content .= "Votre score précédent était le même.";
+
+        $content .= "</p><p><b>Temps passé</b><br>0:27</p></center>";
         $content .= "<form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>";
             $content .= "<input name='points' value='$nbBonnesReponses' type='hidden'>";
             $content .= "<input name='id' value='$exercice_id' type='hidden'>";
