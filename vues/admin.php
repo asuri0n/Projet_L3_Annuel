@@ -15,6 +15,7 @@
 
 ?>
 
+<?= $titre ?>
 
 <form method="POST" action="" class="form-signin">
     <label> Ajouter un exercice de

@@ -21,45 +21,62 @@
     }
 
     $status = (isset($_SESSION['Auth']['isTeacher'])) ? "professeur" : ((isset($_SESSION['Auth']['isAdmin'])) ? "admin" : ((isset($_SESSION['Auth']['isStudent'])) ? "étudiant" : false));
-
-    if($status){
+    if($status)
+    {
         $content = "";
-        $content .= "<h1>Mon espace $status </h1>";
+        $titre = "<h1>Mon espace $status </h1>";
 
         // Pour étudiants
-        if(isset($_SESSION['Auth']['isStudent'])) {
-            $content .= "Votre identifiant est le : " . $_SESSION['Auth']['user'] . " <br>";
-            $content .= "Votre adresse mail est : " . $_SESSION['Auth']['email'] . " <br>";
-            $content .= "Vous vous appeler : " . $_SESSION['Auth']['givenname'] . " <br><br>";
+        if(isset($_SESSION['Auth']['isStudent']))
+        {
+            $tab1 = "";
+            $tab2 = "";
+
+            /*
+             * TAB N°1
+             */
+            $tab1 .= "Votre identifiant est le : " . $_SESSION['Auth']['user'] . " <br>";
+            $tab1 .= "Votre adresse mail est : " . $_SESSION['Auth']['email'] . " <br>";
+            $tab1 .= "Vous vous appeler : " . $_SESSION['Auth']['givenname'] . " <br><br>";
 
             $pedagarray = $_SESSION['Auth']['elempedag'];
-            $content .= "<h4>Mes ".sizeof($pedagarray)." cours : </h4><br>";
+            $tab1 .= "<h4>Mes ".sizeof($pedagarray)." cours : </h4>";
+
             // Requete pour récuperer les UE (sans les EC)
             $query = getArrayFrom("SELECT concat(code_semestre,code_ue), libelle, code_ue, code_semestre FROM matieres WHERE code_ec is null;","fetchAll", "FETCH_NUM");
-            foreach ($pedagarray as $elem) {
-                foreach ($query as $item) {
-                    if($elem == $item[0]) {
-                        $content .= "<b>".$elem . " : " . $item[1] . "</b><br>";
+            foreach ($pedagarray as $elem)
+            {
+                foreach ($query as $item)
+                {
+                    if($elem == $item[0])
+                    {
+                        $tab1 .= "<b>".$elem . " : " . $item[1] . "</b><br>";
                         // Les EC de l'UE
                         $subquery = getArrayFrom("SELECT libelle FROM matieres WHERE code_ec is not null and code_ue = '$item[2]' and code_semestre = '$item[3]';","fetchAll", "FETCH_NUM");
-                        foreach ($subquery as $subitem) {
-                            $content .= "&mdash;&mdash;	$subitem[0]"."<br>";
-                        }
+                        foreach ($subquery as $subitem)
+                            $tab1 .= "&mdash;&mdash;	$subitem[0]"."<br>";
                     }
                 }
             }
-            $content .= "<br> Mon cursur : " . $_SESSION['Auth']['diplome'] . "<br><br>";
-            $content .= "<a type=\"button\" class=\"btn btn-info\" href=\"<?php echo WEBROOT ?>signout\">Se déconnecter</a>";
+            $tab1 .= "<br> Mon cursur : " . $_SESSION['Auth']['diplome'] . "<br><br>";
+
+            /*
+             * TAB N°2
+             */
+            $scores = getArrayFrom("SELECT id_exercice, enonce, resultat FROM scores JOIN exercice USING (id_exercice) WHERE id_etudiant = ?", "fetchAll", "FETCH_ASSOC", $_SESSION['Auth']['user']);
+            foreach ($scores as $score)
+                $tab2 .= "Exercice n°".$score["id_exercice"]." : ".$score["enonce"] . "&nbsp;&nbsp;&mdash;&mdash;&nbsp;&nbsp;Score : " . $score["resultat"]."<br>";
+
+            include_once './vues/student.php';
+
         } else if(isset($_SESSION['Auth']['isAdmin'])) {
-            ob_start();
-            include_once 'admin.php';
-            $content .= ob_get_contents();
-            ob_end_clean();
+            include_once './vues/admin.php';
         } else if(isset($_SESSION['Auth']['isTeacher'])) {
 
         } else {
             $content .= "Erreur, veuillez contacter l'administrateur";
         }
     }
+    $content .= "<a type='button' class='btn btn-info' href='".WEBROOT."signout'>Se déconnecter</a>";
 
     echo $content;

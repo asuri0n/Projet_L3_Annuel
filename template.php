@@ -94,8 +94,6 @@
                     }
                 }
             });
-            //table.search( 'Fiona' );
-            //table.draw();
         });
     </script>
 </html>
