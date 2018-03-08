@@ -194,7 +194,7 @@ function updateAccount($isTeacher,$data){
         // Si l'étudiant s'est déja connecté sur le site
         $etupass = $data[0]['uidnumber'][0];
 
-        if (!newSQLQuery("SELECT * FROM etudiants WHERE id_etudiant = ".$etupass,"fetch")) {
+        if (!newSQLQuery("SELECT * FROM etudiants WHERE id_etudiant = ".$etupass, "select", "fetch")) {
             $fininscription = $data[0]['datefininscription'][0];
             $fininscription = DateTime::createFromFormat('Ymd', $fininscription)->format('Y-m-d');
 
@@ -359,13 +359,18 @@ function newSQLQuery($query, $typeQuery, $fetch = "fetchAll", $typeFetch = "FETC
             break;
         case 'delete':
             if($stmt = $pdo->prepare($query))
-                if ($stmt->execute())
+                if ($stmt->execute($sec_array))
                     return $stmt->rowCount();
             break;
         case 'update':
             if($stmt = $pdo->prepare($query))
-                if ($stmt->execute())
+                if ($stmt->execute($sec_array))
                     return $stmt->rowCount();
+            break;
+        case 'insert':
+            if($stmt = $pdo->prepare($query))
+                if ($stmt->execute($sec_array))
+                    return true;
             break;
 
     }
@@ -373,7 +378,7 @@ function newSQLQuery($query, $typeQuery, $fetch = "fetchAll", $typeFetch = "FETC
 }
 
 function nbBonnesReponses($exercice_id, $reponses_user) {
-    $reponses_bdd = newSQLQuery( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "fetchAll", "FETCH_NUM", $exercice_id);
+    $reponses_bdd = newSQLQuery( "SELECT id_choix_bonn_rep, reponse_fixe FROM reponses WHERE id_question = ANY (SELECT id_question FROM questions WHERE id_exercice = ?)", "select","fetchAll", "FETCH_NUM", $exercice_id);
     $cpt = 0;
     foreach ($reponses_bdd as $key => $reponse_bdd)
     {
@@ -435,15 +440,15 @@ function saveScore($exercice_id, $nbBonnesReponses){
     {
         if ($nbBonnesReponses >= 0)
         {
-            $score = newSQLQuery("SELECT resultat_ancien FROM scores WHERE id_etudiant = ? and id_exercice = ?", "fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
+            $score = newSQLQuery("SELECT resultat_ancien FROM scores WHERE id_etudiant = ? and id_exercice = ?", "select","fetch", "FETCH_ASSOC", array($_SESSION['Auth']['user'],$exercice_id));
 
             if(!$score) {
-                newSQLQuery("INSERT INTO scores (resultat_ancien, id_etudiant, id_exercice, resultat) VALUES (resultat,?,?,?)", "insert", null, array($_SESSION['Auth']['user'], $exercice_id, $nbBonnesReponses));
+                newSQLQuery("INSERT INTO scores (resultat_ancien, id_etudiant, id_exercice, resultat) VALUES (resultat,?,?,?)", "insert", null, null, array($_SESSION['Auth']['user'], $exercice_id, $nbBonnesReponses));
                 $_SESSION['success'] = "Score sauvegardé";
                 return null;
             } else {
                 if ($score['resultat_ancien'] != $nbBonnesReponses ){
-                    newSQLQuery("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, array($nbBonnesReponses));
+                    newSQLQuery("UPDATE scores SET resultat_ancien = resultat, resultat = ?", "insert", null, null, array($nbBonnesReponses));
                     $_SESSION['success'] = "Score mis a jour";
                 }
                 return $score['resultat_ancien'];

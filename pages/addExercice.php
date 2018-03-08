@@ -11,15 +11,15 @@ if(!isset($_POST['addExercice']) or !is_numeric($_POST['inputNbQuestions']))
 
 $nbQuestions = $_POST['inputNbQuestions'];
 
-$matieres = newSQLQuery( "SELECT id_matiere, ue_num, sem_id, libelle FROM matieres", "select","fetchAll");
+$matieres = newSQLQuery( "SELECT id_matiere, code_diplome, code_annee, code_semestre, code_ue, code_ec, libelle FROM matieres", "select","fetchAll");
 $type_question = newSQLQuery( "SELECT id_type, libelle FROM type_question", "select","fetchAll");
 
+$error = false;
 if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST['inputMatiere']) and isset($_POST['inputTitreQuestion']) and isset($_POST['typeQ']) and isset($_POST['repQ']) and isset($_POST['bonneRep']))
 {
     // TODO: changer plus tard avec du JS
     $nbReponses = 4;
 
-    // TODO: VERIFIER SI redQ et bonneRep ont bien le nb de réponses
     if(sizeof($_POST['inputTitreQuestion']) == $nbQuestions and sizeof($_POST['typeQ']) == $nbQuestions and sizeof($_POST['repQ']) == $nbQuestions and sizeof($_POST['bonneRep']) == $nbQuestions) {
         $inputMatiere = $_POST['inputMatiere'];
         $inputTitre = $_POST['inputTitre'];
@@ -28,92 +28,125 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
         $repQ = $_POST['repQ'];
         $bonneRep = $_POST['bonneRep'];
 
-        if ($insert_stmt = $pdo->prepare("INSERT INTO exercice (id_matiere, niv_etude, enonce, date) VALUES (?, 1, ?, NOW())"))
+        $stmt1 = newSQLQuery("INSERT INTO exercice (id_matiere, enonce, date) VALUES (?, ?, NOW())", "insert", null, null, array($inputMatiere, htmlspecialchars($inputTitre)));
+        if (!$error and $stmt1)
         {
-            if ($insert_stmt->execute(array($inputMatiere, $inputTitre)))
+            $lastId = $pdo->lastInsertId();
+            foreach ($inputTitreQuestion as $key => $question)
             {
-                $lastId = $pdo->lastInsertId();
-                foreach ($inputTitreQuestion as $key => $question)
-                {
-                    if ($insert_stmt = $pdo->prepare("INSERT INTO questions (id_exercice, question, id_type, choix, reponses) VALUES (?, ?, ?, ?, ?)"))
-                    {
-                        $stringRep = "";
-                        foreach ($repQ[$key] as $rep){
-                            $stringRep.=$rep.",";
-                        }
-                        $stringRep = substr($stringRep, 0, -1);
-
-                        $stringBRep = $bonneRep[$key];
-
-                        //TODO : POUR LA VERSION AVEC CHECK BOX : Faire différement
-                        /*$stringBRep = "";
-                        foreach ($bonneRep[$key] as $key2 => $bRep){
-                            $stringBRep.=$key2.",";
-                        }
-                        $stringBRep = substr($stringBRep, 0, -1);*/
-
-                        if ($insert_stmt->execute(array($lastId, $inputTitreQuestion[$key], $typeQ[$key]+1, $stringRep, $stringBRep))) {
-                            $error = true;
-                        }
+                if(is_array($bonneRep[$key])){
+                    $id_choix_bonn_rep = "";
+                    foreach ($bonneRep[$key] as $rep){
+                        $id_choix_bonn_rep.=$rep.",";
                     }
+                    $id_choix_bonn_rep = substr($id_choix_bonn_rep, 0, -1);
                 }
-                if(isset($error))
-                    $_SESSION['error'] = "Erreur lors de la modification de l'exercice";
-                else
-                    $_SESSION['success'] = "Exercice mofidié";
-                session_write_close();
-                header('location: admin');
+
+                // TODO: Commentaires et justifications
+                // Ajout de la question et son type
+                $stmt2 = newSQLQuery("INSERT INTO questions (id_exercice, question, id_type) VALUES (?, ?, ?)", "insert", null, null, array($lastId, htmlspecialchars($inputTitreQuestion[$key]), $typeQ[$key]+1));
+
+                if(!$error and $stmt2)
+                {
+                    $lastIdQuestion = $pdo->lastInsertId();
+                    if(is_array($bonneRep[$key])) {
+                        foreach ($bonneRep[$key] as $rep) {
+                            if (!$error)
+                                $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, htmlspecialchars($repQ[$key][$rep])));
+                            if (!$stmt3)
+                                $error = true;
+                        }
+                    } else
+                        $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, htmlspecialchars($repQ[$key][$bonneRep[$key]])));
+
+                    if (!$error and $stmt3)
+                    {
+                        if($typeQ == 3 and !is_array($repQ[$key]))
+                            $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, null, ?)", "insert", null, null, array($lastIdQuestion, $repQ[$key]));
+                        else if(isset($id_choix_bonn_rep) and !empty($id_choix_bonn_rep))
+                            $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, ?, null)", "insert", null, null, array($lastIdQuestion, $id_choix_bonn_rep));
+                        else
+                            $error = true;
+                    } else
+                        $error = true;
+                } else
+                    $error = true;
             }
-        }
-    } else {
-            echo "erreur ";
-    }
+        } else
+            $error = true;
+    } else
+        $error = true;
+
+    if(isset($error))
+        $_SESSION['error'] = "Erreur lors de la modification de l'exercice";
+    else
+        $_SESSION['success'] = "Exercice mofidié";
 }
 ?>
 
 <div style="background-color: cornsilk; padding:20px">
 <form method="POST" class="form-signin">
-    <input name="inputTitre" class="form-control" placeholder="Titre" type="text">
+    <div class="form-group">
+        <label for="sel1">Enoncé de l'exercice :</label>
+        <input name="inputTitre" class="form-control" placeholder="Enoncé de l'exercice" type="text">
+    </div>
     <div class="form-group">
         <label for="sel1">Matière :</label>
         <select class="form-control" id="sel1" name="inputMatiere">
             <?php
                 foreach ($matieres as $matiere){
-                    echo "<option value='".$matiere['id_matiere']."'>UE".$matiere['ue_num']." SEM".$matiere['sem_id']." : ".$matiere['libelle']."</option>";
+                    echo "<option value='".$matiere['id_matiere']."'>".$matiere['code_semestre'].$matiere['code_ue'].$matiere['code_ec']." : ".$matiere['libelle']."</option>";
                 }
             ?>
         </select>
     </div>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Questions</th>
-                <th>Type</th>
-                <th>Réponses</th>
-            </tr>
-            </thead>
-            <tbody>
-                <?php for($i=0; $i<$nbQuestions ; $i++){
-                    echo "<tr>";
-                    echo "<td><input name='inputTitreQuestion[$i]' class='form-control' placeholder='Titre question ".($i+1)."' type='text'></td>";
-                    echo "<td><select class=\"form-control\" id=\"sel1\" name='typeQ[$i]'>";
-                        foreach ($type_question as $key => $type) {
-                            echo "<option value='$key'>".$type['libelle']."</option>";
-                        }
-                    echo "</select></td>";
-                    //TODO : POUR LA VERSION AVEC CHECK BOX : AJOUTER [] APRES bonneRep[$i] !!!
-                    echo "<td><input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='0'>
-                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='1'>
-                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='2'>
-                    <input name='repQ[$i][]' class='form-control' type='text'><input name='bonneRep[$i]' type=\"radio\" value='3'></td>";
-                    echo "</tr>";
-                }?>
-                <input type="number" name="inputNbQuestions" value="<?php echo $nbQuestions; ?>" hidden>
-            </tbody>
-        </table>
+    <div class="form-group">
+        <label for="sel1">Liste des questions :</label>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Questions</th>
+                    <th>Type</th>
+                    <th>Choix (Cochez la bonne réponse)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php for($i=0; $i<$nbQuestions ; $i++){
+                        echo "<tr>";
+                            echo "<td style='width: 30%;'><input name='inputTitreQuestion[$i]' class='form-control' placeholder='Titre question ".($i+1)."' type='text'></td>";
+                            echo "<td style='width: 20%;'><select class='form-control' id='sel1' name='typeQ[$i]'>";
+                                foreach ($type_question as $key => $type) {
+                                    echo "<option value='$key' id='".$i."inputType".$key."' onclick='changerInput($i,$key)'>".$type['libelle']."</option>";
+                                }
+                            echo "</select></td>";
+
+                            //TODO : POUR LA VERSION AVEC CHECK BOX : AJOUTER [] APRES bonneRep[$i] !!!
+                            echo "<td>";
+                            for ($i2 = 0; $i2 < 4; $i2++)
+                                echo "<span style='display: inline-block; width: 50%'><input name='repQ[$i][]' class='form-control' placeholder='Choix n°$i2' type='text' style='float:left; width: 85%'><input id='input$i' name='bonneRep[$i][]' type='checkbox' value='$i2' style='margin:0.5em 0.5em 0.5em 0.5em;'></span>";
+                            echo "</td>";
+                        echo "</tr>";
+                    }?>
+                    <input type="number" name="inputNbQuestions" value="<?= $nbQuestions ?>" hidden>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <button name="addExercice" class="btn btn-lg btn-primary btn-block" type="submit">Ajouter</button>
 </form>
 </div><hr style="border-color: gray;">
+
+<script>
+    function changerInput(id,key){
+        var input = $('input[id^=input'+id+']');
+        if(key === 0){
+            input.prop('type', 'checkbox');
+            input.attr('name', 'bonneRep['+id+'][]');
+        } else {
+            input.prop('type', 'radio');
+            input.attr('name', 'bonneRep['+id+']');
+        }
+    }
+</script>
