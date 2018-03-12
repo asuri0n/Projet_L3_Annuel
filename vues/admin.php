@@ -20,6 +20,9 @@
     if(isset($_POST['deleteExercice']))
         include './pages/deleteExercice.php';
 
+    if(isset($_POST['addAdmin']))
+        include './pages/addAdmin.php';
+
 
     $exercicesListe = newSQLQuery( "SELECT id_exercice, enonce FROM exercice", "select", "fetchAll", 'FETCH_BOTH');
     $exeValues = "";
@@ -54,4 +57,8 @@
 <hr>
 <form method="POST" action="" class="form-signin">
     <button name="deleteOldScores" class="btn btn-lg btn-primary" type="submit">Supprimer scores des anciens étudiants</button>
+</form>
+<hr>
+<form method="POST" action="" class="form-signin">
+    <button name="addAdmin" class="btn btn-lg btn-primary" type="submit">Ajouter un compte admin</button>
 </form>

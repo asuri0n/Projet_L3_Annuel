@@ -1,3 +1,0 @@
-<?php
-echo $password = hash('sha512', "Dontfall16" . "ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404");
-

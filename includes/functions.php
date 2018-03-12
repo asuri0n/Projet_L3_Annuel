@@ -218,35 +218,22 @@ function updateAccount($isTeacher,$data){
  */
 function signup() {
     $pdo = SPDO::getInstance(); 
-    if (isset($_POST['email'], $_POST['email2'], $_POST['password'], $_POST['password2'])) {
+    if (isset($_POST['email'], $_POST['password'])) {
         // Nettoyez et validez les données transmises au script
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        $email2 = filter_input(INPUT_POST, 'email2', FILTER_SANITIZE_EMAIL);
-        $email2 = filter_var($email2, FILTER_VALIDATE_EMAIL);
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) OR !filter_var($email2, FILTER_VALIDATE_EMAIL)) {          
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $_SESSION['error'] = "Adresse mail non valide";
             return false;
         }
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-        $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_STRING);
-
-        if($email != $email2){                    
-            $_SESSION['error'] = "Les emails ne correspondent pas.";
-            return false;
-        }
-
-        if($password2 != $password){                    
-            $_SESSION['error'] = "Les mots de passes ne correspondent pas.";
-            return false;
-        }
 
         // La forme du nom d’utilisateur et du mot de passe a été vérifiée côté client
         // Cela devrait suffire, car personne ne tire avantage
         // à briser ce genre de règles.
         //
      
-        $prep_stmt = "SELECT id FROM admins WHERE email = ? LIMIT 1";
+        $prep_stmt = "SELECT id_admin FROM admins WHERE email = ? LIMIT 1";
         $stmt = $pdo->prepare($prep_stmt);
      
         if ($stmt) {
@@ -274,9 +261,9 @@ function signup() {
         $password = hash('sha512', $password . $random_salt);
  
         // Enregistre le nouvel utilisateur dans la base de données
-        if ($insert_stmt = $pdo->prepare("INSERT INTO admins (email, password, salt, actif_token) VALUES (?, ?, ?,?)"))
+        if ($insert_stmt = $pdo->prepare("INSERT INTO admins (email, password, salt) VALUES (?, ?, ?)"))
         {
-            if ($insert_stmt->execute(array($email, $password, $random_salt,md5(uniqid(rand(), true)))))
+            if ($insert_stmt->execute(array($email, $password, $random_salt)))
             {
                 $_SESSION['success'] = "Inscrit !";
                 return true;

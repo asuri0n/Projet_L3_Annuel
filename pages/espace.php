@@ -72,7 +72,7 @@
         } else if(isset($_SESSION['Auth']['isAdmin'])) {
             include_once './vues/admin.php';
         } else if(isset($_SESSION['Auth']['isTeacher'])) {
-
+            $content .= "<h4>L'espace réservé aux professeurs est en cours de développement</h4>";
         } else {
             $content .= "Erreur, veuillez contacter l'administrateur";
         }
