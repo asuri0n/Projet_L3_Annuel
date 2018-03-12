@@ -460,3 +460,34 @@ function saveScore($exercice_id, $nbBonnesReponses){
     }
     return null;
 }
+
+function timeElapsed($datetime) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'année',
+        'm' => 'mois',
+        'w' => 'semaines',
+        'd' => 'jour',
+        'h' => 'heure',
+        'i' => 'minute',
+        's' => 'seconde',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            if($k != 'm')
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    $string = array_slice($string, 0, 1);
+
+    return $string ? 'il y a ' . implode(', ', $string) : 'just now';
+}

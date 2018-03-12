@@ -23,6 +23,9 @@
         }
     }
 
+    if(isset($_POST['ajouterCommentaire']))
+        include_once 'addComment.php';
+
     /*
      * Vérifications a chaque nouvelle affichage d'une question
      */
@@ -128,36 +131,62 @@
     } else {
         // Affichage de fin
         $nbBonnesReponses = nbBonnesReponses($exercice_id, $answers);
-        $percent = ($nbBonnesReponses*100/$nbQuestions);
+        $percent = ($nbBonnesReponses * 100 / $nbQuestions);
 
         // Sauvegarde du score
         $ancien_score = saveScore($exercice_id, $nbBonnesReponses);
 
 
         // Création du contenue de la vue
-        $content .= "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>".$percent."%</b></p>";
-        $content .= "<p>".getSentenceResult($percent)."<br>";
+        $content .= "<center><h2>Resultat:</h2>$nbBonnesReponses sur $nbQuestions<p><b>" . $percent . "%</b></p>";
+        $content .= "<p>" . getSentenceResult($percent) . "<br>";
 
         // Si un score a été retourné
-        if($ancien_score)
-            if($ancien_score > $nbBonnesReponses)
-                $content .= "Votre score précédent était de ".$ancien_score.". C'était mieux !";
-            else if($ancien_score > $nbBonnesReponses)
-                $content .= "Votre score précédent était de ".$ancien_score.". C'est mieux !";
+        if ($ancien_score)
+            if ($ancien_score > $nbBonnesReponses)
+                $content .= "Votre score précédent était de " . $ancien_score . ". C'était mieux !";
+            else if ($ancien_score > $nbBonnesReponses)
+                $content .= "Votre score précédent était de " . $ancien_score . ". C'est mieux !";
             else
                 $content .= "Votre score précédent était le même.";
 
         $content .= "</p><p><b>Temps passé</b><br>0:27</p></center>";
-        $content .= "<form role='form' target='_blank' action='".WEBROOT."resultat' method='post'>";
-            $content .= "<input name='points' value='$nbBonnesReponses' type='hidden'>";
-            $content .= "<input name='id' value='$exercice_id' type='hidden'>";
-            $content .= "<input name='timespent' value='0:27' type='hidden'>";
-            $content .= "<input name='answers' value='".json_encode($answers)."' type='hidden'>";
-            $content .= "<table width='100%'><tbody><tr>";
-                $content .= "<td><input value='Vérifier les réponses' name='checkAnswers' type='submit'></td>";
-                $content .= "<td align='right'><input value='Réessayer' onclick='window.location.href = window.location.href;' type='button'></td>";
-            $content .= "</tr></tbody></table>";
-        $content .= "</form>";
+        $content .= "<form role='form' target='_blank' action='" . WEBROOT . "resultat' method='post'>";
+        $content .= "<input name='points' value='$nbBonnesReponses' type='hidden'>";
+        $content .= "<input name='id' value='$exercice_id' type='hidden'>";
+        $content .= "<input name='timespent' value='0:27' type='hidden'>";
+        $content .= "<input name='answers' value='" . json_encode($answers) . "' type='hidden'>";
+        $content .= "<table width='100%'><tbody><tr>";
+        $content .= "<td><input value='Vérifier les réponses' class='btn btn-primary' name='checkAnswers' type='submit'></td>";
+        $content .= "<td align='right'><input value='Réessayer' class='btn btn-primary' onclick='window.location.href = window.location.href;' type='button'></td>";
+        $content .= "</tr></tbody></table>";
+        $content .= "</form><br><hr><br>";
+
+        /**
+         *  Commentaires
+         */
+        if (isset($_SESSION['Auth']['isStudent'])) {
+            $content .= "<form role='form' action='' method='post'>";
+            $content .= "<div class='form-group'>";
+            $content .= "<label for='comment'>Ajouter un commentaire :</label>";
+            $content .= "<textarea class='form-control' rows='5' name='comment'></textarea>";
+            $content .= "</div><input type='submit' name='ajouterCommentaire' class='btn btn-primary' value='Ajouter'> ";
+            $content .= "</form><br><br>";
+        } else {
+            $content .= "<div class='alert alert-danger'><strong>Attention!</strong> Vous n'êtes pas etudiant, vous ne pouvez pas ajouter de commentaire.</div>";
+        }
+
+        $commentaires = newSQLQuery( "SELECT id_commentaire, id_etudiant, commentaire, timestamp FROM commentaires ORDER BY timestamp DESC ", "select", "fetchAll", "FETCH_ASSOC");
+        foreach ($commentaires as $commentaire) {
+            $comment = $commentaire['commentaire'];
+            $username = $commentaire['id_etudiant'];
+            $timestamp = $commentaire['timestamp'];
+
+            $content .= "<div class='panel panel-default'>";
+                $content .= "<div class='panel-heading'><strong>$username</strong> <span class='text-muted'>".timeElapsed($timestamp)."</span></div>";
+                $content .= "<div class='panel-body'>$comment</div>";
+            $content .= "</div>";
+        }
     }
 
 echo $content;
