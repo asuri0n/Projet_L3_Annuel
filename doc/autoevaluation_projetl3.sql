@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  mysql.info.unicaen.fr:3306
--- Généré le :  Jeu 08 Mars 2018 à 13:07
+-- Généré le :  Lun 12 Mars 2018 à 19:07
 -- Version du serveur :  5.5.59-0+deb8u1-log
 -- Version de PHP :  5.6.30-0+deb8u1
 
@@ -27,20 +27,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `persopass` int(11) NOT NULL,
+  `id_admin` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `salt` varchar(255) NOT NULL,
-  `isAdmin` tinyint(1) NOT NULL,
-  `actif_token` varchar(255) NOT NULL
+  `salt` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `admins`
 --
 
-INSERT INTO `admins` (`persopass`, `email`, `password`, `salt`, `isAdmin`, `actif_token`) VALUES
-(2, 'asurion61@gmail.com', 'bdd4f2a2ab707f538331670b0c2c1a2b556dee4896052530383090e8a13282c43600a61739959048d6167f060cd42fd0e654ace64bdf777dfd141b50fcef02af', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404', 0, 'c74d0fab2873a1a41210e2993bea622e');
+INSERT INTO `admins` (`id_admin`, `email`, `password`, `salt`) VALUES
+(2, 'asurion61@gmail.com', 'bdd4f2a2ab707f538331670b0c2c1a2b556dee4896052530383090e8a13282c43600a61739959048d6167f060cd42fd0e654ace64bdf777dfd141b50fcef02af', 'ac8cc10364ee8a7893ae62aeb4bd529be50f91a5f52a5c95751684842ed5f1040acf15a2ec60010da2c27b38d86369b8e4fc2bd35cc385636611a44ed73d4404');
 
 -- --------------------------------------------------------
 
@@ -76,6 +74,35 @@ CREATE TABLE `choix` (
   `id_question` int(10) DEFAULT NULL,
   `choix` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `choix`
+--
+
+INSERT INTO `choix` (`id_choix`, `id_question`, `choix`) VALUES
+(30, 52, 'dzqqzd'),
+(31, 52, 'zdqqdz'),
+(32, 53, 'dqz');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commentaires`
+--
+
+CREATE TABLE `commentaires` (
+  `id_commentaire` int(11) NOT NULL,
+  `id_etudiant` int(8) NOT NULL,
+  `commentaire` longtext NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `commentaires`
+--
+
+INSERT INTO `commentaires` (`id_commentaire`, `id_etudiant`, `commentaire`, `timestamp`) VALUES
+(1, 21404260, 'J\'ai eu 4/4 !! :D', '2018-03-12 18:07:16');
 
 -- --------------------------------------------------------
 
@@ -128,6 +155,13 @@ CREATE TABLE `exercice` (
   `enonce` varchar(100) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `exercice`
+--
+
+INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `enonce`, `date`) VALUES
+(35, 1, 'Algèbre linéaire', '2018-03-08');
 
 -- --------------------------------------------------------
 
@@ -191,6 +225,14 @@ CREATE TABLE `questions` (
   `commentaire` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `questions`
+--
+
+INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `justification`, `commentaire`) VALUES
+(52, 35, 'q1 et q2', 1, NULL, NULL),
+(53, 35, 'q4', 2, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -204,6 +246,14 @@ CREATE TABLE `reponses` (
   `reponse_fixe` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `reponses`
+--
+
+INSERT INTO `reponses` (`id_reponse`, `id_question`, `id_choix_bonn_rep`, `reponse_fixe`) VALUES
+(19, 52, '0,1', NULL),
+(20, 53, '0,1', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -216,6 +266,13 @@ CREATE TABLE `scores` (
   `resultat` int(11) NOT NULL,
   `resultat_ancien` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `scores`
+--
+
+INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien`) VALUES
+(21999997, 35, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -274,7 +331,7 @@ INSERT INTO `type_question` (`id_type`, `libelle`) VALUES
 -- Index pour la table `admins`
 --
 ALTER TABLE `admins`
-  ADD PRIMARY KEY (`persopass`);
+  ADD PRIMARY KEY (`id_admin`);
 
 --
 -- Index pour la table `annees`
@@ -288,6 +345,13 @@ ALTER TABLE `annees`
 ALTER TABLE `choix`
   ADD PRIMARY KEY (`id_choix`),
   ADD KEY `choix_questions_id_question_fk` (`id_question`);
+
+--
+-- Index pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  ADD PRIMARY KEY (`id_commentaire`),
+  ADD KEY `id_etudiant` (`id_etudiant`);
 
 --
 -- Index pour la table `diplomes`
@@ -358,15 +422,25 @@ ALTER TABLE `type_question`
 --
 
 --
+-- AUTO_INCREMENT pour la table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT pour la table `choix`
 --
 ALTER TABLE `choix`
-  MODIFY `id_choix` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_choix` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT pour la table `matieres`
 --
@@ -376,12 +450,12 @@ ALTER TABLE `matieres`
 -- AUTO_INCREMENT pour la table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT pour la table `reponses`
 --
 ALTER TABLE `reponses`
-  MODIFY `id_reponse` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_reponse` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT pour la table `type_question`
 --
@@ -396,6 +470,12 @@ ALTER TABLE `type_question`
 --
 ALTER TABLE `choix`
   ADD CONSTRAINT `choix_questions_id_question_fk` FOREIGN KEY (`id_question`) REFERENCES `questions` (`id_question`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  ADD CONSTRAINT `commentaires_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiants` (`id_etudiant`);
 
 --
 -- Contraintes pour la table `exercice`
