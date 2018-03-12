@@ -35,6 +35,7 @@
         // Vérification si toutes les données cachées sont passées
         if(isset($_POST['answers']) and isset($_POST['qnumber']) and isset($_POST['starttime']) and !empty($_POST['answers']) and !empty($_POST['qnumber']) and !empty($_POST['starttime']))
         {
+            $time = $_POST['starttime'];
             $nbQuestions = $_POST['qnumber'];
             $answers = json_decode($_POST['answers']);
             $starttime = $_POST['starttime'];
@@ -78,13 +79,13 @@
         $nbQuestions = newSQLQuery( "SELECT count(*) FROM questions WHERE id_exercice = ?", "select", "fetch", "FETCH_NUM", $exercice_id)[0];
         $nextQuestion = 1;
         $answers = array();
+        $time = time();
     }
 
     $content = "";
     // Si l'exercice n'est pas terminé
     if(!$end) {
         $question = newSQLQuery( "SELECT id_question, question, id_type FROM questions JOIN type_question USING (id_type) WHERE id_exercice = ? ORDER BY id_question ASC LIMIT " . ($nextQuestion - 1) . ", 1 ", "select", "fetch", "FETCH_ASSOC", $exercice_id);
-
         $id_question = $question['id_question'];
         $liste_choix = newSQLQuery( "SELECT id_choix, choix FROM choix WHERE id_question = ?", "select","fetchAll", "FETCH_NUM", $id_question);
 
@@ -95,15 +96,18 @@
         $content = "<h1>" . htmlentities($exercice['enonce']) . "</h1>";
         $content .= "<p style='margin-bottom:30px;'>$nextQuestion. " . htmlentities($question['question']) . "</p>";
 
+        /**
+         * Génération du formulaire pour la question
+         */
+        $content .= "<form role='form' name='quizform' action='" . WEBROOT . "exercices/" . $exercice_id . "' method='post'>";
+        $content .= "<input name='starttime' value='$time' type='hidden'>";
+        $content .= "<input name='qnumber' value='$nbQuestions' type='hidden'>";
+        $content .= "<input name='answers' value='" . json_encode($answers) . "' type='hidden'>";
         switch ($question['id_type']){
             // Choix unique ou mutliple
             case 1:
             case 2:
                 if($liste_choix) {
-                    $content .= "<form role='form' name='quizform' action='" . WEBROOT . "exercices/" . $exercice_id . "' method='post'>";
-                    $content .= "<input name='starttime' value='1/15/2018 3:09:04 AM' type='hidden'>";
-                    $content .= "<input name='answers' value='".json_encode($answers)."' type='hidden'>";
-                    $content .= "<input name='qnumber' value='$nbQuestions' type='hidden'>";
                     foreach ($liste_choix as $choix) {
                         if($question['id_type'] == 1)
                             $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $choix[0] . "' type='checkbox'>" . htmlentities($choix[1]) . "</label></div>";
@@ -118,10 +122,6 @@
                 break;
             // Normal
             case 3:
-                $content .= "<form role='form' name='quizform' action='" . WEBROOT . "exercices/" . $exercice_id . "' method='post'>";
-                $content .= "<input name='starttime' value='1/15/2018 3:09:04 AM' type='hidden'>";
-                $content .= "<input name='answers' value='".json_encode($answers)."' type='hidden'>";
-                $content .= "<input name='qnumber' value='$nbQuestions' type='hidden'>";
                 $content .= "<div class='text'><label><input name='quizz' type='text'></label></div>";
                 break;
         }
@@ -150,7 +150,23 @@
             else
                 $content .= "Votre score précédent était le même.";
 
-        $content .= "</p><p><b>Temps passé</b><br>0:27</p></center>";
+        /**
+         * Récupère les secondes et minutes du timestamp
+         */
+        $now = time();
+        $tmpsPasse = $now-$time;
+        $minutes = 0;
+        $secondes = 0;
+        while($tmpsPasse >= 60){
+            $tmpsPasse = $tmpsPasse - 60;
+            $minutes ++;
+        }
+        $secondes = $tmpsPasse;
+
+        /**
+         *  Génération de la vue pour l'affichage du nombres de bonnes réponses
+         */
+        $content .= "</p><p><b>Temps passé</b><br>".$minutes." minutes ".$secondes." secondes</p></center>";
         $content .= "<form role='form' target='_blank' action='" . WEBROOT . "resultat' method='post'>";
         $content .= "<input name='points' value='$nbBonnesReponses' type='hidden'>";
         $content .= "<input name='id' value='$exercice_id' type='hidden'>";
