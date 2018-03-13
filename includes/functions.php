@@ -390,13 +390,14 @@ function nbBonnesReponses($exercice_id, $reponses_user) {
                 $cpt++;
         }
         // si reponse fixe
-        else if(is_string($reponses_user[$key]) and $reponse_bdd[1] != null)
+        else if((is_string($reponses_user[$key]) or is_integer($reponses_user[$key])) and $reponse_bdd[1] != null)
         {
-            $repbdd = str_replace(' ', '', strtolower($reponse_bdd[1]));
-            $repuser = str_replace(' ', '', strtolower($reponses_user[$key]));
+            $repbdd = str_replace(' ', '', strtolower(stripslashes($reponse_bdd[1])));
+            $repuser = str_replace(' ', '', strtolower(stripslashes($reponses_user[$key])));
 
-            if ($repbdd == $repuser)
+            if ($repbdd == $repuser) {
                 $cpt++;
+            }
         }
     }
     return $cpt;

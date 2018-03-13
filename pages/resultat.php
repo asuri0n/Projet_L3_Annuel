@@ -21,7 +21,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
 {
     $erreur = false;
     $choix_bdd = newSQLQuery("SELECT id_choix, choix FROM choix WHERE id_question = ?", "select","fetchAll", "FETCH_ASSOC", $reponse_bdd['id_question']);
-    $content .= "<p><b>".($key+1).". ".ucfirst($reponse_bdd['question'])."</b></p>";
+    $content .= "<p><b>".($key+1).". ".ucfirst(stripslashes($reponse_bdd['question']))."</b></p>";
 
     $content .= "<p>";
     // Si c'est un tableau, alors il faut récupérer les id des choix et afficher le libelle du choix
@@ -31,7 +31,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
         foreach ($choix_bdd as $keychoix => $choi_bdd)
             foreach ($reponses_user[$key] as $reponse_user)
                 if ($keychoix == $reponse_user)
-                    $content .= $choi_bdd["choix"] . "<br>";
+                    $content .= stripslashes($choi_bdd["choix"]) . "<br>";
 
         // Vérification erreurs
         $rep_bdd_array = explode(',',$reponse_bdd["id_choix_bonn_rep"]);
@@ -45,7 +45,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
         $content .= "<b>Votre réponse:</b><br>";
         foreach ($choix_bdd as $keychoix => $choi_bdd)
             if($keychoix == $reponses_user[$key])
-                $content .= $choi_bdd['choix']."<br>";
+                $content .= stripslashes($choi_bdd['choix'])."<br>";
 
         // Vérification erreurs
         if($reponse_bdd["id_choix_bonn_rep"] != $reponses_user[$key])
@@ -54,7 +54,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
     // Sinon on affiche le texte
     else if($reponse_bdd["reponse_fixe"] != null) {
         $content .= "<b>Votre réponse:</b><br>";
-        $content .= $reponses_user[$key]."<br>";
+        $content .= stripslashes($reponses_user[$key])."<br>";
 
         // Vérification erreurs
         $repbdd = str_replace(' ', '', strtolower($reponse_bdd['reponse_fixe']));
@@ -62,8 +62,9 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
 
         if ($repbdd != $repuser)
             $erreur = true;
-    } else
+    } else {
         $content .= "<p style='color:red'>Erreur lors de la vérification des réponses. Veuillez contacter un administrateur.</p>";
+    }
     $content .= "</p>";
 
     if(!isset($erreur))
@@ -72,7 +73,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
     {
         $content .= "<p> <span style='color:red'>Mauvaise réponse!</span><br>";
         if($reponses_bdd[$key]['reponse_fixe'] != null)
-            $content .= "<span style='color:green'>Bonne réponse : ".$reponses_bdd[$key]['reponse_fixe']."</span></p>";
+            $content .= "<span style='color:green'>Bonne réponse : ".stripslashes($reponses_bdd[$key]['reponse_fixe'])."</span></p>";
         else if($reponses_bdd[$key]['id_choix_bonn_rep'] != null)
         {
             $rep_bdd_array = explode(',',$reponses_bdd[$key]['id_choix_bonn_rep']);
@@ -80,7 +81,7 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
             foreach ($choix_bdd as $keychoix => $choi_bdd)
                 foreach ($rep_bdd_array as $reponse_bdd)
                     if ($keychoix == intval($reponse_bdd))
-                        $content .= $choi_bdd["choix"] . ", ";
+                        $content .= stripslashes($choi_bdd["choix"]) . ", ";
             $content = substr($content, 0, -2); // Supprime le , et ' ' a la fin
             $content .= "</span></p>";
         }

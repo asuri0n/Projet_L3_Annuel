@@ -66,28 +66,29 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
 
                 // TODO: Commentaires et justifications
                 // Ajout de la question et son type
-                $stmt2 = newSQLQuery("INSERT INTO questions (id_exercice, question, id_type) VALUES (?, ?, ?)", "insert", null, null, array($lastId, htmlspecialchars($inputTitreQuestion[$key]), $typeQ[$key]+1));
+                $stmt2 = newSQLQuery("INSERT INTO questions (id_exercice, question, id_type) VALUES (?, ?, ?)", "insert", null, null, array($lastId, addslashes($inputTitreQuestion[$key]), $typeQ[$key]+1));
                 if(!$error and $stmt2)
                 {
                     $lastIdQuestion = $pdo->lastInsertId();
                     if(is_array($repQ[$key])) {
                         foreach ($repQ[$key] as $rep) {
                             if (!$error)
-                                $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, htmlspecialchars($rep)));
+                                $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, addslashes($rep)));
                             if (!$stmt3)
                                 $error = true;
                         }
                     } else
-                        $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, htmlspecialchars($repQ[$key][$bonneRep[$key]])));
+                        $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, addslashes($repQ[$key][$bonneRep[$key]])));
 
                     if (!$error and $stmt3)
                     {
                         // TODO revoir le == 2
                         if($typeQ[$key] == 2 ) {
-                            if(is_array($repQ[$key]) and isset($repQ[$key][0]))
-                                $rep = $repQ[$key][0];
-                            else
-                                $rep = $repQ[$key];
+                            if(is_array($repQ[$key]))
+                                if(isset($repQ[$key][0]))
+                                    $rep = $repQ[$key][0];
+                                else
+                                    $rep = "";
                             $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, NULL, ?)", "insert", null, null, array($lastIdQuestion, $rep));
                         } else if(isset($id_choix_bonn_rep) and $id_choix_bonn_rep != "")
                             $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, ?, null)", "insert", null, null, array($lastIdQuestion, $id_choix_bonn_rep));

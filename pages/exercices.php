@@ -90,8 +90,8 @@
         // On récup l'énoncé
         $exercice = newSQLQuery( "SELECT enonce FROM exercice WHERE id_exercice = ? LIMIT 1", "select", "fetch", "FETCH_ASSOC", $exercice_id);
 
-        $content = "<h1>" . htmlentities($exercice['enonce']) . "</h1>";
-        $content .= "<p style='margin-bottom:30px;'>$nextQuestion. " . htmlentities($question['question']) . "</p>";
+        $content = "<h1>" . stripslashes ($exercice['enonce']) . "</h1>";
+        $content .= "<p style='margin-bottom:30px;'>$nextQuestion. " . stripslashes ($question['question']) . "</p>";
 
         /**
          * Génération du formulaire pour la question
@@ -107,9 +107,9 @@
                 if($liste_choix) {
                     foreach ($liste_choix as $key => $choix) {
                         if($question['id_type'] == 1)
-                            $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $key . "' type='checkbox'>" . htmlentities($choix[1]) . "</label></div>";
+                            $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $key . "' type='checkbox'>" . stripslashes ($choix[1]) . "</label></div>";
                         else
-                            $content .= "<div class='radio'><label><input name='quizz' value='".$key."' type='radio'>" . htmlentities($choix[1]) . "</label></div>";
+                            $content .= "<div class='radio'><label><input name='quizz' value='".$key."' type='radio'>" . stripslashes ($choix[1]) . "</label></div>";
                     }
                 } else {
                     $_SESSION['error'] = "Il n'y a pas de choix de réponse pour cette question. Veuillez contacter un administrateur.";
