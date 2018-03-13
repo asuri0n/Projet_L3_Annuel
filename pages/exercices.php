@@ -183,7 +183,7 @@
             $content .= "<div class='form-group'>";
             $content .= "<label for='comment'>Ajouter un commentaire :</label>";
             $content .= "<textarea class='form-control' rows='5' name='comment'></textarea>";
-            $content .= "</div><input type='submit' name='ajouterCommentaire' class='btn btn-primary' value='Ajouter'> ";
+            $content .= "</div><input name='idExercice' value='$exercice_id' hidden><input type='submit' name='ajouterCommentaire' class='btn btn-primary' value='Ajouter'> ";
             $content .= "</form><br><br>";
         } else {
             $content .= "<div class='alert alert-danger'><strong>Attention!</strong> Vous n'êtes pas etudiant, vous ne pouvez pas ajouter de commentaire.</div>";
