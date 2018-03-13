@@ -40,6 +40,7 @@
             $answers = json_decode($_POST['answers']);
             $starttime = $_POST['starttime'];
 
+
             // Si une réponse a été cochée
             if(isset($_POST['quizz']))
             {
@@ -59,15 +60,11 @@
             } else
                 $_SESSION['error'] = "Pas de réponse selectionnée";
 
-           $cpt = 0;
-            // Calcul des réponses
-            foreach ($answers as $answer) {
-                if($answer != '-')
-                    $cpt++;
-            }
             // Si la taille des réponses et équivalent aux nombres de questions => Exercice terminée
-            if($cpt == $nbQuestions)
+            $cpt = sizeof($answers);
+            if($cpt == $nbQuestions){
                 $end = true;
+            }
             else // Sinon, on passe a la prochaine question
                 $nextQuestion = $cpt+1;
 
@@ -108,11 +105,11 @@
             case 1:
             case 2:
                 if($liste_choix) {
-                    foreach ($liste_choix as $choix) {
+                    foreach ($liste_choix as $key => $choix) {
                         if($question['id_type'] == 1)
-                            $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $choix[0] . "' type='checkbox'>" . htmlentities($choix[1]) . "</label></div>";
+                            $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $key . "' type='checkbox'>" . htmlentities($choix[1]) . "</label></div>";
                         else
-                            $content .= "<div class='radio'><label><input name='quizz' value='".$choix[0]."' type='radio'>" . htmlentities($choix[1]) . "</label></div>";
+                            $content .= "<div class='radio'><label><input name='quizz' value='".$key."' type='radio'>" . htmlentities($choix[1]) . "</label></div>";
                     }
                 } else {
                     $_SESSION['error'] = "Il n'y a pas de choix de réponse pour cette question. Veuillez contacter un administrateur.";
@@ -192,7 +189,7 @@
             $content .= "<div class='alert alert-danger'><strong>Attention!</strong> Vous n'êtes pas etudiant, vous ne pouvez pas ajouter de commentaire.</div>";
         }
 
-        $commentaires = newSQLQuery( "SELECT id_commentaire, id_etudiant, commentaire, timestamp FROM commentaires ORDER BY timestamp DESC ", "select", "fetchAll", "FETCH_ASSOC");
+        $commentaires = newSQLQuery( "SELECT id_etudiant, commentaire, timestamp FROM commentaires WHERE id_exercice = ? ORDER BY timestamp DESC ", "select", "fetchAll", "FETCH_ASSOC", $exercice_id);
         foreach ($commentaires as $commentaire) {
             $comment = $commentaire['commentaire'];
             $username = $commentaire['id_etudiant'];

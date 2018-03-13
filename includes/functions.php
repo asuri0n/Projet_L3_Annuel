@@ -32,14 +32,14 @@ function sec_session_start() {
  */
 function login($email, $password) {
 	$pdo = SPDO::getInstance();
-    if ($stmt = $pdo->prepare("SELECT persopass, email, password, salt FROM admins WHERE email = ? LIMIT 1"))
+    if ($stmt = $pdo->prepare("SELECT id_admin, email, password, salt FROM admins WHERE email = ? LIMIT 1"))
     {
         if ($stmt->execute(array($email)))
         {
             $row = $stmt->fetch(PDO::FETCH_BOTH);
             if ($row)
             {
-                $persopass = $row[0];
+                $id_admin = $row[0];
                 $email = $row[1];
                 $db_password = $row[2];
                 $salt = $row[3];
@@ -50,8 +50,8 @@ function login($email, $password) {
                 // Le mot de passe que l’utilisateur a donné.
                 if ($db_password == $password) {
                     // Protection XSS car nous pourrions conserver cette valeur
-                    $persopass = preg_replace("/[^0-9]+/", "", $persopass);
-                    $_SESSION['Auth']['id'] = $persopass;
+                    $id_admin = preg_replace("/[^0-9]+/", "", $id_admin);
+                    $_SESSION['Auth']['id'] = $id_admin;
                     $_SESSION['Auth']['user'] = $email;
                     $_SESSION['Auth']['isAdmin'] = true;
 
@@ -384,13 +384,13 @@ function nbBonnesReponses($exercice_id, $reponses_user) {
                 $cpt++;
         }
         // si reponse simple
-        else if($reponse_bdd[0] != null)
+        else if(is_integer($reponses_user[$key]) and $reponse_bdd[0] != null)
         {
             if($reponse_bdd[0] == $reponses_user[$key])
                 $cpt++;
         }
         // si reponse fixe
-        else if($reponse_bdd[1] != null)
+        else if(is_string($reponses_user[$key]) and $reponse_bdd[1] != null)
         {
             $repbdd = str_replace(' ', '', strtolower($reponse_bdd[1]));
             $repuser = str_replace(' ', '', strtolower($reponses_user[$key]));

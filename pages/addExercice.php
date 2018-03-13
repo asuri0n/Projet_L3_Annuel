@@ -28,31 +28,52 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
         $repQ = $_POST['repQ'];
         $bonneRep = $_POST['bonneRep'];
 
+        // Insertion de l'exercice
         $stmt1 = newSQLQuery("INSERT INTO exercice (id_matiere, enonce, date) VALUES (?, ?, NOW())", "insert", null, null, array($inputMatiere, htmlspecialchars($inputTitre)));
         if (!$error and $stmt1)
         {
+
             $lastId = $pdo->lastInsertId();
+            // Pour chaque questions de l'exercice
             foreach ($inputTitreQuestion as $key => $question)
             {
-                if(is_array($bonneRep[$key])){
+                /**
+                 *  Vérification si il n'y a pas des choix vides
+                 */
+                if(is_array($repQ[$key])) {
+                    $newRepQ = array();
+                    $id = 0;
+                    foreach ($repQ[$key] as $rep){
+                        if(!empty($rep)){
+                            $newRepQ[$id] = $rep;
+                            $id++;
+                        }
+                    }
+                }
+                $repQ[$key] = $newRepQ;
+
+                /**
+                 *  Création de la chaine de caractère des bonnes réponses
+                 */
+                if(isset($bonneRep[$key]) and is_array($bonneRep[$key])){
                     $id_choix_bonn_rep = "";
                     foreach ($bonneRep[$key] as $rep){
                         $id_choix_bonn_rep.=$rep.",";
                     }
                     $id_choix_bonn_rep = substr($id_choix_bonn_rep, 0, -1);
-                }
+                } else if(is_string($bonneRep[$key]))
+                    $id_choix_bonn_rep = $bonneRep[$key];
 
                 // TODO: Commentaires et justifications
                 // Ajout de la question et son type
                 $stmt2 = newSQLQuery("INSERT INTO questions (id_exercice, question, id_type) VALUES (?, ?, ?)", "insert", null, null, array($lastId, htmlspecialchars($inputTitreQuestion[$key]), $typeQ[$key]+1));
-
                 if(!$error and $stmt2)
                 {
                     $lastIdQuestion = $pdo->lastInsertId();
-                    if(is_array($bonneRep[$key])) {
-                        foreach ($bonneRep[$key] as $rep) {
+                    if(is_array($repQ[$key])) {
+                        foreach ($repQ[$key] as $rep) {
                             if (!$error)
-                                $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, htmlspecialchars($repQ[$key][$rep])));
+                                $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, htmlspecialchars($rep)));
                             if (!$stmt3)
                                 $error = true;
                         }
@@ -61,9 +82,14 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
 
                     if (!$error and $stmt3)
                     {
-                        if($typeQ == 3 and !is_array($repQ[$key]))
-                            $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, null, ?)", "insert", null, null, array($lastIdQuestion, $repQ[$key]));
-                        else if(isset($id_choix_bonn_rep) and !empty($id_choix_bonn_rep))
+                        // TODO revoir le == 2
+                        if($typeQ[$key] == 2 ) {
+                            if(is_array($repQ[$key]) and isset($repQ[$key][0]))
+                                $rep = $repQ[$key][0];
+                            else
+                                $rep = $repQ[$key];
+                            $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, NULL, ?)", "insert", null, null, array($lastIdQuestion, $rep));
+                        } else if(isset($id_choix_bonn_rep) and $id_choix_bonn_rep != "")
                             $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, ?, null)", "insert", null, null, array($lastIdQuestion, $id_choix_bonn_rep));
                         else
                             $error = true;
@@ -77,10 +103,10 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
     } else
         $error = true;
 
-    if(isset($error))
-        $_SESSION['error'] = "Erreur lors de la modification de l'exercice";
+    if($error)
+        $_SESSION['error'] = "Erreur lors de l'ajout de l'exercice";
     else
-        $_SESSION['success'] = "Exercice mofidié";
+        $_SESSION['success'] = "Exercice ajouté";
 }
 ?>
 
