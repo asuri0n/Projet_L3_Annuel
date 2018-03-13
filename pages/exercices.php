@@ -167,7 +167,7 @@
         $content .= "<form role='form' target='_blank' action='" . WEBROOT . "resultat' method='post'>";
         $content .= "<input name='points' value='$nbBonnesReponses' type='hidden'>";
         $content .= "<input name='id' value='$exercice_id' type='hidden'>";
-        $content .= "<input name='timespent' value='0:27' type='hidden'>";
+        $content .= "<input name='timespent' value='".$minutes." minutes ".$secondes." secondes' type='hidden'>";
         $content .= "<input name='answers' value='" . json_encode($answers) . "' type='hidden'>";
         $content .= "<table width='100%'><tbody><tr>";
         $content .= "<td><input value='Vérifier les réponses' class='btn btn-primary' name='checkAnswers' type='submit'></td>";

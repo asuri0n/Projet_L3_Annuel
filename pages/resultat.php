@@ -28,9 +28,9 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
     if(is_array($reponses_user[$key]))
     {
         $content .= "<b>Vos réponses:</b><br>";
-        foreach ($choix_bdd as $choi_bdd)
+        foreach ($choix_bdd as $keychoix => $choi_bdd)
             foreach ($reponses_user[$key] as $reponse_user)
-                if ($choi_bdd["id_choix"] == $reponse_user)
+                if ($keychoix == $reponse_user)
                     $content .= $choi_bdd["choix"] . "<br>";
 
         // Vérification erreurs
@@ -43,8 +43,8 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
     else if($reponse_bdd["id_choix_bonn_rep"] != null)
     {
         $content .= "<b>Votre réponse:</b><br>";
-        foreach ($choix_bdd as $choi_bdd)
-            if($choi_bdd['id_choix'] == $reponses_user[$key])
+        foreach ($choix_bdd as $keychoix => $choi_bdd)
+            if($keychoix == $reponses_user[$key])
                 $content .= $choi_bdd['choix']."<br>";
 
         // Vérification erreurs
@@ -76,24 +76,21 @@ foreach ($reponses_bdd as $key => $reponse_bdd)
         else if($reponses_bdd[$key]['id_choix_bonn_rep'] != null)
         {
             $rep_bdd_array = explode(',',$reponses_bdd[$key]['id_choix_bonn_rep']);
-
-            $query = "SELECT choix FROM choix WHERE id_choix in (".$rep_bdd_array[0];
-            foreach ($rep_bdd_array as $key3 => $rep)
-                if($key3 != 0)
-                    $query .= ",$rep";
-            $query .= ");";
-
-            $bonnes_reponses = newSQLQuery($query, "select","fetchAll");
             $content .= "<span style='color:green'>Bonne réponse : ";
-            foreach($bonnes_reponses as $bonne_reponse)
-                $content .= $bonne_reponse["choix"].", ";
+            foreach ($choix_bdd as $keychoix => $choi_bdd)
+                foreach ($rep_bdd_array as $reponse_bdd)
+                    if ($keychoix == intval($reponse_bdd))
+                        $content .= $choi_bdd["choix"] . ", ";
+            $content = substr($content, 0, -2); // Supprime le , et ' ' a la fin
             $content .= "</span></p>";
         }
     } else
         $content .= "<p style='color:green'>Bonne réponse!</p>";
     $content .= "<hr>";
 }
+
 $content .= "<br>Temps passé: $timespent";
+
 ?>
 
 
