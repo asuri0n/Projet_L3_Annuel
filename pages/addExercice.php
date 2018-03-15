@@ -148,10 +148,9 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                                 }
                             echo "</select></td>";
 
-                            //TODO : POUR LA VERSION AVEC CHECK BOX : AJOUTER [] APRES bonneRep[$i] !!!
                             echo "<td>";
                             for ($i2 = 0; $i2 < 4; $i2++)
-                                echo "<span style='display: inline-block; width: 50%'><input name='repQ[$i][]' class='form-control' placeholder='Choix n°$i2' type='text' style='float:left; width: 85%'><input id='input$i' name='bonneRep[$i][]' type='checkbox' value='$i2' style='margin:0.5em 0.5em 0.5em 0.5em;'></span>";
+                                echo "<span style='display: inline-block; width: 50%'><input name='repQ[$i][]' class='form-control' placeholder='Choix n°".($i2+1)."' type='text' style='float:left; width: 85%'><input id='input$i' name='bonneRep[$i][]' type='checkbox' value='$i2' style='margin:0.5em 0.5em 0.5em 0.5em;'></span>";
                             echo "</td>";
                         echo "</tr>";
                     }?>
@@ -171,9 +170,28 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
         if(key === 0){
             input.prop('type', 'checkbox');
             input.attr('name', 'bonneRep['+id+'][]');
-        } else {
+        } else if(key === 1){
             input.prop('type', 'radio');
             input.attr('name', 'bonneRep['+id+']');
+        } else if(key === 2){
+            input.prop('type', 'radio');
+            input.attr('name', 'bonneRep['+id+']');
+
+            // On supprime toute les boxs
+            var boxs = $('input[name^="bonneRep['+id+']"]');
+            $.each( boxs, function( key, value ) {
+                value.remove();
+            });
+
+            var inputs = $('input[name^="repQ['+id+']"]');
+            inputs.attr('name', 'bonneRep['+id+']');
+            inputs.attr('placeholder', 'Réponse fixe');
+
+            $.each( inputs, function( key, value ) {
+                if(key === 1 || key === 2 || key === 3)
+                    value.remove();
+            });
+
         }
     }
 </script>
