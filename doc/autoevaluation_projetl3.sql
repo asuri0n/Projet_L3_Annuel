@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  mysql.info.unicaen.fr:3306
--- Généré le :  Lun 12 Mars 2018 à 19:07
+-- Généré le :  Jeu 15 Mars 2018 à 18:08
 -- Version du serveur :  5.5.59-0+deb8u1-log
 -- Version de PHP :  5.6.30-0+deb8u1
 
@@ -80,9 +80,15 @@ CREATE TABLE `choix` (
 --
 
 INSERT INTO `choix` (`id_choix`, `id_question`, `choix`) VALUES
-(30, 52, 'dzqqzd'),
-(31, 52, 'zdqqdz'),
-(32, 53, 'dqz');
+(415, 243, 'm'),
+(416, 244, '23'),
+(417, 245, ' '),
+(418, 247, 'premier'),
+(419, 248, 'mier cours de python'),
+(420, 249, 'y=x[:5]+\\\"au\\\"+x[6:]'),
+(421, 250, 'y=x[:7]+\\\"*\\\"+x[8:12]+\\\"*\\\"+x[13:15]+\\\"*\\\"+x[16:]+\\\"*\\\"'),
+(422, 251, 'y=x[1:-1]'),
+(423, 252, 'y=x[:(len(x))//2]+x[(len(x))//2:]');
 
 -- --------------------------------------------------------
 
@@ -92,17 +98,11 @@ INSERT INTO `choix` (`id_choix`, `id_question`, `choix`) VALUES
 
 CREATE TABLE `commentaires` (
   `id_commentaire` int(11) NOT NULL,
+  `id_exercice` int(11) NOT NULL,
   `id_etudiant` int(8) NOT NULL,
   `commentaire` longtext NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `commentaires`
---
-
-INSERT INTO `commentaires` (`id_commentaire`, `id_etudiant`, `commentaire`, `timestamp`) VALUES
-(1, 21404260, 'J\'ai eu 4/4 !! :D', '2018-03-12 18:07:16');
 
 -- --------------------------------------------------------
 
@@ -161,7 +161,7 @@ CREATE TABLE `exercice` (
 --
 
 INSERT INTO `exercice` (`id_exercice`, `id_matiere`, `enonce`, `date`) VALUES
-(35, 1, 'Algèbre linéaire', '2018-03-08');
+(82, 4, 'Chaine de caractères', '2018-03-13');
 
 -- --------------------------------------------------------
 
@@ -230,8 +230,16 @@ CREATE TABLE `questions` (
 --
 
 INSERT INTO `questions` (`id_question`, `id_exercice`, `question`, `id_type`, `justification`, `commentaire`) VALUES
-(52, 35, 'q1 et q2', 1, NULL, NULL),
-(53, 35, 'q4', 2, NULL, NULL);
+(243, 82, 'Soit x=\\\"premier cours de python\\\" quel est le résultat de x[3]', 3, NULL, NULL),
+(244, 82, 'Soit x=\\\"premier cours de python\\\" quel est le résultat de n=len(x)', 3, NULL, NULL),
+(245, 82, 'Soit x=\\\"premier cours de python\\\" quel est le résultat de x[7]', 3, NULL, NULL),
+(246, 82, 'Soit x=\\\"premier cours de python\\\" quel est le résultat de x[0]', 3, NULL, NULL),
+(247, 82, 'Soit x=\\\"premier cours de python\\\" quel est le résultat des extractions de sous-chaînes suivantes : x[:7]', 3, NULL, NULL),
+(248, 82, 'Soit x=\\\"premier cours de python\\\" quel est le résultat des extractions de sous-chaînes suivantes : x[3:]', 3, NULL, NULL),
+(249, 82, 'Ecrire x=“les fotes” en prenant des morceaux de la chaîne y et en remplaçant le “o” par “au”', 3, NULL, NULL),
+(250, 82, 'On a x= “bonjour tout le monde” . Avec le moins d\\\'opérations possible et en utilisant x, afficher: bonjour * tout * le * monde *', 3, NULL, NULL),
+(251, 82, 'A partir d\\\'une chaîne contenue dans la variable x, comment obtenir cette chaîne : privée de ses premier et dernier caractères,', 3, NULL, NULL),
+(252, 82, 'A partir d\\\'une chaîne contenue dans la variable x, comment obtenir cette chaîne : privée du caractère central dans le cas où il y a un nombre impair de caractères', 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,8 +259,16 @@ CREATE TABLE `reponses` (
 --
 
 INSERT INTO `reponses` (`id_reponse`, `id_question`, `id_choix_bonn_rep`, `reponse_fixe`) VALUES
-(19, 52, '0,1', NULL),
-(20, 53, '0,1', NULL);
+(201, 243, NULL, 'm'),
+(202, 244, NULL, '23'),
+(203, 245, NULL, ' '),
+(204, 246, NULL, ''),
+(205, 247, NULL, 'premier'),
+(206, 248, NULL, 'mier cours de python'),
+(207, 249, NULL, 'y=x[:5]+\"au\"+x[6:]'),
+(208, 250, NULL, 'y=x[:7]+\"*\"+x[8:12]+\"*\"+x[13:15]+\"*\"+x[16:]+\"*\"'),
+(209, 251, NULL, 'y=x[1:-1]'),
+(210, 252, NULL, 'y=x[:(len(x))//2]+x[(len(x))//2:]');
 
 -- --------------------------------------------------------
 
@@ -266,13 +282,6 @@ CREATE TABLE `scores` (
   `resultat` int(11) NOT NULL,
   `resultat_ancien` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `scores`
---
-
-INSERT INTO `scores` (`id_etudiant`, `id_exercice`, `resultat`, `resultat_ancien`) VALUES
-(21999997, 35, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -351,7 +360,8 @@ ALTER TABLE `choix`
 --
 ALTER TABLE `commentaires`
   ADD PRIMARY KEY (`id_commentaire`),
-  ADD KEY `id_etudiant` (`id_etudiant`);
+  ADD KEY `id_etudiant` (`id_etudiant`),
+  ADD KEY `id_exercice` (`id_exercice`);
 
 --
 -- Index pour la table `diplomes`
@@ -430,17 +440,17 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT pour la table `choix`
 --
 ALTER TABLE `choix`
-  MODIFY `id_choix` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_choix` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=424;
 --
 -- AUTO_INCREMENT pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `exercice`
 --
 ALTER TABLE `exercice`
-  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_exercice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT pour la table `matieres`
 --
@@ -450,12 +460,12 @@ ALTER TABLE `matieres`
 -- AUTO_INCREMENT pour la table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 --
 -- AUTO_INCREMENT pour la table `reponses`
 --
 ALTER TABLE `reponses`
-  MODIFY `id_reponse` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_reponse` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 --
 -- AUTO_INCREMENT pour la table `type_question`
 --
@@ -475,6 +485,7 @@ ALTER TABLE `choix`
 -- Contraintes pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
+  ADD CONSTRAINT `commentaires_ibfk_2` FOREIGN KEY (`id_exercice`) REFERENCES `exercice` (`id_exercice`) ON DELETE CASCADE,
   ADD CONSTRAINT `commentaires_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `etudiants` (`id_etudiant`);
 
 --
