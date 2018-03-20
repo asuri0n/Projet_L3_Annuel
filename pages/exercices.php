@@ -107,9 +107,9 @@
                 if($liste_choix) {
                     foreach ($liste_choix as $key => $choix) {
                         if($question['id_type'] == 1)
-                            $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $key . "' type='checkbox'>" . stripslashes ($choix[1]) . "</label></div>";
+                            $content .= "<div class='checkbox'><label><input name='quizz[]' value='" . $key . "' type='checkbox'>" . stripslashes (htmlspecialchars($choix[1])) . "</label></div>";
                         else
-                            $content .= "<div class='radio'><label><input name='quizz' value='".$key."' type='radio'>" . stripslashes ($choix[1]) . "</label></div>";
+                            $content .= "<div class='radio'><label><input name='quizz' value='".$key."' type='radio'>" . stripslashes (htmlspecialchars($choix[1])) . "</label></div>";
                     }
                 } else {
                     $_SESSION['error'] = "Il n'y a pas de choix de réponse pour cette question. Veuillez contacter un administrateur.";

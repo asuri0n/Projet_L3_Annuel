@@ -8,4 +8,4 @@ if($deleteOldScores != null)
     else
         $_SESSION['error'] = "Pas de scores a nettoyer";
 else
-    $_SESSION['error'] = "Une erreur s'est produite";
+    $_SESSION['error'] = "Pas de scores a nettoyer";

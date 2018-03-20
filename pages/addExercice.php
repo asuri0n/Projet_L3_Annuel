@@ -15,18 +15,20 @@ $matieres = newSQLQuery( "SELECT id_matiere, code_diplome, code_annee, code_seme
 $type_question = newSQLQuery( "SELECT id_type, libelle FROM type_question", "select","fetchAll");
 
 $error = false;
-if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST['inputMatiere']) and isset($_POST['inputTitreQuestion']) and isset($_POST['typeQ']) and isset($_POST['repQ']) and isset($_POST['bonneRep']))
+if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST['inputMatiere']) and isset($_POST['inputTitreQuestion']) and isset($_POST['typeQ']) and isset($_POST['repQ']))
 {
     // TODO: changer plus tard avec du JS
     $nbReponses = 4;
 
-    if(sizeof($_POST['inputTitreQuestion']) == $nbQuestions and sizeof($_POST['typeQ']) == $nbQuestions and sizeof($_POST['repQ']) == $nbQuestions and sizeof($_POST['bonneRep']) == $nbQuestions) {
+    if(sizeof($_POST['inputTitreQuestion']) == $nbQuestions and sizeof($_POST['typeQ']) == $nbQuestions and sizeof($_POST['repQ']) <= $nbQuestions) {
         $inputMatiere = $_POST['inputMatiere'];
         $inputTitre = $_POST['inputTitre'];
         $inputTitreQuestion = $_POST['inputTitreQuestion'];
         $typeQ = $_POST['typeQ'];
         $repQ = $_POST['repQ'];
-        $bonneRep = $_POST['bonneRep'];
+
+        if(isset($_POST['bonneRep']))
+        	$bonneRep = $_POST['bonneRep'];
 
         // Insertion de l'exercice
         $stmt1 = newSQLQuery("INSERT INTO exercice (id_matiere, enonce, date) VALUES (?, ?, NOW())", "insert", null, null, array($inputMatiere, htmlspecialchars($inputTitre)));
@@ -49,19 +51,19 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                             $id++;
                         }
                     }
+                	$repQ[$key] = $newRepQ;
                 }
-                $repQ[$key] = $newRepQ;
 
                 /**
                  *  Création de la chaine de caractère des bonnes réponses
                  */
-                if(isset($bonneRep[$key]) and is_array($bonneRep[$key])){
+                if(isset($bonneRep) and isset($bonneRep[$key]) and is_array($bonneRep[$key])){
                     $id_choix_bonn_rep = "";
                     foreach ($bonneRep[$key] as $rep){
                         $id_choix_bonn_rep.=$rep.",";
                     }
                     $id_choix_bonn_rep = substr($id_choix_bonn_rep, 0, -1);
-                } else if(is_string($bonneRep[$key]))
+                } else if(isset($bonneRep) and is_string($bonneRep[$key]))
                     $id_choix_bonn_rep = $bonneRep[$key];
 
                 // TODO: Commentaires et justifications
@@ -77,18 +79,14 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                             if (!$stmt3)
                                 $error = true;
                         }
-                    } else
+                    } else if(isset($bonneRep) and isset($repQ[$key][$bonneRep[$key]]))
                         $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, addslashes($repQ[$key][$bonneRep[$key]])));
 
-                    if (!$error and $stmt3)
+                    if (!$error or (isset($stmt3) and $stmt3))
                     {
                         // TODO revoir le == 2
                         if($typeQ[$key] == 2 ) {
-                            if(is_array($repQ[$key]))
-                                if(isset($repQ[$key][0]))
-                                    $rep = $repQ[$key][0];
-                                else
-                                    $rep = "";
+                            $rep = $repQ[$key];
                             $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, NULL, ?)", "insert", null, null, array($lastIdQuestion, $rep));
                         } else if(isset($id_choix_bonn_rep) and $id_choix_bonn_rep != "")
                             $stmt4 = newSQLQuery("INSERT INTO reponses (id_question, id_choix_bonn_rep, reponse_fixe) VALUES (?, ?, null)", "insert", null, null, array($lastIdQuestion, $id_choix_bonn_rep));
@@ -103,7 +101,6 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
             $error = true;
     } else
         $error = true;
-
     if($error)
         $_SESSION['error'] = "Erreur lors de l'ajout de l'exercice";
     else
@@ -184,7 +181,7 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
             });
 
             var inputs = $('input[name^="repQ['+id+']"]');
-            inputs.attr('name', 'bonneRep['+id+']');
+            inputs.attr('name', 'repQ['+id+']');
             inputs.attr('placeholder', 'Réponse fixe');
 
             $.each( inputs, function( key, value ) {

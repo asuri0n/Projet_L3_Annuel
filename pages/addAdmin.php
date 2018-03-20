@@ -6,20 +6,14 @@
  * Time: 17:09
  */
 
-if(isset($_POST['addAdmin'])){
+if(isset($_POST['email']) and !empty($_POST['email']) and isset($_POST['password']) and !empty($_POST['password']))
+    if(signup())
+        $_SESSION['success'] = "Administrateur ajouté";
+    else
+        $_SESSION['error'] = "Erreur";
+else
+    $_SESSION['error'] = "Information manquante";
 
-    if(isset($_POST['email']) and !empty($_POST['email']) and isset($_POST['password']) and !empty($_POST['password']))
-    {
-        if(signup()){
-            $_SESSION['success'] = "Administrateur ajouté";
-        } else {
-            $_SESSION['error'] = "Erreur";
-        }
-
-    } else {
-        $_SESSION['error'] = "Information manquante";
-    }
-}
 
 ?>
 

@@ -247,6 +247,7 @@ function signup() {
             $_SESSION['error'] = "Erreur de base de données";
             return false;
         }
+
      
         // CE QUE VOUS DEVEZ FAIRE: 
         // Nous devons aussi penser à la situation où l’utilisateur n’a pas
