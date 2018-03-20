@@ -63,7 +63,7 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                         $id_choix_bonn_rep.=$rep.",";
                     }
                     $id_choix_bonn_rep = substr($id_choix_bonn_rep, 0, -1);
-                } else if(isset($bonneRep) and is_string($bonneRep[$key]))
+                } else if(isset($bonneRep[$key]) and is_string($bonneRep[$key]))
                     $id_choix_bonn_rep = $bonneRep[$key];
 
                 // TODO: Commentaires et justifications
@@ -79,7 +79,7 @@ if(isset($_POST['addExercice']) and isset($_POST['inputTitre']) and isset($_POST
                             if (!$stmt3)
                                 $error = true;
                         }
-                    } else if(isset($bonneRep) and isset($repQ[$key][$bonneRep[$key]]))
+                    } else if(isset($bonneRep[$key]) and isset($repQ[$key][$bonneRep[$key]]))
                         $stmt3 = newSQLQuery("INSERT INTO choix (id_question, choix) VALUES (?, ?)", "insert", null, null, array($lastIdQuestion, addslashes($repQ[$key][$bonneRep[$key]])));
 
                     if (!$error or (isset($stmt3) and $stmt3))

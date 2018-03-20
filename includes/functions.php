@@ -87,19 +87,21 @@ function connectionLdap($ldapuser, $ldappass)
     $ldapServerPort = 389;
     $ldaptree = 'uid=e' . $ldapuser . ',ou=people,dc=unicaen,dc=fr';
 
-    // connect
+    // Connexion à un serveur LDAP
     $ldapconn = ldap_connect($ldapServer, $ldapServerPort);
 
     if ($ldapconn)
     {
         ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
-        // binding to ldap server
+        // Authentification au serveur LDAP
         $ldapbind = ldap_bind($ldapconn, $ldaptree, $ldappass);
         if($ldapbind)
         {
+            // Recherche sur le serveur LDAP
             $result = ldap_search($ldapconn, $ldaptree, "(cn=*)");
             if($result)
             {
+                // Lit toutes les entrées du résultat
                 $data = ldap_get_entries($ldapconn, $result);
 
                 $email = $data[0]['mail'][0];
@@ -112,12 +114,13 @@ function connectionLdap($ldapuser, $ldappass)
                 $ufr = $data[0]['supannaffectation'][0];
                 $elempedag = $data[0]['supannetuelementpedagogique'];
 
-                // Si la personne est un étudiant
+                // Comparaison binaire entre le status et ETUDIANT
                 if(strcmp($status,"ETUDIANT") == 0)
                 {
-                    // Si la personne un étudiant à l'UFR des Sciences
+                    //  Comparaison binaire : Si la personne un étudiant à l'UFR des Sciences
                     if(strcmp($ufr,UFRSCIENCES) == 0)
                     {
+                        // Met a jour l'user dans la DB
                         if (!updateAccount(0, $data))
                         {
                             $_SESSION['error'] = "[1400] Quelque chose s'est mal passé :(";
@@ -139,7 +142,7 @@ function connectionLdap($ldapuser, $ldappass)
                             {
                                 $str = explode('_', $elem)[1];
                                 if (!preg_match("/INFOS[0-9]/", $str))
-                                    $elemnewarray[$j] = explode('_', $elem)[1]; // composition element pédag : {UAI:0141408E}AE_INF6D ; On garde que la partie apres le _ donc on explode
+                                    $elemnewarray[$j] = $str; // composition element pédag : {UAI:0141408E}AE_INF6D ; On garde que la partie apres le _ donc on explode
                             }
                             $j++;
                         }
